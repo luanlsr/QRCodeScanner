@@ -9,11 +9,15 @@ import {
     ResponsiveContainer,
     Legend,
 } from 'recharts';
+import { Person } from '../types';
+import { getAllParticipants } from '../data/crud';
 
 
 export const Dashboard = () => {
     const [total, setTotal] = useState(0);
+    const [totalValor, setTotalValor] = useState(0);
     const [sent, setSent] = useState(0);
+    const [data, setData] = useState<Person[]>([]);
     const [loading, setLoading] = useState(true);
     const notSent = total - sent;
     const chartData = [
@@ -22,6 +26,16 @@ export const Dashboard = () => {
     ];
 
     const COLORS = ['#10B981', '#FBBF24']; // verde e amarelo
+
+    const valorTotal = data.reduce((acc, curr) => acc + (curr.valor || 0), 0);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getAllParticipants();
+            setData(data);
+        };
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const fetchParticipants = async () => {
@@ -44,7 +58,7 @@ export const Dashboard = () => {
     return (
         <main className="pt-[80px] px-4 py-6 bg-gray-50" style={{ height: 'calc(100vh - 73px)' }}>
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <Card>
                     <CardContent className="p-6 text-center">
                         <h2 className="text-2xl font-bold">{loading ? '...' : total}</h2>
@@ -61,6 +75,17 @@ export const Dashboard = () => {
                     <CardContent className="p-6 text-center">
                         <h2 className="text-2xl font-bold text-yellow-600">{loading ? '...' : notSent}</h2>
                         <p>Não enviados</p>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent className="p-6 text-center">
+                        <h2 className="text-2xl font-bold text-blue-600">
+                            {loading ? '...' : totalValor.toLocaleString('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL',
+                            })}
+                        </h2>
+                        <p>Valor Total Arrecadado</p>
                     </CardContent>
                 </Card>
             </div>

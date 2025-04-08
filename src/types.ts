@@ -6,5 +6,7 @@ export interface Person {
   photoUrl?: string;
   sent?: boolean;
   read?: boolean;
+  combo?: boolean;
+  valor: number;
   deleted?: boolean;
 }

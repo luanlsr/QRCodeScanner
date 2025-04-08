@@ -3,7 +3,6 @@ import { QRGenerator } from '../components/QRGenerator';
 import { PersonEditForm } from '../components/PersonEditForm';
 import { Modal } from '../components/Modal';
 import { Toaster } from 'react-hot-toast';
-import { Plus } from 'lucide-react';
 import { Person } from '../types';
 import { deleteParticipant, getAllParticipants, updateParticipant } from '../data/crud';
 
@@ -25,16 +24,6 @@ export const GeneratePage: React.FC = () => {
         const result = await updateParticipant(updated.id, updated);
         setData(prev => prev.map(p => (p.id === updated.id ? result : p)));
         setShowEditModal(false);
-    };
-
-    const handleDeletePerson = async (id: string) => {
-        await deleteParticipant(id);
-        setData(prev => prev.filter(p => p.id !== id));
-    };
-
-    const openEditModal = (person: Person) => {
-        setEditingPerson(person);
-        setShowEditModal(true);
     };
 
     return (
@@ -63,8 +52,6 @@ export const GeneratePage: React.FC = () => {
                         <QRGenerator
                             data={data}
                             onUpdatePerson={handleUpdatePerson}
-                            onEditPerson={openEditModal}
-                            onDeletePerson={handleDeletePerson}
                         />
                     </div>
                 </div>

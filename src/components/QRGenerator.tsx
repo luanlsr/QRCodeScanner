@@ -8,15 +8,11 @@ import toast from 'react-hot-toast';
 interface Props {
   data: Person[];
   onUpdatePerson: (person: Person) => void;
-  onEditPerson: (person: Person) => void;
-  onDeletePerson: (id: string) => void;
 }
 
 export const QRGenerator: React.FC<Props> = ({
   data,
   onUpdatePerson,
-  onEditPerson,
-  onDeletePerson
 }) => {
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
   const [showList, setShowList] = useState(true);
@@ -24,9 +20,6 @@ export const QRGenerator: React.FC<Props> = ({
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-
-  const [personToDelete, setPersonToDelete] = useState<Person | null>(null);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const filteredData = data.filter(person => {
     if (filter === 'sent') return person.sent;
@@ -131,23 +124,6 @@ export const QRGenerator: React.FC<Props> = ({
                   >
                     <QrCode size={20} />
                   </button>
-                  <button
-                    onClick={() => onEditPerson(person)}
-                    className="p-2 text-blue-500 hover:bg-blue-50 rounded-full"
-                    title="Editar"
-                  >
-                    <Edit size={18} />
-                  </button>
-                  <button
-                    onClick={() => {
-                      setPersonToDelete(person);
-                      setShowConfirmModal(true);
-                    }}
-                    className="p-2 text-red-500 hover:bg-red-50 rounded-full"
-                    title="Deletar"
-                  >
-                    <Trash size={18} />
-                  </button>
                 </div>
               </div>
 
@@ -180,38 +156,6 @@ export const QRGenerator: React.FC<Props> = ({
               </button>
             </div>
           )}
-        </div>
-      )}
-
-      {showConfirmModal && personToDelete && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg">
-            <h2 className="text-lg font-semibold mb-4">Confirmar exclusão</h2>
-            <p className="mb-4">
-              Tem certeza que deseja excluir <strong>{personToDelete.name}</strong>?
-            </p>
-            <div className="flex justify-end gap-2">
-              <button
-                onClick={() => setShowConfirmModal(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800"
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={() => {
-                  if (personToDelete.id) {
-                    onDeletePerson(personToDelete.id);
-                    toast.success('Participante excluído!');
-                  }
-                  setShowConfirmModal(false);
-                  setPersonToDelete(null);
-                }}
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-              >
-                Excluir
-              </button>
-            </div>
-          </div>
         </div>
       )}
     </div>

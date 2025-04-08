@@ -1,23 +1,30 @@
-// PersonForm.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Person } from '../types';
 import { Check, X } from 'lucide-react';
 import validator from 'validator';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+
 interface Props {
     onSave: (data: Omit<Person, 'id'>) => void;
     onCancel: () => void;
 }
 
 export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
-    const [formData, setFormData] = useState<Omit<Person, 'id' | 'sent' | 'read' | 'deleted'>>({
+    const [formData, setFormData] = useState<Omit<Person, 'id' | 'sent' | 'read' | 'deleted' | 'valor' | 'combo'>>({
         name: '',
         email: '',
         phone: '',
     });
 
     const [emailError, setEmailError] = useState('');
+    const [combo, setCombo] = useState(false);
+    const [valor, setValor] = useState(25);
+
+    // Atualiza o valor ao mudar o combo
+    useEffect(() => {
+        setValor(combo ? 40 : 25);
+    }, [combo]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -39,6 +46,8 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
 
         onSave({
             ...formData,
+            combo,
+            valor,
             sent: false,
             read: false,
             deleted: false,
@@ -78,11 +87,9 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                 {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
             </div>
 
-            {/* Telefone com código internacional */}
-            <div className="mb-6">
-                <label className="block text-gray-700 mb-2" htmlFor="phone">
-                    Telefone (com DDI)
-                </label>
+            {/* Telefone */}
+            <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="phone">Telefone (com DDI)</label>
                 <PhoneInput
                     country={'br'}
                     value={formData.phone}
@@ -95,6 +102,46 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                     inputClass="!w-full !h-10"
                     buttonClass="!border-gray-300"
                     containerClass="!w-full"
+                />
+            </div>
+
+            {/* Combo */}
+            <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Pagou Combo?</label>
+                <div className="flex gap-4">
+                    <label className="flex items-center gap-2">
+                        <input
+                            type="radio"
+                            name="combo"
+                            value="sim"
+                            checked={combo === true}
+                            onChange={() => setCombo(true)}
+                        />
+                        Sim (+ R$ 15)
+                    </label>
+                    <label className="flex items-center gap-2">
+                        <input
+                            type="radio"
+                            name="combo"
+                            value="nao"
+                            checked={combo === false}
+                            onChange={() => setCombo(false)}
+                        />
+                        Não
+                    </label>
+                </div>
+            </div>
+
+            {/* Valor */}
+            <div className="mb-6">
+                <label className="block text-gray-700 mb-2" htmlFor="valor">Valor Total (R$)</label>
+                <input
+                    type="text"
+                    id="valor"
+                    name="valor"
+                    value={`R$ ${valor},00`}
+                    readOnly
+                    className="w-full px-3 py-2 border rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
                 />
             </div>
 
