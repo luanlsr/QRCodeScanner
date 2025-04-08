@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import InputMask from 'react-input-mask';
+import validator from 'validator';
 import { Person } from '../types';
 import { Check, X } from 'lucide-react';
 
@@ -10,19 +12,31 @@ interface Props {
 
 export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) => {
     const [formData, setFormData] = useState<Person>(person);
+    const [emailError, setEmailError] = useState('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+
+        if (name === 'email') {
+            if (!validator.isEmail(value)) {
+                setEmailError('Email inválido');
+            } else {
+                setEmailError('');
+            }
+        }
+
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (emailError) return;
         onSave(formData);
     };
 
     return (
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
+            {/* Nome */}
             <div className="mb-4">
                 <label className="block text-gray-700 mb-2" htmlFor="name">
                     Nome
@@ -38,6 +52,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                 />
             </div>
 
+            {/* Email */}
             <div className="mb-4">
                 <label className="block text-gray-700 mb-2" htmlFor="email">
                     Email
@@ -51,23 +66,33 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                     className="w-full px-3 py-2 border rounded-lg"
                     required
                 />
+                {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
             </div>
 
+            {/* Telefone com código internacional */}
             <div className="mb-6">
                 <label className="block text-gray-700 mb-2" htmlFor="phone">
-                    Telefone
+                    Telefone (com DDI)
                 </label>
-                <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
+                <InputMask
+                    mask="+55 (99) 99999-9999"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border rounded-lg"
-                    required
-                />
+                    name="phone"
+                >
+                    {(inputProps: any) => (
+                        <input
+                            {...inputProps}
+                            type="tel"
+                            id="phone"
+                            className="w-full px-3 py-2 border rounded-lg"
+                            required
+                        />
+                    )}
+                </InputMask>
             </div>
 
+            {/* Botões */}
             <div className="flex justify-end gap-3">
                 <button
                     type="button"
@@ -78,7 +103,8 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                 </button>
                 <button
                     type="submit"
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                    disabled={!!emailError}
+                    className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400"
                 >
                     <Check size={18} /> Atualizar
                 </button>
