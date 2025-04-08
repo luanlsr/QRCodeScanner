@@ -136,25 +136,6 @@ export const Participants = () => {
                 </button>
             ),
             sortable: false,
-        }
-    ];
-
-    const desktopColumns: TableColumn<Person>[] = [
-        ...mobileColumns,
-        {
-            name: 'Email',
-            selector: (row) => row.email || '',
-            sortable: true,
-        },
-        {
-            name: 'Enviado',
-            selector: (row) => (row.sent ? 'Sim' : 'Não'),
-            sortable: true,
-        },
-        {
-            name: 'Lido',
-            selector: (row) => (row.read ? 'Sim' : 'Não'),
-            sortable: true,
         },
         {
             name: 'Ações',
@@ -183,6 +164,26 @@ export const Participants = () => {
             allowOverflow: true,
             button: true,
         }
+    ];
+
+    const desktopColumns: TableColumn<Person>[] = [
+        ...mobileColumns,
+        {
+            name: 'Email',
+            selector: (row) => row.email || '',
+            sortable: true,
+        },
+        {
+            name: 'Enviado',
+            selector: (row) => (row.sent ? 'Sim' : 'Não'),
+            sortable: true,
+        },
+        {
+            name: 'Lido',
+            selector: (row) => (row.read ? 'Sim' : 'Não'),
+            sortable: true,
+        },
+
     ];
 
     return (
