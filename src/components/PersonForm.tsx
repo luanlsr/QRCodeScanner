@@ -1,6 +1,5 @@
 // PersonForm.tsx
 import React, { useState } from 'react';
-import InputMask from 'react-input-mask';
 import { Person } from '../types';
 import { Check, X } from 'lucide-react';
 import validator from 'validator';

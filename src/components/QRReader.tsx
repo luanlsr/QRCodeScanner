@@ -154,10 +154,10 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
             {filteredData.map(person => (
               <div
                 key={person.id}
-                className={`px-4 py-3 flex items-center justify-between ${person.read ? 'bg-green-50' : 'bg-white'}`}
+                className={`px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ${person.read ? 'bg-green-50' : 'bg-white'}`}
               >
-                <div>
-                  <h4 className=" font-medium text-gray-600">
+                <div className="sm:max-w-[70%]">
+                  <h4 className="font-medium text-gray-600 break-words">
                     {person.name}
                     {person.read && (
                       <span className="ml-2 text-green-500 text-sm">
@@ -166,12 +166,12 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
                       </span>
                     )}
                   </h4>
-                  <p className="text-sm text-gray-600">{person.email}</p>
+                  <p className="text-sm text-gray-600 break-words">{person.email}</p>
                 </div>
 
                 <button
                   onClick={() => onUpdatePerson({ ...person, read: !person.read })}
-                  className={`text-sm px-3 py-1 rounded-lg font-medium ${person.read
+                  className={`text-sm px-3 py-1 rounded-lg font-medium whitespace-nowrap self-start sm:self-auto ${person.read
                     ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
                     : 'bg-green-100 text-green-700 hover:bg-green-200'
                     }`}
@@ -179,6 +179,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
                   {person.read ? 'Marcar como não lido' : 'Marcar como lido'}
                 </button>
               </div>
+
             ))}
           </div>
         )}
