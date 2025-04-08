@@ -21,7 +21,16 @@ export const QRGenerator: React.FC<Props> = ({
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
 
   const handleSendWhatsApp = (person: Person) => {
-    const message = encodeURIComponent(`Aqui está seu QR Code para ${person.name}`);
+    const qrLink = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${person.id}`;
+
+    const message = encodeURIComponent(
+      `🎬 Olá, ${person.name}!\n\n` +
+      `📩 Aqui está a sua *confirmação de inscrição* para assistir *The Chosen* no *Kinoplex São Luiz*.\n\n` +
+      `🪪 Mostre este QRCode para o pessoal da *Federação da UMP* para acessar a sessão.\n\n` +
+      `🖼️ Seu QR Code: ${qrLink}\n\n` +
+      `🍿 Bom filme! 🎉`
+    );
+
     window.open(`https://wa.me/${person.phone}?text=${message}`, '_blank');
     onUpdatePerson({ ...person, sent: true });
     toast.success(`WhatsApp enviado para ${person.name}`);
