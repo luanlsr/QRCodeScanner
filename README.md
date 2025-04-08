@@ -76,19 +76,19 @@ interface Person {
 ```
 
 ### 📌 Roadmap
- -[] Cadastro e listagem de pessoas
+ -[ ] Cadastro e listagem de pessoas
 
- -[] Geração e exibição de QR Codes
+ -[ ] Geração e exibição de QR Codes
 
- -[] Envio via WhatsApp
+ -[ ] Envio via WhatsApp
 
- -[] Leitura de QR Codes no app
+ -[ ] Leitura de QR Codes no app
 
- -[] Integração com banco de dados (Supabase/Firebase)
+ -[ ] Integração com banco de dados (Supabase/Firebase)
 
- -[] Autenticação de usuários
+ -[ ] Autenticação de usuários
 
- -[] Histórico de leituras
+ -[ ] Histórico de leituras
 
 ### 💡 Inspiração
 Este projeto foi criado para facilitar o envio e leitura de QR Codes em eventos, listas de presença, ou convites personalizados.
