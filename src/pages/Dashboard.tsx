@@ -100,7 +100,7 @@ export const Dashboard = () => {
                 <Card>
                     <CardContent className="p-6 text-center">
                         <h2 className="text-2xl font-bold text-blue-600">
-                            {loading ? '...' : totalValor.toLocaleString('pt-BR', {
+                            {loading ? '...' : valorTotal.toLocaleString('pt-BR', {
                                 style: 'currency',
                                 currency: 'BRL',
                             })}
