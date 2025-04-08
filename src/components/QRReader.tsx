@@ -172,6 +172,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
                 <button
                   onClick={() => onUpdatePerson({ ...person, deleted: true })}
                   className="text-gray-400 hover:text-red-500 p-1"
+                  title="Deletar"
                 >
                   <Trash size={16} />
                 </button>

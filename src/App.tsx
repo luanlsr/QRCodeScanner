@@ -69,6 +69,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      <div className="bg-blue-600 text-white py-6 px-4 shadow-md border-b border-blue-800">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-center font-sans tracking-wide">
+          🎫 Gerenciador de Eventos da Federação da UMP
+        </h1>
+      </div>
       <Toaster position="top-right" />
 
       <Modal
@@ -104,14 +109,14 @@ function App() {
               className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 ${mode === 'generate' ? 'bg-blue-500 text-white' : 'bg-gray-50'}`}
             >
               <QrCode size={20} />
-              Generate QR
+              Gerar QR
             </button>
             <button
               onClick={() => setMode('read')}
               className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 ${mode === 'read' ? 'bg-blue-500 text-white' : 'bg-gray-50'}`}
             >
               <Camera size={20} />
-              Read QR
+              Ler QR
             </button>
           </div>
 
