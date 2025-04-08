@@ -16,6 +16,7 @@ import { getAllParticipants } from '../data/crud';
 export const Dashboard = () => {
     const [total, setTotal] = useState(0);
     const [totalValor, setTotalValor] = useState(0);
+    const [comboCount, setComboCount] = useState(0);
     const [sent, setSent] = useState(0);
     const [data, setData] = useState<Person[]>([]);
     const [loading, setLoading] = useState(true);
@@ -35,6 +36,25 @@ export const Dashboard = () => {
             setData(data);
         };
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchParticipants = async () => {
+            setLoading(true);
+            const { data, error } = await supabase.from('participants').select('*');
+
+            if (error) {
+                console.error('Erro ao buscar participantes:', error);
+            } else {
+                setTotal(data.length);
+                setSent(data.filter((p) => p.sent).length);
+                setComboCount(data.filter((p) => p.combo).length); // aqui calcula combos
+            }
+
+            setLoading(false);
+        };
+
+        fetchParticipants();
     }, []);
 
     useEffect(() => {
@@ -86,6 +106,12 @@ export const Dashboard = () => {
                             })}
                         </h2>
                         <p>Valor Total Arrecadado</p>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent className="p-6 text-center">
+                        <h2 className="text-2xl font-bold text-purple-600">{loading ? '...' : comboCount}</h2>
+                        <p>Participantes com Combo</p>
                     </CardContent>
                 </Card>
             </div>
