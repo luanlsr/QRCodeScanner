@@ -103,7 +103,6 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
       <div className="flex justify-center mb-6">
         <button
           onClick={() => {
-            // Se já tiver scanner ativo, para e limpa
             if (scanning && scannerRef.current) {
               scannerRef.current.stop()
                 .then(() => scannerRef.current?.clear())
@@ -128,29 +127,29 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
       {/* Scanner */}
       {scanning && <div id="reader" className="w-full max-w-md mx-auto mb-6" />}
 
-      {/* Filtros e lista */}
-      <div className="mb-4 flex justify-between items-center">
-        <button
+      {/* Card colapsável */}
+      <select
+        value={filter}
+        onChange={(e) => setFilter(e.target.value as any)}
+        className="px-3 py-1 border rounded-lg bg-white text-sm my-5"
+      >
+        <option value="all">Todos</option>
+        <option value="read">Lidos</option>
+        <option value="unread">Não lidos</option>
+      </select>
+      <div className="rounded-xl shadow mb-6 text-white bg-blue-500">
+        <div
+          className="flex justify-between items-center px-4 py-3 cursor-pointer border-b"
           onClick={() => setShowList(!showList)}
-          className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
         >
-          {showList ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-          <span className="font-semibold">Participantes</span>
-        </button>
+          <h3 className="font-semibold text-lg flex items-center gap-2">
+            {showList ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            Participantes
+          </h3>
 
-        <select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value as any)}
-          className="px-3 py-1 border rounded-lg bg-white"
-        >
-          <option value="all">Todos</option>
-          <option value="read">Lidos</option>
-          <option value="unread">Não lidos</option>
-        </select>
-      </div>
+        </div>
 
-      {showList && (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        {showList && (
           <div className="divide-y">
             {filteredData.map(person => (
               <div
@@ -158,7 +157,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
                 className={`px-4 py-3 flex items-center justify-between ${person.read ? 'bg-green-50' : 'bg-white'}`}
               >
                 <div>
-                  <h3 className="font-medium">
+                  <h4 className=" font-medium text-gray-600">
                     {person.name}
                     {person.read && (
                       <span className="ml-2 text-green-500 text-sm">
@@ -166,21 +165,24 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
                         Verificado
                       </span>
                     )}
-                  </h3>
+                  </h4>
                   <p className="text-sm text-gray-600">{person.email}</p>
                 </div>
+
                 <button
-                  onClick={() => onUpdatePerson({ ...person, deleted: true })}
-                  className="text-gray-400 hover:text-red-500 p-1"
-                  title="Deletar"
+                  onClick={() => onUpdatePerson({ ...person, read: !person.read })}
+                  className={`text-sm px-3 py-1 rounded-lg font-medium ${person.read
+                    ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                    : 'bg-green-100 text-green-700 hover:bg-green-200'
+                    }`}
                 >
-                  <Trash size={16} />
+                  {person.read ? 'Marcar como não lido' : 'Marcar como lido'}
                 </button>
               </div>
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
