@@ -42,7 +42,7 @@ export const Dashboard = () => {
     }, []);
 
     return (
-        <main className="pt-[80px] px-4 py-6 min-h-screen bg-gray-50">
+        <main className="pt-[80px] px-4 py-6 bg-gray-50" style={{ height: 'calc(100vh - 73px)' }}>
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                 <Card>

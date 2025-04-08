@@ -100,7 +100,7 @@ export const ParticipantDetailsModal: FC<Props> = ({ person, isOpen, onClose, on
                 {/* FOTO */}
                 <div className="relative w-40 h-40 mx-auto md:mx-0 flex flex-col items-center">
                     {/* Foto ou avatar (quadrado) */}
-                    <div className="w-40 h-40 overflow-hidden border border-gray-300 shadow-sm rounded-lg">
+                    <div className="w-40 h-40  border border-gray-300 shadow-sm rounded-lg">
                         {previewUrl || localPerson.photoUrl ? (
                             <img
                                 src={previewUrl || localPerson.photoUrl}

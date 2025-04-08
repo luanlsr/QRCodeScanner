@@ -23,11 +23,11 @@ export const ReadPage: React.FC = () => {
 
     return (
         <>
-            <div className="min-h-screen bg-gray-100 p-8">
+            <div className="bg-gray-100 p-8" style={{ height: 'calc(100vh - 73px)' }}>
                 <Toaster position="top-right" />
 
                 <div className="max-w-4xl mx-auto py-8">
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-6">
+                    <div className="bg-white rounded-lg shadow-lg  mb-6">
                         <QRReader data={data} onUpdatePerson={handleUpdatePerson} />
                     </div>
                 </div>

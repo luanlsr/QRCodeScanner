@@ -63,7 +63,7 @@ export const QRGenerator: React.FC<Props> = ({
   };
 
   return (
-    <div className="p-4 max-w-4xl w-full mx-auto overflow-x-auto">
+    <div className="p-4 max-w-4xl w-full mx-auto">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
         <button
           onClick={() => setShowList(!showList)}
@@ -100,7 +100,7 @@ export const QRGenerator: React.FC<Props> = ({
           {paginatedData.map((person) => (
             <div
               key={person.id}
-              className={`p-4 border rounded-lg transition-colors w-full overflow-hidden ${person.sent
+              className={`p-4 border rounded-lg transition-colors w-full ${person.sent
                 ? 'bg-green-50 border-green-200'
                 : 'bg-white border-gray-200'
                 }`}

@@ -7,10 +7,10 @@ export const SettingsPage = () => {
     const toggleSwitch = () => setEnabled(!enabled); // Função para alternar o estado
 
     return (
-        <div className="min-h-screen bg-gray-100 p-8">
+        <div className=" bg-gray-100 p-8" style={{ height: 'calc(100vh - 73px)' }}>
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Configurações</h1>
 
-            <div className="space-y-6">
+            <div className="bg-white rounded-xl shadow space-y-6 p-4 mb-8">
                 {/* Switch para alternar entre o modo escuro ou outras opções */}
                 <div className="flex items-center justify-between">
                     <span className="text-lg font-semibold text-gray-700">Modo Escuro</span>

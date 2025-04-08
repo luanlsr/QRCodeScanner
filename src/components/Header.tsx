@@ -24,7 +24,6 @@ export const Header = () => {
                     className="md:hidden z-50 focus:outline-none relative w-8 h-8"
                     onClick={toggleMenu}
                 >
-                    {/* Animação do ícone */}
                     <div className="absolute inset-0 flex flex-col justify-center items-center gap-1.5">
                         <span
                             className={`h-0.5 w-6 bg-gray-800 transition-transform duration-300 ${menuOpen ? 'rotate-45 translate-y-1.5' : ''

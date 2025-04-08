@@ -39,7 +39,7 @@ export const Modal = ({
             onClick={handleBackdropClick}
         >
             <div
-                className={`bg-white w-full ${sizeClass} mx-4 rounded-lg shadow-lg overflow-hidden`}
+                className={`bg-white w-full ${sizeClass} mx-4 rounded-lg shadow-lg`}
             >
                 <div className="flex justify-between items-center p-4 border-b">
                     <h2 className="text-xl font-semibold">{title}</h2>
