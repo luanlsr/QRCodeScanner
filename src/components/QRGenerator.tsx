@@ -71,7 +71,7 @@ export const QRGenerator: React.FC<Props> = ({
                   <Edit size={18} />
                 </button>
                 <button
-                  onClick={() => onDeletePerson(person.id)}
+                  onClick={() => person.id && onDeletePerson(person.id)}
                   className="p-2 text-red-500 hover:bg-red-50 rounded-full"
                 >
                   <Trash size={18} />

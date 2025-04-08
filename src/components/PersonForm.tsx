@@ -1,15 +1,15 @@
+// PersonForm.tsx
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { Person } from '../types';
 import { Check, X } from 'lucide-react';
 
 interface Props {
-    onSave: (person: Person) => void;
+    onSave: (data: Omit<Person, 'id'>) => void;
     onCancel: () => void;
 }
 
 export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
-    const [formData, setFormData] = useState<Omit<Person, 'id' | 'sent' | 'read'>>({
+    const [formData, setFormData] = useState<Omit<Person, 'id' | 'sent' | 'read' | 'deleted'>>({
         name: '',
         email: '',
         phone: '',
@@ -22,21 +22,19 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const newPerson: Person = {
+        onSave({
             ...formData,
-            id: uuidv4(),
             sent: false,
             read: false,
-        };
-        onSave(newPerson);
+            deleted: false,
+        });
     };
 
     return (
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
+            {/* Nome */}
             <div className="mb-4">
-                <label className="block text-gray-700 mb-2" htmlFor="name">
-                    Nome
-                </label>
+                <label className="block text-gray-700 mb-2" htmlFor="name">Nome</label>
                 <input
                     type="text"
                     id="name"
@@ -48,10 +46,9 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                 />
             </div>
 
+            {/* Email */}
             <div className="mb-4">
-                <label className="block text-gray-700 mb-2" htmlFor="email">
-                    Email
-                </label>
+                <label className="block text-gray-700 mb-2" htmlFor="email">Email</label>
                 <input
                     type="email"
                     id="email"
@@ -63,10 +60,9 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                 />
             </div>
 
+            {/* Telefone */}
             <div className="mb-6">
-                <label className="block text-gray-700 mb-2" htmlFor="phone">
-                    Telefone
-                </label>
+                <label className="block text-gray-700 mb-2" htmlFor="phone">Telefone</label>
                 <input
                     type="tel"
                     id="phone"
@@ -78,6 +74,7 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                 />
             </div>
 
+            {/* Botões */}
             <div className="flex justify-end gap-3">
                 <button
                     type="button"

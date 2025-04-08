@@ -1,39 +1,65 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { QRGenerator } from './components/QRGenerator';
 import { QRReader } from './components/QRReader';
 import { PersonForm } from './components/PersonForm';
 import { PersonEditForm } from './components/PersonEditForm';
 import { Modal } from './components/Modal';
-import { Person } from './types';
-import { mockData } from './data';
 import { Toaster } from 'react-hot-toast';
 import { QrCode, Camera, Plus } from 'lucide-react';
+import { Person } from './types';
+import { createParticipant, deleteParticipant, getAllParticipants, updateParticipant } from './data/crud';
+
 
 function App() {
-  const [data, setData] = useState<Person[]>(mockData);
+  const [data, setData] = useState<Person[]>([]);
   const [mode, setMode] = useState<'generate' | 'read'>('generate');
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingPerson, setEditingPerson] = useState<Person | null>(null);
 
-  const handleUpdatePerson = (updatedPerson: Person) => {
-    setData(data.map(person =>
-      person.id === updatedPerson.id ? updatedPerson : person
-    ));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const participants = await getAllParticipants();
+        setData(participants);
+      } catch (error) {
+        console.error('Erro ao buscar participantes:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleAddPerson = async (personData: Omit<Person, "id">) => {
+    try {
+      const created = await createParticipant(personData);
+      setData(prev => [...prev, created]);
+      setShowAddModal(false);
+    } catch (error: any) {
+      console.error('Erro ao adicionar participante:', error);
+      alert(`Erro ao salvar participante: ${error.message || error}`);
+    }
   };
 
-  const handleAddPerson = (newPerson: Person) => {
-    setData([...data, newPerson]);
-    setShowAddModal(false);
+  const handleUpdatePerson = async (updated: Person) => {
+    try {
+      const result = await updateParticipant(updated.id, updated);
+      setData(prev => prev.map(p => (p.id === updated.id ? result : p)));
+      setShowEditModal(false);
+    } catch (error: any) {
+      console.error('Erro ao atualizar participante:', error);
+      alert(`Erro ao atualizar participante: ${error.message || error}`);
+    }
   };
 
-  const handleEditPerson = (updatedPerson: Person) => {
-    handleUpdatePerson(updatedPerson);
-    setShowEditModal(false);
-  };
 
-  const handleDeletePerson = (id: string) => {
-    setData(data.filter(person => person.id !== id));
+  const handleDeletePerson = async (id: string) => {
+    try {
+      await deleteParticipant(id);
+      setData(prev => prev.filter(p => p.id !== id));
+    } catch (error) {
+      console.error('Erro ao deletar participante:', error);
+    }
   };
 
   const openEditModal = (person: Person) => {
@@ -45,7 +71,6 @@ function App() {
     <div className="min-h-screen bg-gray-100">
       <Toaster position="top-right" />
 
-      {/* Modal de Adição */}
       <Modal
         isOpen={showAddModal}
         onClose={() => setShowAddModal(false)}
@@ -57,7 +82,6 @@ function App() {
         />
       </Modal>
 
-      {/* Modal de Edição */}
       <Modal
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
@@ -66,7 +90,7 @@ function App() {
         {editingPerson && (
           <PersonEditForm
             person={editingPerson}
-            onSave={handleEditPerson}
+            onSave={handleUpdatePerson}
             onCancel={() => setShowEditModal(false)}
           />
         )}
@@ -77,22 +101,20 @@ function App() {
           <div className="flex border-b">
             <button
               onClick={() => setMode('generate')}
-              className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 ${mode === 'generate' ? 'bg-blue-500 text-white' : 'bg-gray-50'
-                }`}
+              className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 ${mode === 'generate' ? 'bg-blue-500 text-white' : 'bg-gray-50'}`}
             >
               <QrCode size={20} />
               Generate QR
             </button>
             <button
               onClick={() => setMode('read')}
-              className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 ${mode === 'read' ? 'bg-blue-500 text-white' : 'bg-gray-50'
-                }`}
+              className={`flex-1 py-4 px-6 flex items-center justify-center gap-2 ${mode === 'read' ? 'bg-blue-500 text-white' : 'bg-gray-50'}`}
             >
               <Camera size={20} />
               Read QR
             </button>
           </div>
-          {/* Botão para abrir modal de adição */}
+
           {mode === 'generate' && (
             <div className="flex justify-end px-6 py-4">
               <button
@@ -103,6 +125,7 @@ function App() {
               </button>
             </div>
           )}
+
           {mode === 'generate' ? (
             <QRGenerator
               data={data}
