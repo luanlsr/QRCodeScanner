@@ -126,7 +126,7 @@ function App() {
                 onClick={() => setShowAddModal(true)}
                 className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
               >
-                <Plus size={20} /> Add Participant
+                <Plus size={20} /> Adicionar participante
               </button>
             </div>
           )}
