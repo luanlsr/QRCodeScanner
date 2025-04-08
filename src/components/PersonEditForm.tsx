@@ -47,6 +47,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    placeholder="Ex: João da Silva"
                     className="w-full px-3 py-2 border rounded-lg"
                     required
                 />
@@ -63,6 +64,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    placeholder="Ex: joao@email.com"
                     className="w-full px-3 py-2 border rounded-lg"
                     required
                 />
@@ -85,6 +87,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                             {...inputProps}
                             type="tel"
                             id="phone"
+                            placeholder="Ex: +55 (11) 91234-5678"
                             className="w-full px-3 py-2 border rounded-lg"
                             required
                         />
