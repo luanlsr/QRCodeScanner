@@ -4,7 +4,8 @@ import InputMask from 'react-input-mask';
 import { Person } from '../types';
 import { Check, X } from 'lucide-react';
 import validator from 'validator';
-
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 interface Props {
     onSave: (data: Omit<Person, 'id'>) => void;
     onCancel: () => void;
@@ -80,25 +81,22 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
 
             {/* Telefone com código internacional */}
             <div className="mb-6">
-                <label className="block text-gray-700 mb-2" htmlFor="phone">Telefone (com DDI)</label>
-                <InputMask
-                    mask="+99 (99) 99999-9999"
-                    maskChar="_"
-                    id="phone"
-                    name="phone"
-                    placeholder="Ex: +55 (11) 91234-5678"
+                <label className="block text-gray-700 mb-2" htmlFor="phone">
+                    Telefone (com DDI)
+                </label>
+                <PhoneInput
+                    country={'br'}
                     value={formData.phone}
-                    onChange={handleChange}
-                >
-                    {(inputProps: any) => (
-                        <input
-                            {...inputProps}
-                            type="tel"
-                            className="w-full px-3 py-2 border rounded-lg"
-                            required
-                        />
-                    )}
-                </InputMask>
+                    onChange={(phone) => setFormData((prev) => ({ ...prev, phone }))}
+                    inputProps={{
+                        name: 'phone',
+                        required: true,
+                        autoFocus: false,
+                    }}
+                    inputClass="!w-full !h-10"
+                    buttonClass="!border-gray-300"
+                    containerClass="!w-full"
+                />
             </div>
 
             {/* Botões */}

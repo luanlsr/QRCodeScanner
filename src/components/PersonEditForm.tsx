@@ -3,6 +3,7 @@ import InputMask from 'react-input-mask';
 import validator from 'validator';
 import { Person } from '../types';
 import { Check, X } from 'lucide-react';
+import PhoneInput from 'react-phone-input-2';
 
 interface Props {
     person: Person;
@@ -76,23 +77,19 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                 <label className="block text-gray-700 mb-2" htmlFor="phone">
                     Telefone (com DDI)
                 </label>
-                <InputMask
-                    mask="+55 (99) 99999-9999"
+                <PhoneInput
+                    country={'br'}
                     value={formData.phone}
-                    onChange={handleChange}
-                    name="phone"
-                >
-                    {(inputProps: any) => (
-                        <input
-                            {...inputProps}
-                            type="tel"
-                            id="phone"
-                            placeholder="Ex: +55 (11) 91234-5678"
-                            className="w-full px-3 py-2 border rounded-lg"
-                            required
-                        />
-                    )}
-                </InputMask>
+                    onChange={(phone) => setFormData((prev) => ({ ...prev, phone }))}
+                    inputProps={{
+                        name: 'phone',
+                        required: true,
+                        autoFocus: false,
+                    }}
+                    inputClass="!w-full !h-10"
+                    buttonClass="!border-gray-300"
+                    containerClass="!w-full"
+                />
             </div>
 
             {/* Botões */}
