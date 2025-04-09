@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Illustration from '../assets/undraw_apps.svg';
+import { useProtectRoute } from '../hooks/useProtectRout';
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
+    useProtectRoute();
 
     return (
         <main className=" flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-8 text-center"

@@ -11,6 +11,7 @@ import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { Toaster } from 'react-hot-toast';
 
 function AppWrapper() {
   const location = useLocation();
@@ -41,6 +42,7 @@ function AppWrapper() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
 
         </Routes>
+        <Toaster position="top-right" reverseOrder={false} />
       </div>
     </div>
   );

@@ -1,12 +1,22 @@
 import { useState } from 'react';
 import { supabase } from '../superbase';
 import { FaGoogle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useToast } from '../hooks/useToast';
 
 export const RegisterPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
+    const [erro, setError] = useState('');
+    const { success, error } = useToast();
+
+    const isLocalhost = window.location.hostname === 'localhost';
+    const navigate = useNavigate();
+    const redirectUrl = isLocalhost
+        ? 'http://localhost:5173'
+        : 'https://qr-code-scanner-ecru.vercel.app';
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -14,12 +24,24 @@ export const RegisterPage = () => {
         const { error } = await supabase.auth.signUp({
             email,
             password,
+            options: {
+                emailRedirectTo: redirectUrl,
+            },
         });
+        console.log('error: ', error);
+
 
         if (error) {
-            setError('Erro ao cadastrar usuário.');
+            if (error.message.includes('already registered') || error.message.includes('User already registered')) {
+                setError('E-mail já está cadastrado!');
+            } else {
+                setError('Erro ao cadastrar usuário.');
+            }
         } else {
-            setMessage('Cadastro realizado! Verifique seu email.');
+            setMessage('Cadastro realizado!');
+
+            success('Cadastro realizado com sucesso!');
+            navigate('/login');
         }
     };
 
@@ -39,7 +61,7 @@ export const RegisterPage = () => {
                 <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Criar Conta</h2>
 
                 {message && <p className="text-green-500">{message}</p>}
-                {error && <p className="text-red-500">{error}</p>}
+                {erro && <p className="text-red-500">{erro}</p>}
 
                 <form onSubmit={handleRegister} className="space-y-4">
                     <input

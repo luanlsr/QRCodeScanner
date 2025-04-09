@@ -8,6 +8,7 @@ import { ParticipantDetailsModal } from '../components/ParticipantDetailsModal';
 import { Plus, Trash, Pencil, Popcorn } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { PersonEditForm } from '../components/PersonEditForm';
+import { useProtectRoute } from '../hooks/useProtectRout';
 
 export const Participants = () => {
     const [participants, setParticipants] = useState<Person[]>([]);
@@ -24,6 +25,8 @@ export const Participants = () => {
     const [sentFilter, setSentFilter] = useState<string>('todos');
     const [readFilter, setReadFilter] = useState<string>('todos');
     const [isDarkMode, setIsDarkMode] = useState(false);
+
+    useProtectRoute();
 
     const customStyles = {
         headCells: {

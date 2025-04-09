@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 import { Person } from '../types';
 import { getAllParticipants } from '../data/crud';
+import { useProtectRoute } from '../hooks/useProtectRout';
 
 
 export const Dashboard = () => {
@@ -45,6 +46,7 @@ export const Dashboard = () => {
         };
         fetchData();
     }, []);
+    useProtectRoute();
 
     useEffect(() => {
         const fetchParticipants = async () => {

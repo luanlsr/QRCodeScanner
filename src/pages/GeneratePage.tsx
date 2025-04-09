@@ -5,11 +5,14 @@ import { Modal } from '../components/Modal';
 import { Toaster } from 'react-hot-toast';
 import { Person } from '../types';
 import { deleteParticipant, getAllParticipants, updateParticipant } from '../data/crud';
+import { useProtectRoute } from '../hooks/useProtectRout';
 
 export const GeneratePage: React.FC = () => {
     const [data, setData] = useState<Person[]>([]);
     const [showEditModal, setShowEditModal] = useState(false);
     const [editingPerson, setEditingPerson] = useState<Person | null>(null);
+
+    useProtectRoute();
 
     useEffect(() => {
         const fetchData = async () => {

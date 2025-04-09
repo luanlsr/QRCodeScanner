@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '../superbase';
 import toast from 'react-hot-toast';
+import { useProtectRoute } from '../hooks/useProtectRout';
 
 const options = [
     { id: 'profile', label: 'Perfil' },
@@ -17,6 +18,7 @@ export const SettingsPage = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
 
+    useProtectRoute();
     const handleChangePassword = async () => {
         setMessage('');
 

@@ -3,9 +3,11 @@ import { QRReader } from '../components/QRReader';
 import { Person } from '../types';
 import { getAllParticipants, updateParticipant } from '../data/crud';
 import { Toaster } from 'react-hot-toast';
+import { useProtectRoute } from '../hooks/useProtectRout';
 
 export const ReadPage: React.FC = () => {
     const [data, setData] = useState<Person[]>([]);
+    useProtectRoute();
 
     useEffect(() => {
         const fetchData = async () => {
