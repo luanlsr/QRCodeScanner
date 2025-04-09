@@ -3,8 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
 import { Person } from '../types';
 import toast from 'react-hot-toast';
-import { Check, ChevronDown, ChevronUp, Trash } from 'lucide-react';
-
+import { AlertTriangle, Check, ChevronDown, ChevronUp, Trash } from 'lucide-react';
 interface Props {
   data: Person[];
   onUpdatePerson: (person: Person) => void;
@@ -16,7 +15,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
   const [filter, setFilter] = useState<'all' | 'read' | 'unread'>('all');
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const [successPerson, setSuccessPerson] = useState<Person | null>(null);
-
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const activeData = data.filter(person => !person.deleted);
   const totalCount = activeData.length;
   const readCount = activeData.filter(p => p.read).length;
@@ -48,41 +47,24 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
 
               if (!person.read) {
                 onUpdatePerson({ ...person, read: true });
-                setSuccessPerson(person); // <== aqui
-                toast.success(`${person.name} verificado com sucesso!`);
+                setSuccessPerson(person); // 👉 mostra modal de sucesso
               } else {
                 toast('Já verificado!');
               }
-            }).catch(err => {
-              console.error("Erro ao parar scanner:", err);
-              toast.error("Erro ao parar scanner.");
+            });
+          } else {
+            html5QrCode.stop().then(() => {
+              html5QrCode.clear();
+              scannerRef.current = null;
+              setScanning(false);
+
+              setErrorMessage('QR Code inválido. Participante não encontrado.'); // 👉 mostra modal de erro
             });
           }
         },
-        () => {
-          // silencioso
-        }
-      ).catch(err => {
-        console.error("Erro ao iniciar scanner:", err);
-        toast.error("Erro ao acessar a câmera.");
-        scannerRef.current = null;
-        setScanning(false);
-      });
+        () => { }
+      );
     }
-
-
-
-    return () => {
-      if (scannerRef.current) {
-        scannerRef.current
-          .stop()
-          .then(() => scannerRef.current?.clear())
-          .then(() => {
-            scannerRef.current = null;
-          })
-          .catch(err => console.error("Erro ao parar o scanner:", err));
-      }
-    };
   }, [scanning, activeData, onUpdatePerson]);
 
   return (
@@ -190,6 +172,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
             ))}
           </div>
         )}
+        {/* Modal de sucesso */}
         {successPerson && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="bg-green-500 text-white rounded-none sm:rounded-2xl p-6 w-full h-full sm:max-w-md sm:h-auto mx-auto shadow-lg text-center flex flex-col items-center justify-center">
@@ -199,6 +182,23 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
               <button
                 onClick={() => setSuccessPerson(null)}
                 className="mt-6 px-6 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100"
+              >
+                Fechar
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Modal de erro */}
+        {errorMessage && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div className="bg-red-600 text-white rounded-none sm:rounded-2xl p-6 w-full h-full sm:max-w-md sm:h-auto mx-auto shadow-lg text-center flex flex-col items-center justify-center">
+              <AlertTriangle className="mb-4" size={56} />
+              <h2 className="text-2xl font-bold mb-2">Erro ao ler QR Code</h2>
+              <p className="text-lg font-medium">{errorMessage}</p>
+              <button
+                onClick={() => setErrorMessage(null)}
+                className="mt-6 px-6 py-2 bg-white text-red-600 font-semibold rounded-lg hover:bg-gray-100"
               >
                 Fechar
               </button>
