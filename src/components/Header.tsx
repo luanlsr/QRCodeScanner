@@ -186,7 +186,8 @@ export const Header = () => {
                             ['/dashboard', 'Dashboard'],
                             ['/gerar', 'Gerar QR Code'],
                             ['/leitor', 'Leitor'],
-                            ['/participantes', 'Participantes']
+                            ['/participantes', 'Participantes'],
+                            ['/configuracoes', 'Configuracoes']
                         ].map(([path, label]) => (
                             <NavLink
                                 key={path}
