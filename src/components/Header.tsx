@@ -80,7 +80,8 @@ export const Header = () => {
                         ['/dashboard', 'Dashboard'],
                         ['/qrcode', 'Enviar QR Code'],
                         ['/leitor', 'Leitor'],
-                        ['/participantes', 'Participantes']
+                        ['/participantes', 'Participantes'],
+                        ['/configuracoes', 'Configurações']
                     ].map(([path, label]) => (
                         <NavLink
                             key={path}
@@ -187,7 +188,7 @@ export const Header = () => {
                             ['/qrcode', 'Enviar QR Code'],
                             ['/leitor', 'Leitor QR Code'],
                             ['/participantes', 'Participantes'],
-                            ['/configuracoes', 'Configuracoes']
+                            ['/configuracoes', 'Configurações']
                         ].map(([path, label]) => (
                             <NavLink
                                 key={path}
