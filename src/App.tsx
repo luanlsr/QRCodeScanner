@@ -29,7 +29,7 @@ function AppWrapper() {
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/gerar" element={<GeneratePage />} />
+            <Route path="/qrcode" element={<GeneratePage />} />
             <Route path="/leitor" element={<ReadPage />} />
             <Route path="/participantes" element={<Participants />} />
             <Route path="/configuracoes" element={<SettingsPage />} />

@@ -78,7 +78,7 @@ export const Header = () => {
                     {[
                         ['/', 'Início'],
                         ['/dashboard', 'Dashboard'],
-                        ['/gerar', 'Gerar QR Code'],
+                        ['/qrcode', 'Enviar QR Code'],
                         ['/leitor', 'Leitor'],
                         ['/participantes', 'Participantes']
                     ].map(([path, label]) => (
@@ -184,8 +184,8 @@ export const Header = () => {
                         {[
                             ['/', 'Início'],
                             ['/dashboard', 'Dashboard'],
-                            ['/gerar', 'Gerar QR Code'],
-                            ['/leitor', 'Leitor'],
+                            ['/qrcode', 'Enviar QR Code'],
+                            ['/leitor', 'Leitor QR Code'],
                             ['/participantes', 'Participantes'],
                             ['/configuracoes', 'Configuracoes']
                         ].map(([path, label]) => (

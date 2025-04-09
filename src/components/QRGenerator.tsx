@@ -71,19 +71,19 @@ export const QRGenerator: React.FC<Props> = ({
             onClick={() => setFilter('all')}
             className={`px-3 py-1 rounded-full text-sm font-medium border ${filter === 'all' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}
           >
-            Todos
+            Todos  {data.length}
           </button>
           <button
             onClick={() => setFilter('sent')}
             className={`px-3 py-1 rounded-full text-sm font-medium border ${filter === 'sent' ? 'bg-green-600 text-white' : 'bg-white text-green-600'}`}
           >
-            Enviados
+            Enviados {data.filter(x => x.sent == true).length}
           </button>
           <button
             onClick={() => setFilter('unsent')}
             className={`px-3 py-1 rounded-full text-sm font-medium border ${filter === 'unsent' ? 'bg-yellow-500 text-white' : 'bg-white text-yellow-600'}`}
           >
-            Não enviados
+            Não enviados  {data.filter(x => x.sent == false).length}
           </button>
         </div>
       </div>
