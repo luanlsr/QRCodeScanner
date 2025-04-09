@@ -28,7 +28,7 @@ export const Home: React.FC = () => {
                     Enviar QR Code
                 </button>
                 <button
-                    onClick={() => navigate('/ler')}
+                    onClick={() => navigate('/leitor')}
                     className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition"
                 >
                     Ler QR Code
