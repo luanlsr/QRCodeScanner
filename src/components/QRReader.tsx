@@ -15,6 +15,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
   const [showList, setShowList] = useState(false);
   const [filter, setFilter] = useState<'all' | 'read' | 'unread'>('all');
   const scannerRef = useRef<Html5Qrcode | null>(null);
+  const [successPerson, setSuccessPerson] = useState<Person | null>(null);
 
   const activeData = data.filter(person => !person.deleted);
   const totalCount = activeData.length;
@@ -47,6 +48,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
 
               if (!person.read) {
                 onUpdatePerson({ ...person, read: true });
+                setSuccessPerson(person); // <== aqui
                 toast.success(`${person.name} verificado com sucesso!`);
               } else {
                 toast('Já verificado!');
@@ -67,6 +69,8 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
         setScanning(false);
       });
     }
+
+
 
     return () => {
       if (scannerRef.current) {
@@ -161,7 +165,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
                     ? 'dark:text-gray-600'
                     : 'text-gray-600 dark:text-white'
                     }`}>
-                    {person.name}
+                    {person.name} {person.last_name}
                     {person.read && (
                       <span className="ml-2 text-green-500 text-sm ">
                         <Check size={16} className="inline mr-1" />
@@ -184,6 +188,21 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
               </div>
 
             ))}
+          </div>
+        )}
+        {successPerson && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-green-500 text-white rounded-2xl p-6 max-w-sm mx-auto shadow-lg text-center">
+              <Check className="mx-auto mb-4" size={48} />
+              <h2 className="text-xl font-bold mb-2">QR Code escaneado com sucesso!</h2>
+              <p className="text-lg font-medium">{successPerson.name} {successPerson.last_name}</p>
+              <button
+                onClick={() => setSuccessPerson(null)}
+                className="mt-6 px-4 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100"
+              >
+                Fechar
+              </button>
+            </div>
           </div>
         )}
       </div>
