@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import InputMask from 'react-input-mask';
 import validator from 'validator';
 import { Person } from '../types';
 import { Check, X } from 'lucide-react';
@@ -32,14 +31,14 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (emailError) return;
-        onSave(formData);
+        onSave({ ...formData, updated_at: new Date() });
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
             {/* Nome */}
             <div className="mb-4">
-                <label className="block text-gray-700 mb-2" htmlFor="name">
+                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="name">
                     Nome
                 </label>
                 <input
@@ -49,14 +48,14 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Ex: João da Silva"
-                    className="w-full px-3 py-2 border rounded-lg"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white"
                     required
                 />
             </div>
 
             {/* Email */}
             <div className="mb-4">
-                <label className="block text-gray-700 mb-2" htmlFor="email">
+                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="email">
                     Email
                 </label>
                 <input
@@ -66,7 +65,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Ex: joao@email.com"
-                    className="w-full px-3 py-2 border rounded-lg"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white"
                     required
                 />
                 {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
@@ -74,7 +73,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
 
             {/* Telefone com código internacional */}
             <div className="mb-6">
-                <label className="block text-gray-700 mb-2" htmlFor="phone">
+                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="phone">
                     Telefone (com DDI)
                 </label>
                 <PhoneInput
@@ -86,9 +85,10 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                         required: true,
                         autoFocus: false,
                     }}
-                    inputClass="!w-full !h-10"
-                    buttonClass="!border-gray-300"
+                    inputClass="!w-full !h-10 !bg-white dark:!bg-gray-700 !text-black dark:!text-white !border !border-gray-300 dark:!border-gray-600"
+                    buttonClass="!border-gray-300 dark:!border-gray-600"
                     containerClass="!w-full"
+                    masks={{ br: '(..) .....-....' }}
                 />
             </div>
 
@@ -97,14 +97,14 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+                    className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500"
                 >
                     <X size={18} /> Cancelar
                 </button>
                 <button
                     type="submit"
                     disabled={!!emailError}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400"
+                    className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                     <Check size={18} /> Atualizar
                 </button>

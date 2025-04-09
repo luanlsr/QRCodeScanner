@@ -3,7 +3,6 @@ import { QRReader } from '../components/QRReader';
 import { Person } from '../types';
 import { getAllParticipants, updateParticipant } from '../data/crud';
 import { Toaster } from 'react-hot-toast';
-import { Header } from '../components/Header';
 
 export const ReadPage: React.FC = () => {
     const [data, setData] = useState<Person[]>([]);
@@ -23,11 +22,11 @@ export const ReadPage: React.FC = () => {
 
     return (
         <>
-            <div className="bg-gray-100 p-8" style={{ height: 'calc(100vh - 73px)' }}>
+            <div className="bg-gray-100 p-8 dark:bg-gray-800" style={{ height: 'calc(100vh - 73px)' }}>
                 <Toaster position="top-right" />
 
                 <div className="max-w-4xl mx-auto py-8">
-                    <div className="bg-white rounded-lg shadow-lg  mb-6">
+                    <div className="bg-white dark:bg-gray-600 dark:text-white rounded-lg shadow-lg  mb-6">
                         <QRReader data={data} onUpdatePerson={handleUpdatePerson} />
                     </div>
                 </div>

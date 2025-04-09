@@ -82,7 +82,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
   }, [scanning, activeData, onUpdatePerson]);
 
   return (
-    <div className="p-4">
+    <div className="p-4 " >
       <h2 className="text-2xl font-bold mb-4">Leitor QR Code</h2>
 
       {/* Progresso */}
@@ -100,7 +100,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
       </div>
 
       {/* Botão iniciar/parar */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center mb-6 ">
         <button
           onClick={() => {
             if (scanning && scannerRef.current) {
@@ -131,13 +131,13 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
       <select
         value={filter}
         onChange={(e) => setFilter(e.target.value as any)}
-        className="px-3 py-1 border rounded-lg bg-white text-sm my-5"
+        className="px-3 py-1 border rounded-lg bg-white text-sm my-5 dark:bg-gray-600"
       >
         <option value="all">Todos</option>
         <option value="read">Lidos</option>
         <option value="unread">Não lidos</option>
       </select>
-      <div className="rounded-xl shadow mb-6 text-white bg-blue-500">
+      <div className="rounded-xl shadow mb-6 text-white bg-blue-500 ">
         <div
           className="flex justify-between items-center px-4 py-3 cursor-pointer border-b"
           onClick={() => setShowList(!showList)}
@@ -150,30 +150,33 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
         </div>
 
         {showList && (
-          <div className="divide-y">
+          <div className="divide-y ">
             {filteredData.map(person => (
               <div
                 key={person.id}
-                className={`px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ${person.read ? 'bg-green-50' : 'bg-white'}`}
+                className={`px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ${person.read ? 'bg-green-50 dark:bg-gray-200 ' : 'bg-white dark:bg-gray-800 dark:text-white'}`}
               >
                 <div className="sm:max-w-[70%]">
-                  <h4 className="font-medium text-gray-600 break-words">
+                  <h4 className={`font-medium text-gray-600 break-words ${person.read
+                    ? 'dark:text-gray-600'
+                    : 'text-gray-600 dark:text-white'
+                    }`}>
                     {person.name}
                     {person.read && (
-                      <span className="ml-2 text-green-500 text-sm">
+                      <span className="ml-2 text-green-500 text-sm ">
                         <Check size={16} className="inline mr-1" />
                         Verificado
                       </span>
                     )}
                   </h4>
-                  <p className="text-sm text-gray-600 break-words">{person.email}</p>
+                  <p className="text-sm text-gray-600 break-words dark:text-gray-400 dark:text-white">{person.email}</p>
                 </div>
 
                 <button
                   onClick={() => onUpdatePerson({ ...person, read: !person.read })}
                   className={`text-sm px-3 py-1 rounded-lg font-medium whitespace-nowrap self-start sm:self-auto ${person.read
-                    ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
-                    : 'bg-green-100 text-green-700 hover:bg-green-200'
+                    ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200 dark:text-white dark:bg-yellow-600'
+                    : 'bg-green-100 text-green-700 hover:bg-green-200 dark:text-white dark:bg-green-900'
                     }`}
                 >
                   {person.read ? 'Marcar como não lido' : 'Marcar como lido'}

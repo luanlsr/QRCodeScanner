@@ -56,11 +56,11 @@ export const QRGenerator: React.FC<Props> = ({
   };
 
   return (
-    <div className="p-4 max-w-4xl w-full mx-auto">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+    <div className="p-4 sm:p-4 lg:p-10 max-w-4xl w-full mx-auto dark:bg-gray-800">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 ">
         <button
           onClick={() => setShowList(!showList)}
-          className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
+          className="flex items-center gap-2 text-gray-700 dark:text-white hover:text-gray-900"
         >
           {showList ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           <h2 className="text-2xl font-bold">Lista de participantes</h2>
@@ -89,27 +89,27 @@ export const QRGenerator: React.FC<Props> = ({
       </div>
 
       {showList && (
-        <div className="grid gap-4 w-full">
+        <div className="grid gap-4 w-full ">
           {paginatedData.map((person) => (
             <div
               key={person.id}
               className={`p-4 border rounded-lg transition-colors w-full ${person.sent
-                ? 'bg-green-50 border-green-200'
-                : 'bg-white border-gray-200'
+                ? 'bg-green-50 border-green-200 dark:bg-gray-800'
+                : 'bg-white dark:bg-gray-600 border-gray-200'
                 }`}
             >
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 dark:text-white">
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold break-words">{person.name}</h3>
-                  <p className="text-sm text-gray-600 break-words">{person.email}</p>
+                  <h3 className="font-semibold break-words ">{person.name}</h3>
+                  <p className="text-sm dark:text-white text-gray-600 break-words">{person.email}</p>
                 </div>
 
-                <div className="flex gap-2 flex-wrap justify-end">
+                <div className="flex gap-2 flex-wrap justify-end ">
                   <button
                     onClick={() => handleSendWhatsApp(person)}
                     className={`p-2 rounded-full ${person.sent
-                      ? 'bg-green-100 text-green-600'
-                      : 'bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-500'
+                      ? 'bg-green-100 text-green-600 dark:bg-gray-800 dark:text-white'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-white hover:bg-green-50 hover:text-green-500'
                       }`}
                     title="Enviar WhatsApp"
                   >
@@ -119,7 +119,7 @@ export const QRGenerator: React.FC<Props> = ({
                     onClick={() =>
                       setSelectedPerson(selectedPerson?.id === person.id ? null : person)
                     }
-                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
+                    className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200"
                     title="Mostrar QR Code"
                   >
                     <QrCode size={20} />
@@ -130,7 +130,7 @@ export const QRGenerator: React.FC<Props> = ({
               {selectedPerson?.id === person.id && (
                 <div className="mt-4 flex flex-col items-center gap-2">
                   <QRCode value={person.id} size={128} />
-                  <p className="text-sm text-gray-500 break-words">ID: {person.id}</p>
+                  <p className="text-sm text-gray-500 dark:text-white break-words">ID: {person.id}</p>
                 </div>
               )}
             </div>
@@ -140,17 +140,17 @@ export const QRGenerator: React.FC<Props> = ({
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
-                className="px-3 py-1 bg-gray-100 text-gray-700 rounded disabled:opacity-50"
+                className="px-3 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 rounded disabled:opacity-50"
               >
                 Anterior
               </button>
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-white">
                 Página {currentPage} de {totalPages}
               </span>
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1 bg-gray-100 text-gray-700 rounded disabled:opacity-50"
+                className="px-3 py-1 bg-gray-100 dark:bg-gray-600 dark:text-white text-gray-700 rounded disabled:opacity-50"
               >
                 Próxima
               </button>

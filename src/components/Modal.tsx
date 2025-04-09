@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface ModalProps {
     isOpen: boolean;
@@ -27,24 +27,36 @@ export const Modal = ({
     }[size];
 
     const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        // Garante que não feche ao clicar dentro do conteúdo
         if (e.target === e.currentTarget) {
             onClose();
         }
     };
 
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [onClose]);
+
     return (
         <div
-            className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
+            className="fixed inset-0 z-50 bg-black bg-opacity-50 dark:bg-opacity-70 flex items-center justify-center"
             onClick={handleBackdropClick}
         >
             <div
-                className={`bg-white w-full ${sizeClass} mx-4 rounded-lg shadow-lg`}
+                className={`bg-white dark:bg-zinc-900 text-black dark:text-white w-full ${sizeClass} mx-4 rounded-lg shadow-lg`}
             >
-                <div className="flex justify-between items-center p-4 border-b">
+                <div className="flex justify-between items-center p-4 border-b dark:border-zinc-700">
                     <h2 className="text-xl font-semibold">{title}</h2>
                     <button onClick={onClose}>
-                        <X className="w-5 h-5 text-gray-600 hover:text-gray-900" />
+                        <X className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" />
                     </button>
                 </div>
                 <div className="p-4">{children}</div>

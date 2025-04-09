@@ -51,14 +51,16 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
             sent: false,
             read: false,
             deleted: false,
+            created_at: new Date,
+            updated_at: new Date
         });
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
             {/* Nome */}
             <div className="mb-4">
-                <label className="block text-gray-700 mb-2" htmlFor="name">Nome</label>
+                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="name">Nome</label>
                 <input
                     type="text"
                     id="name"
@@ -66,14 +68,14 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                     placeholder="Ex: João da Silva"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border rounded-lg"
+                    className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-gray-100"
                     required
                 />
             </div>
 
             {/* Email */}
             <div className="mb-4">
-                <label className="block text-gray-700 mb-2" htmlFor="email">Email</label>
+                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="email">Email</label>
                 <input
                     type="email"
                     id="email"
@@ -81,7 +83,7 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                     placeholder="Ex: joao@email.com"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border rounded-lg"
+                    className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-gray-100"
                     required
                 />
                 {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
@@ -89,7 +91,7 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
 
             {/* Telefone */}
             <div className="mb-4">
-                <label className="block text-gray-700 mb-2" htmlFor="phone">Telefone (com DDI)</label>
+                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="phone">Telefone (com DDI)</label>
                 <PhoneInput
                     country={'br'}
                     value={formData.phone}
@@ -99,16 +101,17 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                         required: true,
                         autoFocus: false,
                     }}
-                    inputClass="!w-full !h-10"
-                    buttonClass="!border-gray-300"
+                    inputClass="!w-full !h-10 !bg-white dark:!bg-gray-700 dark:!text-gray-100 dark:!border-gray-600"
+                    buttonClass="!border-gray-300 dark:!border-gray-600"
                     containerClass="!w-full"
+                    masks={{ br: '(..) .....-....' }}
                 />
             </div>
 
             {/* Combo */}
             <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Pagou Combo?</label>
-                <div className="flex gap-4">
+                <label className="block text-gray-700 dark:text-gray-200 mb-2">Pagou Combo?</label>
+                <div className="flex gap-4 text-gray-800 dark:text-gray-100">
                     <label className="flex items-center gap-2">
                         <input
                             type="radio"
@@ -134,14 +137,14 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
 
             {/* Valor */}
             <div className="mb-6">
-                <label className="block text-gray-700 mb-2" htmlFor="valor">Valor Total (R$)</label>
+                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="valor">Valor Total (R$)</label>
                 <input
                     type="text"
                     id="valor"
                     name="valor"
                     value={`R$ ${valor},00`}
                     readOnly
-                    className="w-full px-3 py-2 border rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
+                    className="w-full px-3 py-2 border rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 cursor-not-allowed"
                 />
             </div>
 
@@ -150,7 +153,7 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+                    className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500"
                 >
                     <X size={18} /> Cancelar
                 </button>

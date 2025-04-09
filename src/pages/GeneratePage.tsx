@@ -28,7 +28,7 @@ export const GeneratePage: React.FC = () => {
 
     return (
         <>
-            <div className="bg-gray-100 p-8" style={{ height: 'calc(100vh - 73px)' }} >
+            <div className="bg-gray-100 dark:bg-gray-900 p-8" style={{ height: 'calc(100vh - 73px)' }} >
 
                 <Toaster position="top-right" />
 

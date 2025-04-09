@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import DataTable, { TableColumn } from 'react-data-table-component';
+import DataTable, { TableColumn, createTheme } from 'react-data-table-component';
 import { Person } from '../types';
 import { getAllParticipants, createParticipant, deleteParticipant, updateParticipant } from '../data/crud';
 import { Modal } from '../components/Modal';
@@ -23,7 +23,67 @@ export const Participants = () => {
     const [comboFilter, setComboFilter] = useState<string>('todos');
     const [sentFilter, setSentFilter] = useState<string>('todos');
     const [readFilter, setReadFilter] = useState<string>('todos');
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
+    const customStyles = {
+        headCells: {
+            style: {
+                backgroundColor: isDarkMode ? '#374151' : '#f3f4f6', // gray-700 : gray-100
+                color: isDarkMode ? '#f9fafb' : '#111827', // gray-50 : gray-900
+                fontWeight: '600',
+                fontSize: '14px',
+                paddingTop: '16px',
+                paddingBottom: '16px',
+            },
+        },
+        rows: {
+            style: {
+                minHeight: '64px',
+                fontSize: '15px',
+                backgroundColor: isDarkMode ? '#1f2937' : '#ffffff', // gray-800 : white
+                color: isDarkMode ? '#f9fafb' : '#111827', // gray-50 : gray-900
+            },
+        },
+        cells: {
+            style: {
+                paddingTop: '12px',
+                paddingBottom: '12px',
+            },
+        },
+        pagination: {
+            style: {
+                backgroundColor: isDarkMode ? '#1f2937' : '#f9fafb',
+                color: isDarkMode ? '#f9fafb' : '#111827',
+            },
+        },
+    };
+
+
+    createTheme('dark', {
+        text: {
+            primary: '#ffffff',
+            secondary: '#cccccc',
+        },
+        background: {
+            default: '', // tailwind "gray-800"
+        },
+        context: {
+            background: '#262626',
+            text: '#ffffff',
+        },
+        divider: {
+            default: '#374151', // tailwind "gray-700"
+        },
+        button: {
+            default: '#ffffff',
+            hover: '#e2e8f0',
+            focus: '#e2e8f0',
+            disabled: '#9ca3af',
+        },
+        sortFocus: {
+            default: '#3b82f6', // tailwind "blue-500"
+        },
+    });
 
     useEffect(() => {
         const checkScreenSize = () => {
@@ -41,6 +101,21 @@ export const Participants = () => {
             setFiltered(data);
         };
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        const observer = new MutationObserver(() => {
+            setIsDarkMode(document.documentElement.classList.contains('dark'));
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class'],
+        });
+
+        setIsDarkMode(document.documentElement.classList.contains('dark'));
+
+        return () => observer.disconnect();
     }, []);
 
     useEffect(() => {
@@ -103,10 +178,10 @@ export const Participants = () => {
     const mobileColumns: TableColumn<Person>[] = [
         {
             name: 'Foto',
-            selector: (row) => row.photoUrl || '',
+            selector: (row) => row.photo_url || '',
             cell: (row) => (
                 <img
-                    src={row.photoUrl || 'https://cdn-icons-png.flaticon.com/512/147/147144.png'}
+                    src={row.photo_url || 'https://cdn-icons-png.flaticon.com/512/147/147144.png'}
                     alt={row.name}
                     className="w-12 h-12 rounded-full object-cover border"
                 />
@@ -124,7 +199,7 @@ export const Participants = () => {
             cell: (row) => (
                 <button
                     onClick={(e) => {
-                        e.stopPropagation(); // Impede que abra o modal ao clicar no ícone
+                        e.stopPropagation();
                         toggleComboStatus(row);
                     }}
                     title="Alternar combo"
@@ -161,8 +236,6 @@ export const Participants = () => {
                 </div>
             ),
             ignoreRowClick: true,
-            allowOverflow: true,
-            button: true,
         }
     ];
 
@@ -187,8 +260,8 @@ export const Participants = () => {
     ];
 
     return (
-        <main className="pt-[80px] px-4 py-6 bg-gray-50" style={{ height: 'calc(100vh - 73px)' }}>
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">Participantes</h1>
+        <main className="pt-[80px] px-4 py-6 bg-gray-50 dark:bg-gray-800 text-gray-800" style={{ height: 'calc(100vh - 73px)' }}>
+            <h1 className="text-3xl font-bold text-gray-800 mb-6 dark:text-white">Participantes</h1>
 
             <Modal
                 isOpen={showAddModal}
@@ -213,7 +286,7 @@ export const Participants = () => {
                 }
             />
 
-            <div className="flex justify-between items-center mb-4 gap-4 flex-wrap">
+            <div className="flex justify-between items-center mb-4 gap-4 flex-wrap ">
                 <button
                     onClick={() => setShowAddModal(true)}
                     className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
@@ -225,48 +298,29 @@ export const Participants = () => {
                     placeholder="Buscar por nome..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="px-4 py-2 border rounded shadow-sm w-full sm:max-w-sm"
+                    className="px-4 py-2 border rounded shadow-sm w-full sm:max-w-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                 />
             </div>
+
             <div className="flex flex-wrap gap-4 mb-4">
-                <div className="flex flex-col w-24 sm:w-auto">
-                    <span className="text-sm text-gray-700 font-medium">Combo</span>
-                    <select
-                        value={comboFilter}
-                        onChange={(e) => setComboFilter(e.target.value)}
-                        className="px-2 py-1 border rounded shadow-sm text-sm"
-                    >
-                        <option value="todos">Todos</option>
-                        <option value="sim">Com Combo</option>
-                        <option value="nao">Sem Combo</option>
-                    </select>
-                </div>
-
-                <div className="flex flex-col w-24 sm:w-auto">
-                    <span className="text-sm text-gray-700 font-medium">Enviado</span>
-                    <select
-                        value={sentFilter}
-                        onChange={(e) => setSentFilter(e.target.value)}
-                        className="px-2 py-1 border rounded shadow-sm text-sm"
-                    >
-                        <option value="todos">Todos</option>
-                        <option value="sim">Sim</option>
-                        <option value="nao">Não</option>
-                    </select>
-                </div>
-
-                <div className="flex flex-col w-24 sm:w-auto">
-                    <span className="text-sm text-gray-700 font-medium">Lido</span>
-                    <select
-                        value={readFilter}
-                        onChange={(e) => setReadFilter(e.target.value)}
-                        className="px-2 py-1 border rounded shadow-sm text-sm"
-                    >
-                        <option value="todos">Todos</option>
-                        <option value="sim">Sim</option>
-                        <option value="nao">Não</option>
-                    </select>
-                </div>
+                {[
+                    { label: 'Combo', value: comboFilter, setter: setComboFilter },
+                    { label: 'Enviado', value: sentFilter, setter: setSentFilter },
+                    { label: 'Lido', value: readFilter, setter: setReadFilter },
+                ].map(({ label, value, setter }, index) => (
+                    <div key={index} className="flex flex-col w-24 sm:w-auto">
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{label}</span>
+                        <select
+                            value={value}
+                            onChange={(e) => setter(e.target.value)}
+                            className="px-2 py-1 border rounded shadow-sm text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                        >
+                            <option value="todos">Todos</option>
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                        </select>
+                    </div>
+                ))}
             </div>
 
             <DataTable
@@ -280,8 +334,11 @@ export const Participants = () => {
                 responsive
                 onRowClicked={(row) => setSelectedPerson(row)}
                 noDataComponent="Nenhum participante encontrado."
+                theme={isDarkMode ? 'dark' : 'default'}
+                customStyles={customStyles}
             />
 
+            {/* Modal de edição */}
             <Modal
                 isOpen={showEditModal}
                 onClose={() => setShowEditModal(false)}
@@ -297,17 +354,18 @@ export const Participants = () => {
                 )}
             </Modal>
 
+            {/* Modal de confirmação */}
             {showConfirmModal && personToDelete && (
                 <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg">
-                        <h2 className="text-lg font-semibold mb-4">Confirmar exclusão</h2>
-                        <p className="mb-4">
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full shadow-lg">
+                        <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">Confirmar exclusão</h2>
+                        <p className="mb-4 text-gray-700 dark:text-gray-300">
                             Tem certeza que deseja excluir <strong>{personToDelete.name}</strong>?
                         </p>
                         <div className="flex justify-end gap-2">
                             <button
                                 onClick={() => setShowConfirmModal(false)}
-                                className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                                className="px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white"
                             >
                                 Cancelar
                             </button>
