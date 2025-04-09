@@ -191,14 +191,14 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
           </div>
         )}
         {successPerson && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-green-500 text-white rounded-2xl p-6 max-w-sm mx-auto shadow-lg text-center">
-              <Check className="mx-auto mb-4" size={48} />
-              <h2 className="text-xl font-bold mb-2">QR Code escaneado com sucesso!</h2>
-              <p className="text-lg font-medium">{successPerson.name} {successPerson.last_name}</p>
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div className="bg-green-500 text-white rounded-none sm:rounded-2xl p-6 w-full h-full sm:max-w-md sm:h-auto mx-auto shadow-lg text-center flex flex-col items-center justify-center">
+              <Check className="mb-4" size={56} />
+              <h2 className="text-2xl font-bold mb-2">QR Code lido com sucesso!</h2>
+              <p className="text-lg font-medium">{successPerson.name}</p>
               <button
                 onClick={() => setSuccessPerson(null)}
-                className="mt-6 px-4 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100"
+                className="mt-6 px-6 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100"
               >
                 Fechar
               </button>
