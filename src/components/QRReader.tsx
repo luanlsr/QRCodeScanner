@@ -12,7 +12,7 @@ interface Props {
 
 export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
   const [scanning, setScanning] = useState(false);
-  const [showList, setShowList] = useState(true);
+  const [showList, setShowList] = useState(false);
   const [filter, setFilter] = useState<'all' | 'read' | 'unread'>('all');
   const scannerRef = useRef<Html5Qrcode | null>(null);
 
