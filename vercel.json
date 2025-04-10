@@ -1,0 +1,14 @@
+{
+    "builds": [
+      {
+        "src": "server/api/**/*.ts",
+        "use": "@vercel/node"
+      }
+    ],
+    "functions": {
+      "api/**/*.ts": {
+        "runtime": "vercel/node"
+      }
+    }
+  }
+  
