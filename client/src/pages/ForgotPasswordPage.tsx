@@ -11,7 +11,6 @@ export const ForgotPasswordPage = () => {
         setMessage('');
         setError('');
 
-        console.log(window.location.origin);
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
 
             redirectTo: `${window.location.origin}/reset-password`,

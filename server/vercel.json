@@ -1,0 +1,10 @@
+{
+    "functions": {
+      "api/**/*.ts": {
+        "runtime": "vercel/node"
+      }
+    },
+    "buildCommand": "tsc",
+    "outputDirectory": "dist"
+  }
+  

@@ -17,7 +17,6 @@ export function useProtectRoute() {
                 return;
             }
 
-            console.log('user', user);
             if (!user) {
                 await supabase.auth.signOut();
                 navigate('/login');

@@ -28,8 +28,6 @@ export const RegisterPage = () => {
                 emailRedirectTo: redirectUrl,
             },
         });
-        console.log('error: ', error);
-
 
         if (error) {
             if (error.message.includes('already registered') || error.message.includes('User already registered')) {
