@@ -51,7 +51,7 @@ export const Modal = ({
             onClick={handleBackdropClick}
         >
             <div
-                className={`bg-white dark:bg-zinc-900 text-black dark:text-white w-full ${sizeClass} mx-4 rounded-lg shadow-lg`}
+                className={`bg-white dark:bg-zinc-900 text-black dark:text-white w-full ${sizeClass} mx-4 rounded-lg shadow-lg max-h-full`}
             >
                 <div className="flex justify-between items-center p-4 border-b dark:border-zinc-700">
                     <h2 className="text-xl font-semibold">{title}</h2>
@@ -59,8 +59,9 @@ export const Modal = ({
                         <X className="w-5 h-5 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white" />
                     </button>
                 </div>
-                <div className="p-4">{children}</div>
+                <div className="p-4 overflow-y-auto max-h-full">{children}</div>
             </div>
+
         </div>
     );
 };
