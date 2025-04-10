@@ -23,7 +23,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                from: 'QR Evento <contato@seudominio.com.br>',
+                from: 'QR Evento <contato@qrevento.com.br>',
                 to,
                 subject,
                 html: body,
