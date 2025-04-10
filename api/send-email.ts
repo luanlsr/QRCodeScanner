@@ -7,7 +7,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(405).json({ message: 'Método não permitido' });
     }
 
-    const { to, subject, body } = req.body;
+    const { to, subject, body, attachments } = req.body;
 
     try {
         const response = await fetch('https://api.resend.com/emails', {
@@ -21,7 +21,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 to,
                 subject,
                 html: body,
+                attachments
             }),
+
         });
 
         if (!response.ok) {

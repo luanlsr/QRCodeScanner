@@ -2,6 +2,15 @@ export interface EmailPayload {
   to: string;
   subject: string;
   body: string; // HTML
+  attachments?: EmailAttachment[];
+}
+
+export interface EmailAttachment {
+  filename: string;
+  content: string; // base64 sem prefixo
+  type: string; // exemplo: "image/png"
+  disposition?: "inline" | "attachment"; // padrão pode ser "inline"
+  content_id: string;
 }
 
 export const sendConfirmationEmail = async (payload: EmailPayload) => {
@@ -11,6 +20,7 @@ export const sendConfirmationEmail = async (payload: EmailPayload) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
+
   });
 
   if (!response.ok) {
