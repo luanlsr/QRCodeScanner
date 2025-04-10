@@ -3,6 +3,7 @@ import { supabase } from '../superbase';
 import toast from 'react-hot-toast';
 import { useProtectRoute } from '../hooks/useProtectRout';
 import { User } from '@supabase/supabase-js';
+import { useUser } from '../context/userContext';
 
 const options = [
     { id: 'profile', label: 'Perfil' },
@@ -19,16 +20,7 @@ export const SettingsPage = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
 
-    const [user, setUser] = useState<User | null>(null);
-
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const { data } = await supabase.auth.getUser();
-            setUser(data.user);
-        };
-        fetchUser();
-    }, []);
+    const { userData, isLoading } = useUser();
 
     useProtectRoute();
     const handleChangePassword = async () => {
@@ -79,6 +71,8 @@ export const SettingsPage = () => {
         }
     };
 
+    if (isLoading) return <p>Carregando usuário...</p>;
+
     return (
         <div className="bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-300 p-4 sm:p-8 flex justify-center">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg w-full max-w-4xl flex flex-col sm:flex-row">
@@ -122,13 +116,20 @@ export const SettingsPage = () => {
                 <main className="flex-1 p-4 sm:p-6">
                     {selected === 'profile' && (
                         <div className="space-y-4">
+                            <div className="w-40 h-40  border border-gray-300 shadow-sm rounded-lg">
+                                <img
+                                    src={userData?.avatar_url}
+                                    alt="Foto do participante"
+                                    className="w-40 object-cover"
+                                />
+                            </div>
                             <div>
                                 <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">Nome</label>
                                 <input
                                     type="text"
                                     placeholder="Seu nome"
                                     className="w-full p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white"
-                                    value="Usuário Exemplo"
+                                    value={userData?.name}
                                     readOnly
                                 />
                             </div>
@@ -138,10 +139,11 @@ export const SettingsPage = () => {
                                     type="email"
                                     placeholder="seu@email.com"
                                     className="w-full p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white"
-                                    value="usuario@email.com"
+                                    value={userData?.email}
                                     readOnly
                                 />
                             </div>
+
                         </div>
                     )}
 

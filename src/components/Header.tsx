@@ -7,11 +7,20 @@ import { supabase } from '../superbase';
 import { User } from '@supabase/supabase-js';
 import { ChevronDown, Settings, LogOut } from 'lucide-react';
 
+interface UserIdentityData {
+    name?: string;
+    email?: string;
+    // adicione outros campos conforme necessário
+}
+
+
 export const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [enabled, setEnabled] = useDarkMode();
     const [user, setUser] = useState<User | null>(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [userData, setUserData] = useState<UserIdentityData | null>(null);
+
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
 
@@ -27,6 +36,14 @@ export const Header = () => {
         const fetchUser = async () => {
             const { data } = await supabase.auth.getUser();
             setUser(data.user);
+            const identityData = data.user?.identities?.[0]?.identity_data;
+
+            if (identityData) {
+                console.log('Nome:', data.user?.identities);
+                setUserData(identityData);
+            } else {
+                console.log('Identidade não encontrada');
+            }
         };
         fetchUser();
     }, []);
