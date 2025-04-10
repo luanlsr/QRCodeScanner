@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import validator from 'validator';
-import { Person } from '../types';
 import { Check, X } from 'lucide-react';
 import PhoneInput from 'react-phone-input-2';
+import { Person } from '../models/Person';
 
 interface Props {
     person: Person;
@@ -46,6 +46,22 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                     id="name"
                     name="name"
                     value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Ex: João da Silva"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white"
+                    required
+                />
+            </div>
+            {/* Nome */}
+            <div className="mb-4">
+                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="lastName">
+                    Sobrenome
+                </label>
+                <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.last_name}
                     onChange={handleChange}
                     placeholder="Ex: João da Silva"
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white"

@@ -66,8 +66,22 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Ex: João da Silva"
+                    placeholder="Ex: Fulano"
                     value={formData.name}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-gray-100"
+                    required
+                />
+            </div>
+            {/* Sobrenome */}
+            <div className="mb-4">
+                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="last_name">Sobrenome</label>
+                <input
+                    type="text"
+                    id="last_name"
+                    name="last_name"
+                    placeholder="Ex: de Tal"
+                    value={formData.last_name}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-gray-100"
                     required
