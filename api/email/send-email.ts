@@ -8,13 +8,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const { to, subject, body, attachments } = req.body;
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+        console.error("Chave da Resend não definida");
+        return res.status(500).json({ error: "Chave da Resend não definida" });
+    }
 
+    console.log("Payload recebido:", req.body);
+    console.log("Usando API key:", process.env.RESEND_API_KEY ? '✅ OK' : '❌ Faltando');
     try {
         const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+                Authorization: `Bearer ${apiKey}`,
             },
             body: JSON.stringify({
                 from: 'QR Evento <contato@qrevento.com.br>',
