@@ -14,7 +14,7 @@ export interface EmailAttachment {
 }
 
 export const sendConfirmationEmail = async (payload: EmailPayload) => {
-  const response = await fetch('/api/send-email', {
+  const response = await fetch('/api/email/send-email', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
