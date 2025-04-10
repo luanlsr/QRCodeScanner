@@ -9,9 +9,9 @@ import {
     ResponsiveContainer,
     Legend,
 } from 'recharts';
-import { Person } from '../types';
 import { getAllParticipants } from '../data/crud';
 import { useProtectRoute } from '../hooks/useProtectRout';
+import { Person } from '../models/Person';
 
 
 export const Dashboard = () => {

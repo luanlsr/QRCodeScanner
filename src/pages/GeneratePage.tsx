@@ -3,9 +3,9 @@ import { QRGenerator } from '../components/QRGenerator';
 import { PersonEditForm } from '../components/PersonEditForm';
 import { Modal } from '../components/Modal';
 import { Toaster } from 'react-hot-toast';
-import { Person } from '../types';
 import { deleteParticipant, getAllParticipants, updateParticipant } from '../data/crud';
 import { useProtectRoute } from '../hooks/useProtectRout';
+import { Person } from '../models/Person';
 
 export const GeneratePage: React.FC = () => {
     const [data, setData] = useState<Person[]>([]);

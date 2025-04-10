@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import DataTable, { TableColumn, createTheme } from 'react-data-table-component';
-import { Person } from '../types';
 import { getAllParticipants, createParticipant, deleteParticipant, updateParticipant } from '../data/crud';
 import { Modal } from '../components/Modal';
 import { PersonForm } from '../components/PersonForm';
@@ -9,6 +8,7 @@ import { Plus, Trash, Pencil, Popcorn } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { PersonEditForm } from '../components/PersonEditForm';
 import { useProtectRoute } from '../hooks/useProtectRout';
+import { Person } from '../models/Person';
 
 export const Participants = () => {
     const [participants, setParticipants] = useState<Person[]>([]);

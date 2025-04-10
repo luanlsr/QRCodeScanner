@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Person } from '../types';
 import { Check, X } from 'lucide-react';
 import validator from 'validator';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import { Person } from '../models/Person';
 
 interface Props {
     onSave: (data: Omit<Person, 'id'>) => void;
@@ -13,6 +13,7 @@ interface Props {
 export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
     const [formData, setFormData] = useState<Omit<Person, 'id' | 'sent' | 'read' | 'deleted' | 'valor' | 'combo'>>({
         name: '',
+        last_name: '',
         email: '',
         phone: '',
     });

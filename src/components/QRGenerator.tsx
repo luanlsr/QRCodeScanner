@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import QRCode from 'react-qr-code';
 import { Edit, Trash, QrCode, ChevronUp, ChevronDown } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
-import { Person } from '../types';
 import toast from 'react-hot-toast';
+import { Person } from '../models/Person';
 
 interface Props {
   data: Person[];

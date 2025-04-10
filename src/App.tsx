@@ -12,10 +12,11 @@ import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
+import { PublicRegisterPage } from './pages/PublicRegisterPage';
 
 function AppWrapper() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/login', '/register', '/forgot', '/reset-password'];
+  const hideHeaderRoutes = ['/login', '/register', '/forgot', '/reset-password', '/inscricao'];
   const showHeader = !hideHeaderRoutes.includes(location.pathname);
 
   return (
@@ -35,7 +36,7 @@ function AppWrapper() {
             <Route path="/participantes" element={<Participants />} />
             <Route path="/configuracoes" element={<SettingsPage />} />
           </Route>
-
+          <Route path="/inscricao" element={<PublicRegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot" element={<ForgotPasswordPage />} />

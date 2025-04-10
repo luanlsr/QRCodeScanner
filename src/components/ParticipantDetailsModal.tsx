@@ -1,8 +1,8 @@
 import { FC, useState, useEffect } from 'react';
 import { Modal } from './Modal';
-import { Person } from '../types';
 import { Camera, Popcorn, Save, X } from 'lucide-react';
 import { supabase } from '../superbase';
+import { Person } from '../models/Person';
 
 interface Props {
     person: Person | null;
