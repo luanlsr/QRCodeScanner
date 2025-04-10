@@ -39,7 +39,6 @@ export const Header = () => {
             const identityData = data.user?.identities?.[0]?.identity_data;
 
             if (identityData) {
-                console.log('Nome:', data.user?.identities);
                 setUserData(identityData);
             } else {
                 console.log('Identidade não encontrada');
@@ -153,21 +152,25 @@ export const Header = () => {
                                     exit={{ opacity: 0, y: -10 }}
                                     className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded shadow-lg overflow-hidden z-50"
                                 >
-                                    <button
-                                        onClick={() => {
-                                            setDropdownOpen(false);
-                                            navigate('/configuracoes');
-                                        }}
-                                        className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                                    >
-                                        <Settings className="w-4 h-4" /> Configurações
-                                    </button>
-                                    <button
-                                        onClick={handleLogout}
-                                        className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900"
-                                    >
-                                        <LogOut className="w-4 h-4" /> Sair
-                                    </button>
+                                    <div className='p-3'>
+                                        <span className='font-bold'>{userData?.name}</span>
+                                        <hr className="my-4 border-gray-300 dark:border-gray-600" />
+                                        <button
+                                            onClick={() => {
+                                                setDropdownOpen(false);
+                                                navigate('/configuracoes');
+                                            }}
+                                            className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                        >
+                                            <Settings className="w-4 h-4" /> Configurações
+                                        </button>
+                                        <button
+                                            onClick={handleLogout}
+                                            className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900"
+                                        >
+                                            <LogOut className="w-4 h-4" /> Sair
+                                        </button>
+                                    </div>
                                 </motion.div>
                             )}
                         </AnimatePresence>
