@@ -6,23 +6,23 @@ import { Button } from "@headlessui/react";
 import QRCode from "qrcode";
 
 type SuccessScreenProps = {
-    name: string;
-    email: string;
-    participantId: string;
-    onNewRegistration: () => void;
+  name: string;
+  email: string;
+  participantId: string;
+  onNewRegistration: () => void;
 };
 
 export function SuccessScreen({
-    name,
-    email,
-    participantId,
-    onNewRegistration,
+  name,
+  email,
+  participantId,
+  onNewRegistration,
 }: SuccessScreenProps) {
-    useEffect(() => {
-        const sendEmail = async () => {
-            const qrCodeBase64 = await QRCode.toDataURL(participantId);
+  useEffect(() => {
+    const sendEmail = async () => {
+      const qrCodeBase64 = await QRCode.toDataURL(participantId);
 
-            const emailHtml = `
+      const emailHtml = `
         <table width="100%" cellpadding="0" cellspacing="0" style="font-family: sans-serif; background-color: #f9f9f9; padding: 40px 0;">
           <tr>
             <td align="center">
@@ -46,28 +46,28 @@ export function SuccessScreen({
         </table>
       `;
 
-            await sendConfirmationEmail({
-                to: email,
-                subject: 'Confirmação de Inscrição no Evento',
-                body: emailHtml,
-            });
-        };
+      await sendConfirmationEmail({
+        to: email,
+        subject: 'Confirmação de Inscrição no Evento',
+        body: emailHtml,
+      });
+    };
 
-        sendEmail();
-    }, [name, email, participantId]);
+    sendEmail();
+  }, [name, email, participantId]);
 
-    return (
-        <div className="flex flex-col items-center justify-center gap-4 py-10">
-            <CheckCircle className="w-16 h-16 text-green-500" />
-            <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-white">
-                Inscrição realizada com sucesso!
-            </h2>
-            <p className="text-gray-500 dark:text-gray-300 text-center max-w-sm">
-                O participante foi cadastrado com sucesso. Você pode realizar uma nova inscrição se desejar.
-            </p>
-            <Button onClick={onNewRegistration} className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">
-                Fazer nova inscrição
-            </Button>
-        </div>
-    );
+  return (
+    <div className="flex flex-col items-center justify-center gap-4 py-10">
+      <CheckCircle className="w-16 h-16 text-green-500" />
+      <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-white">
+        Inscrição realizada com sucesso!
+      </h2>
+      <p className="text-gray-500 dark:text-gray-300 text-center max-w-sm">
+        O participante foi cadastrado com sucesso. Você pode realizar uma nova inscrição se desejar.
+      </p>
+      <Button onClick={onNewRegistration} className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">
+        Fazer nova inscrição
+      </Button>
+    </div>
+  );
 }

@@ -5,7 +5,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { supabase } from '../superbase';
 import toast from 'react-hot-toast';
-import { Button } from '@headlessui/react';
+import { SuccessScreen } from './SuccessScreen';
 
 export const PublicRegisterPage = () => {
     const [name, setName] = useState('');
@@ -68,20 +68,14 @@ export const PublicRegisterPage = () => {
         setShowSuccess(false);
     };
 
-    if (showSuccess) {
+    if (showSuccess && participantId) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 dark:bg-gray-900">
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-md flex flex-col items-center gap-6 text-center">
-                    <CheckCircle className="w-16 h-16 text-green-500" />
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
-                        Inscrição realizada com sucesso!
-                    </h2>
-                    <p className="text-gray-500 dark:text-gray-300">
-                        Um email de confirmação foi enviado. Você pode fazer outra inscrição se desejar.
-                    </p>
-                    <Button onClick={resetForm} className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">Fazer nova inscrição</Button>
-                </div>
-            </div>
+            <SuccessScreen
+                name={`${name} ${lastName}`}
+                email={email}
+                participantId={participantId}
+                onNewRegistration={resetForm}
+            />
         );
     }
 

@@ -20,3 +20,4 @@ export const sendConfirmationEmail = async (payload: EmailPayload) => {
 
   return true;
 };
+
