@@ -153,6 +153,7 @@ export const ParticipantDetailsModal: FC<Props> = ({ person, isOpen, onClose, on
                 {/* DADOS */}
                 <div className="flex-1 text-sm space-y-2">
                     <p><span className="font-medium text-gray-800">Nome:</span> {localPerson.name}</p>
+                    <p><span className="font-medium text-gray-800">Sobrenome:</span> {localPerson.last_name}</p>
                     <p><span className="font-medium text-gray-800">E-mail:</span> {localPerson.email || '—'}</p>
                     <p><span className="font-medium text-gray-800">Telefone:</span> {localPerson.phone || '—'}</p>
                     <p>

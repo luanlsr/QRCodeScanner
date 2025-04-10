@@ -1,9 +1,9 @@
 // src/components/QRReader.tsx
 import React, { useEffect, useState, useRef } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
-import { Person } from '../types';
 import toast from 'react-hot-toast';
 import { AlertTriangle, Check, ChevronDown, ChevronUp, Trash } from 'lucide-react';
+import { Person } from '../models/Person';
 interface Props {
   data: Person[];
   onUpdatePerson: (person: Person) => void;

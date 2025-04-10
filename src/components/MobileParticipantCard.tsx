@@ -37,7 +37,7 @@ export const MobileParticipantCard = ({
                 <div className="flex-1">
                     <div className="flex justify-between items-start">
                         <h3 className="font-medium text-gray-800 dark:text-white">
-                            {participant.name}
+                            {participant.name} {participant.last_name}
                         </h3>
                         <button
                             onClick={e => {

@@ -1,5 +1,5 @@
+import { Person } from "../models/Person";
 import { supabase } from "../superbase";
-import { Person } from "../types";
 
 const table = 'participants'
 

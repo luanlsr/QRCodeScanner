@@ -100,7 +100,7 @@ export const QRGenerator: React.FC<Props> = ({
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 dark:text-white">
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold break-words ">{person.name}</h3>
+                  <h3 className="font-semibold break-words ">{person.name} {person.last_name}</h3>
                   <p className="text-sm dark:text-white text-gray-600 break-words">{person.email}</p>
                 </div>
 

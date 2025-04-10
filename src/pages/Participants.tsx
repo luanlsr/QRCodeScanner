@@ -265,6 +265,12 @@ export const Participants = () => {
             minWidth: '150px',
         },
         {
+            name: 'Sobrenome',
+            selector: row => row.last_name,
+            sortable: true,
+            minWidth: '150px',
+        },
+        {
             name: 'Email',
             selector: row => row.email || '-',
             sortable: true,
