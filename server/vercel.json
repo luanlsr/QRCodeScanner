@@ -1,9 +1,16 @@
 {
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "vercel/node"
-    }
-  },
-  "buildCommand": "tsc",
-  "outputDirectory": "dist"
-}
+    "builds": [
+      {
+        "src": "client/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "client/dist"
+        }
+      },
+      {
+        "src": "server/api/**/*.ts",
+        "use": "@vercel/node"
+      }
+    ]
+  }
+  
