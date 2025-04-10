@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '../superbase';
 import toast from 'react-hot-toast';
 import { useProtectRoute } from '../hooks/useProtectRout';
+import { User } from '@supabase/supabase-js';
 
 const options = [
     { id: 'profile', label: 'Perfil' },
@@ -17,6 +18,17 @@ export const SettingsPage = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
+
+    const [user, setUser] = useState<User | null>(null);
+
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const { data } = await supabase.auth.getUser();
+            setUser(data.user);
+        };
+        fetchUser();
+    }, []);
 
     useProtectRoute();
     const handleChangePassword = async () => {
@@ -109,16 +121,40 @@ export const SettingsPage = () => {
                 {/* CONTEÚDO */}
                 <main className="flex-1 p-4 sm:p-6">
                     {selected === 'profile' && (
-                        <div>
-                            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Perfil</h2>
-                            <p className="text-gray-600 dark:text-gray-300">Informações básicas do perfil.</p>
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">Nome</label>
+                                <input
+                                    type="text"
+                                    placeholder="Seu nome"
+                                    className="w-full p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white"
+                                    value="Usuário Exemplo"
+                                    readOnly
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                                <input
+                                    type="email"
+                                    placeholder="seu@email.com"
+                                    className="w-full p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white"
+                                    value="usuario@email.com"
+                                    readOnly
+                                />
+                            </div>
                         </div>
                     )}
 
                     {selected === 'notifications' && (
-                        <div>
-                            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Notificações</h2>
-                            <p className="text-gray-600 dark:text-gray-300">Preferências de notificações.</p>
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between">
+                                <span className="text-gray-700 dark:text-gray-300">Notificações por e-mail</span>
+                                <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" checked />
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <span className="text-gray-700 dark:text-gray-300">Notificações por push</span>
+                                <input type="checkbox" className="form-checkbox h-5 w-5 text-blue-600" />
+                            </div>
                         </div>
                     )}
 
@@ -147,6 +183,8 @@ export const SettingsPage = () => {
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     className="w-full p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white"
                                 />
+
+                                <hr className="my-4 border-gray-300 dark:border-gray-600" />
                                 <button
                                     onClick={handleChangePassword}
                                     className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
@@ -166,16 +204,40 @@ export const SettingsPage = () => {
                     )}
 
                     {selected === 'preferences' && (
-                        <div>
-                            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Preferências</h2>
-                            <p className="text-gray-600 dark:text-gray-300">Ajustes gerais do sistema.</p>
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">Tema</label>
+                                <select className="w-full p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white">
+                                    <option>Sistema</option>
+                                    <option>Claro</option>
+                                    <option>Escuro</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">Idioma</label>
+                                <select className="w-full p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white">
+                                    <option>Português</option>
+                                    <option>Inglês</option>
+                                </select>
+                            </div>
                         </div>
                     )}
 
                     {selected === 'security' && (
-                        <div>
-                            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">Segurança</h2>
-                            <p className="text-gray-600 dark:text-gray-300">Configurações de segurança adicionais.</p>
+                        <div className="space-y-4">
+                            <div className="text-sm text-gray-600 dark:text-gray-300">
+                                Último login: <strong>10/04/2025 21:30</strong>
+                            </div>
+                            <div className="text-sm text-gray-600 dark:text-gray-300">
+                                Dispositivos conectados:
+                                <ul className="list-disc list-inside mt-1">
+                                    <li>Chrome - Windows</li>
+                                    <li>Safari - iPhone</li>
+                                </ul>
+                            </div>
+                            <button className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                                Desconectar todos os dispositivos
+                            </button>
                         </div>
                     )}
                 </main>
