@@ -9,9 +9,11 @@ import toast from 'react-hot-toast';
 import { PersonEditForm } from '../components/PersonEditForm';
 import { useProtectRoute } from '../hooks/useProtectRout';
 import { Person } from '../models/Person';
+import { supabase } from '../superbase';
 
 export const Participants = () => {
     const [participants, setParticipants] = useState<Person[]>([]);
+    const [selectedParticipants, setSelectedParticipants] = useState<string[]>([]);
     const [search, setSearch] = useState('');
     const [filtered, setFiltered] = useState<Person[]>([]);
     const [showAddModal, setShowAddModal] = useState(false);
@@ -25,6 +27,7 @@ export const Participants = () => {
     const [sentFilter, setSentFilter] = useState<string>('todos');
     const [readFilter, setReadFilter] = useState<string>('todos');
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const [showBulkDeleteModal, setShowBulkDeleteModal] = useState(false);
 
     useProtectRoute();
 
@@ -87,6 +90,67 @@ export const Participants = () => {
             default: '#3b82f6', // tailwind "blue-500"
         },
     });
+
+    const toggleSelection = (id: any) => {
+        setSelectedParticipants((prev) =>
+            prev.includes(id)
+                ? prev.filter((participantId) => participantId !== id)
+                : [...prev, id]
+        );
+    };
+
+    const handleSelectAll = () => {
+        if (selectedParticipants.length === participants.length) {
+            setSelectedParticipants([]); // Desmarcar todos
+        } else {
+            setSelectedParticipants(participants.map((participant) => participant.id)); // Marcar todos
+        }
+    };
+
+
+    const handleBulkDelete = () => {
+        setShowBulkDeleteModal(true); // Abre o modal de confirmação de exclusão em massa
+    };
+
+
+    const handleConfirmBulkDelete = async () => {
+        // Aqui você pode implementar a lógica para excluir os participantes selecionados
+        // Por exemplo:
+        if (selectedParticipants.length === 0) {
+            toast.error("Nenhum participante selecionado!");
+            return;
+        }
+
+        try {
+            // Realiza a exclusão em massa no Supabase
+            const { error } = await supabase
+                .from("participants") // Nome da sua tabela
+                .delete()
+                .in("id", selectedParticipants); // Usando a operação `in` para deletar múltiplos participantes
+
+            if (error) {
+                throw error;
+            }
+
+            // Atualiza a lista de participantes removendo os excluídos
+            setParticipants((prev) =>
+                prev.filter((p) => !selectedParticipants.includes(p.id))
+            );
+
+            // Limpa a seleção após a exclusão
+            setSelectedParticipants([]);
+            toast.success("Participantes excluídos com sucesso!");
+        } catch (error) {
+            toast.error("Erro ao excluir participantes.");
+        }
+
+        // Após a exclusão, feche o modal e limpe a seleção
+        setShowBulkDeleteModal(false);
+        setSelectedParticipants([]); // Limpa a seleção após a exclusão
+    };
+
+    const isAllSelected = selectedParticipants.length === participants.length;
+
 
     useEffect(() => {
         const checkScreenSize = () => {
@@ -158,6 +222,8 @@ export const Participants = () => {
         const newList = [...participants, created];
         setParticipants(newList);
         setShowAddModal(false);
+        toast.success('Participante adicionado com sucesso!');
+
     };
 
     const handleDeletePerson = async (id: string) => {
@@ -171,6 +237,8 @@ export const Participants = () => {
         const result = await updateParticipant(updated.id, updated);
         setParticipants(prev => prev.map(p => (p.id === updated.id ? result : p)));
         setShowEditModal(false);
+        toast.success('Participante atualizado com sucesso!');
+
     };
 
     const openEditModal = (person: Person) => {
@@ -179,6 +247,17 @@ export const Participants = () => {
     };
 
     const mobileColumns: TableColumn<Person>[] = [
+        {
+            name: 'Selecionar',
+            cell: (row) => (
+                <input
+                    type="checkbox"
+                    checked={selectedParticipants.includes(row.id)} // Marca o checkbox se o id estiver na lista de selecionados
+                    onChange={() => toggleSelection(row.id)} // Altera a seleção ao clicar
+                />
+            ),
+            sortable: false,
+        },
         {
             name: 'Foto',
             selector: (row) => row.photo_url || '',
@@ -289,20 +368,43 @@ export const Participants = () => {
                 }
             />
 
-            <div className="flex justify-between items-center mb-4 gap-4 flex-wrap ">
-                <button
-                    onClick={() => setShowAddModal(true)}
-                    className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
-                >
-                    <Plus size={20} /> Adicionar participante
-                </button>
-                <input
-                    type="text"
-                    placeholder="Buscar por nome..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="px-4 py-2 border rounded shadow-sm w-full sm:max-w-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                />
+            <div className="flex justify-between items-center mb-4 gap-4 flex-wrap">
+                {/* Contêiner para os botões */}
+                <div className="flex gap-4">
+                    <button
+                        onClick={() => setShowAddModal(true)}
+                        className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                    >
+                        <Plus size={20} /> Adicionar participante
+                    </button>
+                    <button
+                        onClick={handleSelectAll} // Marca ou desmarca todos os participantes
+                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 min-w-[160px]" // Tamanho fixo
+                    >
+                        {isAllSelected ? "Desmarcar todos" : "Marcar todos"}
+                    </button>
+                    <button
+                        onClick={handleBulkDelete} // Chama a função de exclusão em massa
+                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                        disabled={selectedParticipants.length === 0} // Desabilita o botão se nenhum participante estiver selecionado
+                    >
+                        Excluir Selecionados
+                    </button>
+
+                </div>
+
+                {/* Checkbox para selecionar todos abaixo dos botões */}
+                <div className="flex flex-col items-start gap-2">
+
+                    {/* Input de busca */}
+                    <input
+                        type="text"
+                        placeholder="Buscar por nome..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="px-4 py-2 border rounded shadow-sm w-full sm:max-w-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                    />
+                </div>
             </div>
 
             <div className="flex flex-wrap gap-4 mb-4">
@@ -325,6 +427,7 @@ export const Participants = () => {
                     </div>
                 ))}
             </div>
+
 
             <DataTable
                 columns={isMobile ? mobileColumns : desktopColumns}
@@ -383,6 +486,28 @@ export const Participants = () => {
                                 className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
                             >
                                 Excluir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {showBulkDeleteModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                        <h2 className="text-xl font-semibold mb-4">Excluir Participantes Selecionados</h2>
+                        <p className="mb-4">Você tem certeza de que deseja excluir os participantes selecionados? Esta ação não pode ser desfeita.</p>
+                        <div className="flex justify-end gap-4">
+                            <button
+                                onClick={handleConfirmBulkDelete} // Função para confirmar exclusão
+                                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                            >
+                                Confirmar Exclusão
+                            </button>
+                            <button
+                                onClick={() => setShowBulkDeleteModal(false)} // Fecha o modal
+                                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                            >
+                                Cancelar
                             </button>
                         </div>
                     </div>

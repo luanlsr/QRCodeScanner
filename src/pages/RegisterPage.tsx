@@ -32,12 +32,16 @@ export const RegisterPage = () => {
         if (error) {
             if (error.message.includes('already registered') || error.message.includes('User already registered')) {
                 setError('E-mail já está cadastrado!');
+                toast.error("E-mail já está cadastrado!");
+
             } else {
                 setError('Erro ao cadastrar usuário.');
+                toast.error("Erro ao cadastrar usuário.");
+
             }
         } else {
             setMessage('Cadastro realizado!');
-
+            toast.success("Cadastro realizado!");
             success('Cadastro realizado com sucesso!');
             navigate('/login');
         }
