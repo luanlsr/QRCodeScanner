@@ -1,47 +1,46 @@
+// api/email/send-email.ts
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import dotenv from 'dotenv';
-dotenv.config();
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== 'POST') {
-        return res.status(405).json({ message: 'Método não permitido' });
+        return res.status(405).json({ error: 'Method not allowed' });
     }
 
     const { to, subject, body, attachments } = req.body;
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) {
-        console.error("Chave da Resend não definida");
-        return res.status(500).json({ error: "Chave da Resend não definida" });
-    }
 
-    console.log("Payload recebido:", req.body);
-    console.log("Usando API key:", process.env.RESEND_API_KEY ? '✅ OK' : '❌ Faltando');
     try {
-        const response = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
+        const apiKey = process.env.RESEND_API_KEY;
+
+        if (!apiKey) {
+            console.error("❌ RESEND_API_KEY não definida");
+            return res.status(500).json({ error: "Missing RESEND_API_KEY" });
+        }
+
+        const response = await fetch("https://api.resend.com/emails", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${apiKey}`,
+                "Authorization": `Bearer ${apiKey}`,
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                from: 'QR Evento <contato@qrevento.com.br>',
+                from: "QR Evento <contato@seudominio.com.br>", // verificado na Resend
                 to,
                 subject,
                 html: body,
-                attachments
+                attachments,
             }),
-
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Erro ao enviar email:', errorText);
-            return res.status(500).json({ error: 'Erro ao enviar e-mail' });
+            console.error("Erro Resend:", data);
+            return res.status(500).json({ error: "Erro no envio de e-mail", details: data });
         }
 
         return res.status(200).json({ success: true });
-    } catch (error) {
-        console.error('Erro geral:', error);
-        return res.status(500).json({ error: 'Erro inesperado' });
+    } catch (err: any) {
+        console.error("Erro no handler:", err);
+        return res.status(500).json({ error: "Erro no envio", message: err.message });
     }
 }
