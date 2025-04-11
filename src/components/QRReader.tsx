@@ -2,14 +2,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
 import toast from 'react-hot-toast';
-import { AlertTriangle, Check, ChevronDown, ChevronUp, Trash } from 'lucide-react';
+import { AlertTriangle, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { Person } from '../models/Person';
+import { useTranslation } from 'react-i18next';
+
 interface Props {
   data: Person[];
   onUpdatePerson: (person: Person) => void;
 }
 
 export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
+  const { t } = useTranslation();
   const [scanning, setScanning] = useState(false);
   const [showList, setShowList] = useState(false);
   const [filter, setFilter] = useState<'all' | 'read' | 'unread'>('all');
@@ -28,14 +31,14 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
   });
 
   useEffect(() => {
-    const scannerId = "reader";
+    const scannerId = 'reader';
 
     if (scanning && !scannerRef.current) {
       const html5QrCode = new Html5Qrcode(scannerId, { verbose: false });
       scannerRef.current = html5QrCode;
 
       html5QrCode.start(
-        { facingMode: "environment" },
+        { facingMode: 'environment' },
         { fps: 10, qrbox: { width: 250, height: 250 } },
         (decodedText) => {
           const person = activeData.find(p => p.id === decodedText);
@@ -47,9 +50,9 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
 
               if (!person.read) {
                 onUpdatePerson({ ...person, read: true });
-                setSuccessPerson(person); // 👉 mostra modal de sucesso
+                setSuccessPerson(person);
               } else {
-                toast('Já verificado!');
+                toast(t('reader.verified'));
               }
             });
           } else {
@@ -57,25 +60,26 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
               html5QrCode.clear();
               scannerRef.current = null;
               setScanning(false);
-
-              setErrorMessage('QR Code inválido. Participante não encontrado.'); // 👉 mostra modal de erro
+              setErrorMessage(t('reader.scanErrorMessage'));
             });
           }
         },
         () => { }
       );
     }
-  }, [scanning, activeData, onUpdatePerson]);
+  }, [scanning, activeData, onUpdatePerson, t]);
 
   return (
-    <div className="p-4 " >
-      <h2 className="text-2xl font-bold mb-4">Leitor QR Code</h2>
+    <div className="p-4">
+      <h2 className="text-2xl font-bold mb-4">{t('reader.title')}</h2>
 
       {/* Progresso */}
       <div className="mb-6 max-w-md mx-auto">
         <div className="flex justify-between mb-2">
-          <span className="text-sm font-semibold">Progresso</span>
-          <span className="text-sm font-semibold">{readCount} de {totalCount} lidos</span>
+          <span className="text-sm font-semibold">{t('reader.progress')}</span>
+          <span className="text-sm font-semibold">
+            {t('reader.scanned', { readCount, totalCount })}
+          </span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2.5">
           <div
@@ -86,7 +90,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
       </div>
 
       {/* Botão iniciar/parar */}
-      <div className="flex justify-center mb-6 ">
+      <div className="flex justify-center mb-6">
         <button
           onClick={() => {
             if (scanning && scannerRef.current) {
@@ -98,7 +102,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
                 })
                 .catch(err => {
                   console.error("Erro ao parar scanner manualmente:", err);
-                  toast.error("Erro ao parar scanner.");
+                  toast.error(t('reader.stopError'));
                 });
             } else {
               setScanning(true);
@@ -106,52 +110,50 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
           }}
           className={`py-2 px-6 rounded-lg text-white ${scanning ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'}`}
         >
-          {scanning ? 'Parar Leitura' : 'Iniciar Leitura'}
+          {scanning ? t('reader.stopScan') : t('reader.startScan')}
         </button>
       </div>
 
       {/* Scanner */}
       {scanning && <div id="reader" className="w-full max-w-md mx-auto mb-6" />}
 
-      {/* Card colapsável */}
+      {/* Filtro */}
       <select
         value={filter}
         onChange={(e) => setFilter(e.target.value as any)}
         className="px-3 py-1 border rounded-lg bg-white text-sm my-5 dark:bg-gray-600"
       >
-        <option value="all">Todos</option>
-        <option value="read">Lidos</option>
-        <option value="unread">Não lidos</option>
+        <option value="all">{t('reader.all')}</option>
+        <option value="read">{t('reader.read')}</option>
+        <option value="unread">{t('reader.unread')}</option>
       </select>
-      <div className="rounded-xl shadow mb-6 text-white bg-blue-500 ">
+
+      {/* Lista de participantes */}
+      <div className="rounded-xl shadow mb-6 text-white bg-blue-500">
         <div
           className="flex justify-between items-center px-4 py-3 cursor-pointer border-b"
           onClick={() => setShowList(!showList)}
         >
           <h3 className="font-semibold text-lg flex items-center gap-2">
             {showList ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-            Participantes
+            {t('reader.participants')}
           </h3>
-
         </div>
 
         {showList && (
-          <div className="divide-y ">
+          <div className="divide-y">
             {filteredData.map(person => (
               <div
                 key={person.id}
-                className={`px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ${person.read ? 'bg-green-50 dark:bg-gray-200 ' : 'bg-white dark:bg-gray-800 dark:text-white'}`}
+                className={`px-4 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ${person.read ? 'bg-green-50 dark:bg-gray-200' : 'bg-white dark:bg-gray-800 dark:text-white'}`}
               >
                 <div className="sm:max-w-[70%]">
-                  <h4 className={`font-medium text-gray-600 break-words ${person.read
-                    ? 'dark:text-gray-600'
-                    : 'text-gray-600 dark:text-white'
-                    }`}>
+                  <h4 className={`font-medium text-gray-600 break-words ${person.read ? 'dark:text-gray-600' : 'text-gray-600 dark:text-white'}`}>
                     {person.name} {person.last_name}
                     {person.read && (
-                      <span className="ml-2 text-green-500 text-sm ">
+                      <span className="ml-2 text-green-500 text-sm">
                         <Check size={16} className="inline mr-1" />
-                        Verificado
+                        {t('reader.verified')}
                       </span>
                     )}
                   </h4>
@@ -165,25 +167,25 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
                     : 'bg-green-100 text-green-700 hover:bg-green-200 dark:text-white dark:bg-green-900'
                     }`}
                 >
-                  {person.read ? 'Marcar como não lido' : 'Marcar como lido'}
+                  {person.read ? t('reader.markAsUnread') : t('reader.markAsRead')}
                 </button>
               </div>
-
             ))}
           </div>
         )}
+
         {/* Modal de sucesso */}
         {successPerson && (
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="bg-green-500 text-white rounded-none sm:rounded-2xl p-6 w-full h-full sm:max-w-md sm:h-auto mx-auto shadow-lg text-center flex flex-col items-center justify-center">
               <Check className="mb-4" size={56} />
-              <h2 className="text-2xl font-bold mb-2">QR Code lido com sucesso!</h2>
-              <p className="text-lg font-medium">{successPerson.name}</p>
+              <h2 className="text-2xl font-bold mb-2">{t('reader.scanSuccessTitle')}</h2>
+              <p className="text-lg font-medium">{t('reader.scanSuccessName', { name: successPerson.name })}</p>
               <button
                 onClick={() => setSuccessPerson(null)}
                 className="mt-6 px-6 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100"
               >
-                Fechar
+                {t('reader.close')}
               </button>
             </div>
           </div>
@@ -194,13 +196,13 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
           <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="bg-red-600 text-white rounded-none sm:rounded-2xl p-6 w-full h-full sm:max-w-md sm:h-auto mx-auto shadow-lg text-center flex flex-col items-center justify-center">
               <AlertTriangle className="mb-4" size={56} />
-              <h2 className="text-2xl font-bold mb-2">Erro ao ler QR Code</h2>
+              <h2 className="text-2xl font-bold mb-2">{t('reader.scanErrorTitle')}</h2>
               <p className="text-lg font-medium">{errorMessage}</p>
               <button
                 onClick={() => setErrorMessage(null)}
                 className="mt-6 px-6 py-2 bg-white text-red-600 font-semibold rounded-lg hover:bg-gray-100"
               >
-                Fechar
+                {t('reader.close')}
               </button>
             </div>
           </div>

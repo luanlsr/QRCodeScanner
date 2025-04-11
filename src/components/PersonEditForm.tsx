@@ -54,13 +54,13 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
             </div>
             {/* Nome */}
             <div className="mb-4">
-                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="lastName">
+                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="last_name">
                     Sobrenome
                 </label>
                 <input
                     type="text"
-                    id="lastName"
-                    name="lastName"
+                    id="last_name"
+                    name="last_name"
                     value={formData.last_name}
                     onChange={handleChange}
                     placeholder="Ex: João da Silva"

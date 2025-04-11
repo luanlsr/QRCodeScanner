@@ -6,13 +6,13 @@ import { Switch } from '@headlessui/react';
 import { supabase } from '../superbase';
 import { User } from '@supabase/supabase-js';
 import { ChevronDown, Settings, LogOut } from 'lucide-react';
+import { LanguageCollapse } from './LanguageCollapse';
+import { useTranslation } from 'react-i18next';
 
 interface UserIdentityData {
     name?: string;
     email?: string;
-    // adicione outros campos conforme necessário
 }
-
 
 export const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -20,9 +20,9 @@ export const Header = () => {
     const [user, setUser] = useState<User | null>(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [userData, setUserData] = useState<UserIdentityData | null>(null);
-
     const dropdownRef = useRef(null);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const toggleMenu = () => setMenuOpen(prev => !prev);
     const closeMenu = () => setMenuOpen(false);
@@ -70,14 +70,22 @@ export const Header = () => {
 
     const baseStyle = 'text-xl font-semibold text-white';
 
+    const links = [
+        ['/', t('header.home')],
+        ['/dashboard', t('header.dashboard')],
+        ['/qrcode', t('header.send_qrcode')],
+        ['/leitor', t('header.reader')],
+        ['/participantes', t('header.participants')],
+        ['/configuracoes', t('header.settings')]
+    ];
+
     return (
         <header className="w-full bg-white dark:bg-gray-900 border-b shadow-sm z-50 relative">
             <div className="px-5 py-4 flex items-center justify-between">
                 <div className="text-xl font-bold text-blue-700">
-                    <NavLink to="/">QR Evento</NavLink>
+                    <NavLink to="/">{t('header.menu_title')}</NavLink>
                 </div>
 
-                {/* Botão Hamburguer */}
                 <button
                     className="md:hidden z-50 focus:outline-none relative w-8 h-8"
                     onClick={toggleMenu}
@@ -89,16 +97,8 @@ export const Header = () => {
                     </div>
                 </button>
 
-                {/* Menu Desktop */}
                 <nav className="hidden md:flex gap-4">
-                    {[
-                        ['/', 'Início'],
-                        ['/dashboard', 'Dashboard'],
-                        ['/qrcode', 'Enviar QR Code'],
-                        ['/leitor', 'Leitor'],
-                        ['/participantes', 'Participantes'],
-                        ['/configuracoes', 'Configurações']
-                    ].map(([path, label]) => (
+                    {links.map(([path, label]) => (
                         <NavLink
                             key={path}
                             to={path}
@@ -114,7 +114,6 @@ export const Header = () => {
                     ))}
                 </nav>
 
-                {/* Dark Mode + Avatar */}
                 <div className="hidden md:flex items-center gap-3 relative">
                     <Switch
                         checked={enabled}
@@ -122,14 +121,14 @@ export const Header = () => {
                         className={`relative inline-flex h-6 w-12 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 ease-in-out ${enabled ? 'bg-blue-600' : 'bg-gray-300'
                             }`}
                     >
-                        <span className="sr-only">Alternar modo escuro</span>
+                        <span className="sr-only">{t('header.dark_mode')}</span>
                         <span
                             className={`inline-block h-5 w-5 transform rounded-full bg-white dark:bg-gray-900 shadow transition duration-200 ease-in-out ${enabled ? 'translate-x-6' : 'translate-x-0.5'
                                 }`}
                         />
                     </Switch>
+                    <LanguageCollapse />
 
-                    {/* Avatar */}
                     <div className="relative" ref={dropdownRef}>
                         <button
                             onClick={() => setDropdownOpen(prev => !prev)}
@@ -143,7 +142,6 @@ export const Header = () => {
                             <ChevronDown className="w-4 h-4 text-gray-700 dark:text-gray-300" />
                         </button>
 
-                        {/* Dropdown */}
                         <AnimatePresence>
                             {dropdownOpen && (
                                 <motion.div
@@ -155,6 +153,7 @@ export const Header = () => {
                                     <div className='p-3'>
                                         <span className='font-bold'>{userData?.name}</span>
                                         <hr className="my-4 border-gray-300 dark:border-gray-600" />
+
                                         <button
                                             onClick={() => {
                                                 setDropdownOpen(false);
@@ -162,13 +161,13 @@ export const Header = () => {
                                             }}
                                             className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                                         >
-                                            <Settings className="w-4 h-4" /> Configurações
+                                            <Settings className="w-4 h-4" /> {t('header.settings')}
                                         </button>
                                         <button
                                             onClick={handleLogout}
                                             className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900"
                                         >
-                                            <LogOut className="w-4 h-4" /> Sair
+                                            <LogOut className="w-4 h-4" /> {t('header.logout')}
                                         </button>
                                     </div>
                                 </motion.div>
@@ -178,7 +177,6 @@ export const Header = () => {
                 </div>
             </div>
 
-            {/* Menu Mobile Fullscreen */}
             <AnimatePresence>
                 {menuOpen && (
                     <motion.nav
@@ -194,7 +192,7 @@ export const Header = () => {
                                 className={`relative inline-flex h-6 w-12 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 ease-in-out ${enabled ? 'bg-blue-600' : 'bg-gray-300'
                                     }`}
                             >
-                                <span className="sr-only">Alternar modo escuro</span>
+                                <span className="sr-only">{t('header.dark_mode')}</span>
                                 <span
                                     className={`inline-block h-5 w-5 transform rounded-full bg-white transition duration-200 ease-in-out ${enabled ? 'translate-x-6' : 'translate-x-0.5'
                                         }`}
@@ -202,14 +200,7 @@ export const Header = () => {
                             </Switch>
                         </div>
 
-                        {[
-                            ['/', 'Início'],
-                            ['/dashboard', 'Dashboard'],
-                            ['/qrcode', 'Enviar QR Code'],
-                            ['/leitor', 'Leitor QR Code'],
-                            ['/participantes', 'Participantes'],
-                            ['/configuracoes', 'Configurações']
-                        ].map(([path, label]) => (
+                        {links.map(([path, label]) => (
                             <NavLink
                                 key={path}
                                 to={path}
@@ -227,7 +218,7 @@ export const Header = () => {
                             }}
                             className="text-white mt-4 bg-red-500 hover:bg-red-600 px-6 py-2 rounded text-lg font-semibold"
                         >
-                            Sair
+                            {t('header.logout')}
                         </button>
                     </motion.nav>
                 )}

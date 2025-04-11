@@ -1,0 +1,101 @@
+{
+  "home": {
+    "title": "Welcome to the QR Code System",
+    "description": "Generate personalized codes for your guests or scan to verify attendance.",
+    "send_qr": "Send QR Code",
+    "read_qr": "Read QR Code"
+  },
+  "header": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "send_qrcode": "Send QR Code",
+    "reader": "QR Code Reader",
+    "participants": "Participants",
+    "settings": "Settings",
+    "logout": "Logout",
+    "dark_mode": "Toggle Dark Mode",
+    "menu_title": "QR Event"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "total_participantes": "Total Participants",
+    "enviados": "Sent",
+    "nao_enviados": "Not Sent",
+    "com_combo": "Participants with Combo",
+    "valor_total_ingressos": "Total Ticket Value",
+    "valor_total_combo": "Total Combo Value",
+    "valor_total_arrecadado": "Total Amount Collected",
+    "status_presenca": "Attendance Status",
+    "distribuicao_arrecadacao": "Revenue Distribution",
+    "moeda": "R$ {{valor}}"
+  },
+    "participants": {
+      "participantsList": "Participants List",
+      "all": "All",
+      "sent": "Sent",
+      "unsent": "Unsent",
+      "sendWhatsApp": "Send WhatsApp",
+      "showQRCode": "Show QR Code",
+      "idLabel": "ID",
+      "prevPage": "Previous",
+      "nextPage": "Next",
+      "page": "Page",
+      "of": "of",
+      "whatsappMessage": "🎬 Hello, {{name}}!\n\n📩 Here is your *registration confirmation* to watch *The Chosen* at *Kinoplex São Luiz*.\n\n🪪 Show this QRCode to the *Federação da UMP* staff to access the session.\n\n🖼️ Your QR Code: {{qrLink}}\n\n🍿 Enjoy the movie! 🎉",
+      "whatsappSent": "WhatsApp sent to {{name}}"
+    },
+    "reader": {
+      "title": "QR Code Reader",
+      "progress": "Progress",
+      "scanned": "{{readCount}} of {{totalCount}} read",
+      "startScan": "Start Scanning",
+      "stopScan": "Stop Scanning",
+      "all": "All",
+      "read": "Read",
+      "unread": "Unread",
+      "participants": "Participants",
+      "verified": "Verified",
+      "markAsRead": "Mark as read",
+      "markAsUnread": "Mark as unread",
+      "scanSuccessTitle": "QR Code read successfully!",
+      "scanSuccessName": "{{name}}",
+      "close": "Close",
+      "scanErrorTitle": "QR Code read error",
+      "scanErrorMessage": "Invalid QR Code. Participant not found.",
+      "stopError": "Error stopping scanner."
+    },
+    "participants": {
+      "table": {
+        "select": "Select",
+        "photo": "Photo",
+        "name": "First Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "combo": "Combo",
+        "sent": "Sent",
+        "read": "Read",
+        "actions": "Actions",
+        "yes": "Yes",
+        "no": "No",
+        "edit": "Edit",
+        "delete": "Delete",
+        "participants": "Participants"
+      },
+      "modals": {
+        "confirmDelete": {
+          "title": "Confirm Deletion",
+          "message": "Are you sure you want to delete {{name}}?",
+          "cancel": "Cancel",
+          "confirm": "Delete"
+        },
+        "bulkDelete": {
+          "title": "Delete Participants",
+          "message": "Are you sure you want to delete {{count}} selected participant(s)?",
+          "cancel": "Cancel",
+          "confirm": "Confirm"
+        }
+      }
+    }
+    
+  }
+  

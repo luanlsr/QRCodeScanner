@@ -12,7 +12,7 @@ import {
 import { getAllParticipants } from '../data/crud';
 import { useProtectRoute } from '../hooks/useProtectRout';
 import { Person } from '../models/Person';
-
+import { useTranslation } from 'react-i18next';
 
 export const Dashboard = () => {
     const [total, setTotal] = useState(0);
@@ -24,19 +24,21 @@ export const Dashboard = () => {
     const [sent, setSent] = useState(0);
     const [data, setData] = useState<Person[]>([]);
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation();
+
     const notSent = total - sent;
+
     const chartData = [
-        { name: 'Enviados', value: sent },
-        { name: 'Não enviados', value: notSent },
+        { name: t('dashboard.enviados'), value: sent },
+        { name: t('dashboard.nao_enviados'), value: notSent },
     ];
 
     const chartTipoData = [
-        { name: 'Combos Pipoca', value: valorPorTipo.combo },
-        { name: 'Ingressos', value: valorPorTipo.ingresso },
+        { name: t('dashboard.com_combo'), value: valorPorTipo.combo },
+        { name: t('dashboard.valor_total_ingressos'), value: valorPorTipo.ingresso },
     ];
 
     const COLORS = ['#10B981', '#FBBF24'];
-
     const valorTotal = data.reduce((acc, curr) => acc + (curr.valor || 0), 0);
 
     useEffect(() => {
@@ -95,30 +97,30 @@ export const Dashboard = () => {
 
     return (
         <main className="pt-[80px] px-4 py-6 bg-gray-50 dark:bg-gray-900" style={{ height: 'calc(100vh - 73px)' }}>
-            <h1 className="text-3xl font-bold text-gray-800 mb-6 dark:text-white">Dashboard</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-6 dark:text-white">{t('dashboard.title')}</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <Card>
                     <CardContent className="p-6 text-center dark:bg-gray-800 dark:text-white">
                         <h2 className="text-2xl font-bold">{loading ? '...' : total}</h2>
-                        <p>Total de Participantes</p>
+                        <p>{t('dashboard.total_participantes')}</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardContent className="p-6 text-center dark:bg-gray-800 dark:text-white">
                         <h2 className="text-2xl font-bold text-green-600">{loading ? '...' : sent}</h2>
-                        <p>Enviados</p>
+                        <p>{t('dashboard.enviados')}</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardContent className="p-6 text-center dark:bg-gray-800 dark:text-white">
                         <h2 className="text-2xl font-bold text-yellow-600">{loading ? '...' : notSent}</h2>
-                        <p>Não enviados</p>
+                        <p>{t('dashboard.nao_enviados')}</p>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardContent className="p-6 text-center dark:bg-gray-800 dark:text-white">
                         <h2 className="text-2xl font-bold text-purple-600">{loading ? '...' : comboCount}</h2>
-                        <p>Participantes com Combo</p>
+                        <p>{t('dashboard.com_combo')}</p>
                     </CardContent>
                 </Card>
                 <Card>
@@ -129,7 +131,7 @@ export const Dashboard = () => {
                                 currency: 'BRL',
                             })}
                         </h2>
-                        <p>Valor Total Ingressos</p>
+                        <p>{t('dashboard.valor_total_ingressos')}</p>
                     </CardContent>
                 </Card>
                 <Card>
@@ -140,7 +142,7 @@ export const Dashboard = () => {
                                 currency: 'BRL',
                             })}
                         </h2>
-                        <p>Valor Total Combo</p>
+                        <p>{t('dashboard.valor_total_combo')}</p>
                     </CardContent>
                 </Card>
                 <Card>
@@ -151,14 +153,14 @@ export const Dashboard = () => {
                                 currency: 'BRL',
                             })}
                         </h2>
-                        <p>Valor Total Arrecadado</p>
+                        <p>{t('dashboard.valor_total_arrecadado')}</p>
                     </CardContent>
                 </Card>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
                 {/* Gráfico - Status de Presença */}
                 <div className="bg-white rounded-xl shadow p-4 dark:bg-gray-800 dark:text-white">
-                    <h2 className="text-lg font-semibold mb-2">Status de Presença</h2>
+                    <h2 className="text-lg font-semibold mb-2">{t('dashboard.status_presenca')}</h2>
                     <div className="h-64 flex items-center justify-center text-gray-400 ">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
@@ -183,7 +185,7 @@ export const Dashboard = () => {
                     </div>
                 </div>
                 <div className="bg-white rounded-xl shadow p-4 dark:bg-gray-800 dark:text-white">
-                    <h2 className="text-lg font-semibold mb-2">Distribuição de Arrecadação</h2>
+                    <h2 className="text-lg font-semibold mb-2">{t('dashboard.distribuicao_arrecadacao')}</h2>
                     <div className="h-64 flex items-center justify-center text-gray-400">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>

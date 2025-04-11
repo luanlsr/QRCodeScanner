@@ -12,6 +12,8 @@ import { Person } from '../models/Person';
 import { supabase } from '../superbase';
 import { MobileParticipantCard } from '../components/MobileParticipantCard';
 import { useMediaQuery } from '../hooks/useMediaQuery';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
+import { useTranslation } from 'react-i18next';
 
 export const Participants = () => {
     const [participants, setParticipants] = useState<Person[]>([]);
@@ -30,6 +32,8 @@ export const Participants = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [showBulkDeleteModal, setShowBulkDeleteModal] = useState(false);
     const [showFilters, setShowFilters] = useState(false);
+
+    const { t } = useTranslation();
 
     const isMobile = useMediaQuery('(max-width: 768px)');
     useProtectRoute();
@@ -235,7 +239,7 @@ export const Participants = () => {
     // Colunas para desktop
     const desktopColumns: TableColumn<Person>[] = [
         {
-            name: 'Selecionar',
+            name: `${t('participants.table.select')}`,
             cell: (row) => (
                 <input
                     type="checkbox"
@@ -247,7 +251,7 @@ export const Participants = () => {
             width: '80px',
         },
         {
-            name: 'Foto',
+            name: `${t('participants.table.photo')}`,
             selector: row => row.photo_url || '',
             cell: row => (
                 <img
@@ -259,25 +263,25 @@ export const Participants = () => {
             width: '80px',
         },
         {
-            name: 'Nome',
+            name: `${t('participants.table.name')}`,
             selector: row => row.name,
             sortable: true,
             minWidth: '150px',
         },
         {
-            name: 'Sobrenome',
+            name: `${t('participants.table.lastName')}`,
             selector: row => row.last_name,
             sortable: true,
             minWidth: '150px',
         },
         {
-            name: 'Email',
+            name: `${t('participants.table.email')}`,
             selector: row => row.email || '-',
             sortable: true,
             minWidth: '200px',
         },
         {
-            name: 'Combo',
+            name: `${t('participants.table.combo')}`,
             cell: row => (
                 <button
                     onClick={e => {
@@ -296,19 +300,19 @@ export const Participants = () => {
             width: '80px',
         },
         {
-            name: 'Enviado',
-            selector: row => (row.sent ? 'Sim' : 'Não'),
+            name: `${t('participants.table.sent')}`,
+            selector: row => (row.sent ? `${t('participants.table.yes')}` : `${t('participants.table.no')}`),
             sortable: true,
             width: '100px',
         },
         {
-            name: 'Lido',
-            selector: row => (row.read ? 'Sim' : 'Não'),
+            name: `${t('participants.table.read')}`,
+            selector: row => (row.read ? `${t('participants.table.yes')}` : `${t('participants.table.no')}`),
             sortable: true,
             width: '100px',
         },
         {
-            name: 'Ações',
+            name: `${t('participants.table.action')}`,
             cell: row => (
                 <div className="flex gap-2">
                     <button
@@ -317,7 +321,7 @@ export const Participants = () => {
                             openEditModal(row);
                         }}
                         className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                        title="Editar"
+                        title={`${t('participants.table.edit')}`}
                     >
                         <Pencil size={16} />
                     </button>
@@ -328,7 +332,7 @@ export const Participants = () => {
                             setShowConfirmModal(true);
                         }}
                         className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
-                        title="Deletar"
+                        title={`${t('participants.table.delete')}`}
                     >
                         <Trash size={16} />
                     </button>
@@ -363,7 +367,7 @@ export const Participants = () => {
     return (
         <main className="pt-[80px] px-4 py-6 bg-gray-50 dark:bg-gray-800 text-gray-800 min-h-[calc(100vh-73px)]">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 dark:text-white">
-                Participantes
+                {`${t('participants.table.participants')}`}
             </h1>
 
             {/* Barra de ações e busca */}
@@ -549,36 +553,18 @@ export const Participants = () => {
 
             {/* Modal de confirmação de exclusão */}
             {showConfirmModal && personToDelete && (
-                <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md shadow-lg">
-                        <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
-                            Confirmar exclusão
-                        </h2>
-                        <p className="mb-4 text-gray-700 dark:text-gray-300">
-                            Tem certeza que deseja excluir <strong>{personToDelete.name}</strong>?
-                        </p>
-                        <div className="flex justify-end gap-2">
-                            <button
-                                onClick={() => setShowConfirmModal(false)}
-                                className="px-4 py-2 text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white"
-                            >
-                                Cancelar
-                            </button>
-                            <button
-                                onClick={() => {
-                                    if (personToDelete?.id) {
-                                        handleDeletePerson(personToDelete.id);
-                                    }
-                                    setShowConfirmModal(false);
-                                    setPersonToDelete(null);
-                                }}
-                                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-                            >
-                                Excluir
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <ConfirmDeleteModal
+                    isOpen={showConfirmModal && !!personToDelete}
+                    personName={personToDelete?.name ?? ""}
+                    onCancel={() => setShowConfirmModal(false)}
+                    onConfirm={() => {
+                        if (personToDelete?.id) {
+                            handleDeletePerson(personToDelete.id);
+                        }
+                        setShowConfirmModal(false);
+                        setPersonToDelete(null);
+                    }}
+                />
             )}
 
             {/* Modal de confirmação de exclusão em massa */}
