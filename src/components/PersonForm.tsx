@@ -4,7 +4,7 @@ import validator from 'validator';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { Person } from '../models/Person';
-
+import { useTranslation } from 'react-i18next';
 interface Props {
     onSave: (data: Omit<Person, 'id'>) => void;
     onCancel: () => void;
@@ -21,7 +21,7 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
     const [emailError, setEmailError] = useState('');
     const [combo, setCombo] = useState(false);
     const [valor, setValor] = useState(25);
-
+    const { t } = useTranslation();
     // Atualiza o valor ao mudar o combo
     useEffect(() => {
         setValor(combo ? 40 : 25);
@@ -61,26 +61,27 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
         <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
             {/* Nome */}
             <div className="mb-4">
-                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="name">Nome</label>
+                <label htmlFor="name" className="block text-gray-700 dark:text-gray-200 mb-2">{t('form.name')}</label>
                 <input
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Ex: Fulano"
+                    placeholder={t('form.namePlaceholder')}
                     value={formData.name}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-gray-100"
                     required
                 />
             </div>
+
             {/* Sobrenome */}
             <div className="mb-4">
-                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="last_name">Sobrenome</label>
+                <label htmlFor="last_name" className="block text-gray-700 dark:text-gray-200 mb-2">{t('form.lastName')}</label>
                 <input
                     type="text"
                     id="last_name"
                     name="last_name"
-                    placeholder="Ex: de Tal"
+                    placeholder={t('form.lastNamePlaceholder')}
                     value={formData.last_name}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-gray-100"
@@ -90,23 +91,23 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
 
             {/* Email */}
             <div className="mb-4">
-                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="email">Email</label>
+                <label htmlFor="email" className="block text-gray-700 dark:text-gray-200 mb-2">{t('form.email')}</label>
                 <input
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="Ex: joao@email.com"
+                    placeholder={t('form.emailPlaceholder')}
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 text-gray-800 dark:text-gray-100"
                     required
                 />
-                {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+                {emailError && <p className="text-red-500 text-sm mt-1">{t('form.invalidEmail')}</p>}
             </div>
 
             {/* Telefone */}
             <div className="mb-4">
-                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="phone">Telefone (com DDI)</label>
+                <label htmlFor="phone" className="block text-gray-700 dark:text-gray-200 mb-2">{t('form.phone')}</label>
                 <PhoneInput
                     country={'br'}
                     value={formData.phone}
@@ -125,7 +126,7 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
 
             {/* Combo */}
             <div className="mb-4">
-                <label className="block text-gray-700 dark:text-gray-200 mb-2">Pagou Combo?</label>
+                <label className="block text-gray-700 dark:text-gray-200 mb-2">{t('form.combo')}</label>
                 <div className="flex gap-4 text-gray-800 dark:text-gray-100">
                     <label className="flex items-center gap-2">
                         <input
@@ -135,7 +136,7 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                             checked={combo === true}
                             onChange={() => setCombo(true)}
                         />
-                        Sim (+ R$ 15)
+                        {t('form.comboYes')}
                     </label>
                     <label className="flex items-center gap-2">
                         <input
@@ -145,14 +146,14 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                             checked={combo === false}
                             onChange={() => setCombo(false)}
                         />
-                        Não
+                        {t('form.comboNo')}
                     </label>
                 </div>
             </div>
 
             {/* Valor */}
             <div className="mb-6">
-                <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="valor">Valor Total (R$)</label>
+                <label htmlFor="valor" className="block text-gray-700 dark:text-gray-200 mb-2">{t('form.total')}</label>
                 <input
                     type="text"
                     id="valor"
@@ -170,14 +171,14 @@ export const PersonForm: React.FC<Props> = ({ onSave, onCancel }) => {
                     onClick={onCancel}
                     className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500"
                 >
-                    <X size={18} /> Cancelar
+                    <X size={18} /> {t('form.cancel')}
                 </button>
                 <button
                     type="submit"
                     className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                     disabled={!!emailError}
                 >
-                    <Check size={18} /> Salvar
+                    <Check size={18} /> {t('form.save')}
                 </button>
             </div>
         </form>

@@ -4,7 +4,7 @@ import { getAllParticipants, createParticipant, deleteParticipant, updatePartici
 import { Modal } from '../components/Modal';
 import { PersonForm } from '../components/PersonForm';
 import { ParticipantDetailsModal } from '../components/ParticipantDetailsModal';
-import { Plus, Trash, Pencil, Popcorn, Filter, Search } from 'lucide-react';
+import { Trash, Pencil, Popcorn } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { PersonEditForm } from '../components/PersonEditForm';
 import { useProtectRoute } from '../hooks/useProtectRout';
@@ -12,8 +12,11 @@ import { Person } from '../models/Person';
 import { supabase } from '../superbase';
 import { MobileParticipantCard } from '../components/MobileParticipantCard';
 import { useMediaQuery } from '../hooks/useMediaQuery';
-import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import { useTranslation } from 'react-i18next';
+import { formatPhoneNumber } from '../utils/utils';
+import { ConfirmDeleteModal } from '../components/ConfirmDeleteModal';
+import { ActionBar } from '../components/ActionBar';
+import { BulkDeleteModal } from '../components/BulkDeleteModal';
 
 export const Participants = () => {
     const [participants, setParticipants] = useState<Person[]>([]);
@@ -275,6 +278,12 @@ export const Participants = () => {
             minWidth: '150px',
         },
         {
+            name: `${t('participants.table.phone')}`,
+            selector: row => formatPhoneNumber(row.phone),
+            sortable: true,
+            minWidth: '150px',
+        },
+        {
             name: `${t('participants.table.email')}`,
             selector: row => row.email || '-',
             sortable: true,
@@ -312,7 +321,7 @@ export const Participants = () => {
             width: '100px',
         },
         {
-            name: `${t('participants.table.action')}`,
+            name: `${t('participants.table.actions')}`,
             cell: row => (
                 <div className="flex gap-2">
                     <button
@@ -343,26 +352,7 @@ export const Participants = () => {
         }
     ];
 
-    // Colunas simplificadas para mobile
-    const mobileColumns: TableColumn<Person>[] = [
-        {
-            name: 'Participantes',
-            cell: row => (
-                <MobileParticipantCard
-                    participant={row}
-                    isSelected={selectedParticipants.includes(row.id)}
-                    onToggleSelect={() => toggleSelection(row.id)}
-                    onEdit={() => openEditModal(row)}
-                    onDelete={() => {
-                        setPersonToDelete(row);
-                        setShowConfirmModal(true);
-                    }}
-                    onToggleCombo={() => toggleComboStatus(row)}
-                />
-            ),
-            sortable: false,
-        }
-    ];
+
 
     return (
         <main className="pt-[80px] px-4 py-6 bg-gray-50 dark:bg-gray-800 text-gray-800 min-h-[calc(100vh-73px)]">
@@ -371,106 +361,24 @@ export const Participants = () => {
             </h1>
 
             {/* Barra de ações e busca */}
-            <div className="flex flex-col gap-4 mb-4">
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-                    <button
-                        onClick={() => setShowAddModal(true)}
-                        className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 text-sm sm:text-base"
-                    >
-                        <Plus size={18} />
-                        <span>{isMobile ? 'Adicionar' : 'Adicionar participante'}</span>
-                    </button>
-
-                    <div className="flex gap-2">
-                        <button
-                            onClick={handleSelectAll}
-                            className="px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-sm whitespace-nowrap"
-                        >
-                            {isAllSelected ? "Desmarcar todos" : "Marcar todos"}
-                        </button>
-                        <button
-                            onClick={handleBulkDelete}
-                            className="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm whitespace-nowrap"
-                            disabled={selectedParticipants.length === 0}
-                        >
-                            {isMobile ? "Excluir" : "Excluir selecionados"}
-                        </button>
-                    </div>
-
-                    <div className="relative flex-1">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <Search size={18} className="text-gray-400" />
-                        </div>
-                        <input
-                            type="text"
-                            placeholder="Buscar por nome..."
-                            value={search}
-                            onChange={e => setSearch(e.target.value)}
-                            className="pl-10 w-full px-4 py-2 border rounded shadow-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                        />
-                    </div>
-                </div>
-
-                {/* Filtros - versão mobile */}
-                {isMobile && (
-                    <div className="flex flex-col gap-2">
-                        <button
-                            onClick={() => setShowFilters(!showFilters)}
-                            className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg text-sm"
-                        >
-                            <Filter size={16} />
-                            <span>Filtros</span>
-                        </button>
-
-                        {showFilters && (
-                            <div className="grid grid-cols-2 gap-2 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                                {[
-                                    { label: 'Combo', value: comboFilter, setter: setComboFilter },
-                                    { label: 'Enviado', value: sentFilter, setter: setSentFilter },
-                                    { label: 'Lido', value: readFilter, setter: setReadFilter },
-                                ].map(({ label, value, setter }, index) => (
-                                    <div key={index} className="flex flex-col">
-                                        <span className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-1">{label}</span>
-                                        <select
-                                            value={value}
-                                            onChange={e => setter(e.target.value)}
-                                            className="px-2 py-1 border rounded shadow-sm text-xs bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                                        >
-                                            <option value="todos">Todos</option>
-                                            <option value="sim">Sim</option>
-                                            <option value="nao">Não</option>
-                                        </select>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                )}
-
-                {/* Filtros - versão desktop */}
-                {!isMobile && (
-                    <div className="flex flex-wrap gap-4">
-                        {[
-                            { label: 'Combo', value: comboFilter, setter: setComboFilter },
-                            { label: 'Enviado', value: sentFilter, setter: setSentFilter },
-                            { label: 'Lido', value: readFilter, setter: setReadFilter },
-                        ].map(({ label, value, setter }, index) => (
-                            <div key={index} className="flex flex-col">
-                                <span className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{label}</span>
-                                <select
-                                    value={value}
-                                    onChange={e => setter(e.target.value)}
-                                    className="px-2 py-1 border rounded shadow-sm text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                                >
-                                    <option value="todos">Todos</option>
-                                    <option value="sim">Sim</option>
-                                    <option value="nao">Não</option>
-                                </select>
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </div>
+            <ActionBar
+                isMobile={isMobile}
+                search={search}
+                setSearch={setSearch}
+                setShowAddModal={setShowAddModal}
+                onSelectAll={handleSelectAll}
+                onBulkDelete={handleBulkDelete}
+                isAllSelected={isAllSelected}
+                selectedCount={selectedParticipants.length}
+                comboFilter={comboFilter}
+                setComboFilter={setComboFilter}
+                sentFilter={sentFilter}
+                setSentFilter={setSentFilter}
+                readFilter={readFilter}
+                setReadFilter={setReadFilter}
+                showFilters={showFilters}
+                setShowFilters={setShowFilters}
+            />
 
             {/* Tabela/Lista de participantes */}
             {isMobile ? (
@@ -516,7 +424,7 @@ export const Participants = () => {
             <Modal
                 isOpen={showAddModal}
                 onClose={() => setShowAddModal(false)}
-                title="Novo Participante"
+                title={t('participants.actionBar.new')}
                 size={isMobile ? 'md' : 'xl'}
             >
                 <PersonForm
@@ -539,7 +447,7 @@ export const Participants = () => {
             <Modal
                 isOpen={showEditModal}
                 onClose={() => setShowEditModal(false)}
-                title="Editar Participante"
+                title={t('participants.actionBar.edit')}
                 size={isMobile ? 'md' : 'lg'}
             >
                 {editingPerson && (
@@ -569,31 +477,13 @@ export const Participants = () => {
 
             {/* Modal de confirmação de exclusão em massa */}
             {showBulkDeleteModal && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 p-4">
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-                        <h2 className="text-xl font-semibold mb-4 dark:text-white">
-                            Excluir Participantes
-                        </h2>
-                        <p className="mb-4 dark:text-gray-300">
-                            Você tem certeza de que deseja excluir {selectedParticipants.length} participante(s) selecionado(s)?
-                        </p>
-                        <div className="flex justify-end gap-4">
-                            <button
-                                onClick={() => setShowBulkDeleteModal(false)}
-                                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 dark:bg-gray-600 dark:text-white"
-                            >
-                                Cancelar
-                            </button>
-                            <button
-                                onClick={handleConfirmBulkDelete}
-                                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                            >
-                                Confirmar
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <BulkDeleteModal
+                    count={selectedParticipants.length}
+                    onCancel={() => setShowBulkDeleteModal(false)}
+                    onConfirm={handleConfirmBulkDelete}
+                />
             )}
         </main>
     );
+
 };

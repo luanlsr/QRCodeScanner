@@ -25,76 +25,137 @@
     "valor_total_ingressos": "Valeur Totale des Billets",
     "valor_total_combo": "Valeur Totale du Combo",
     "valor_total_arrecadado": "Montant Total Collecté",
+    "caixa": "Caisse",
     "status_presenca": "Statut de Présence",
     "distribuicao_arrecadacao": "Répartition des Recettes",
     "moeda": "R$ {{valor}}"
   },
-  "participants": {
-    "participantsList": "Liste des Participants",
-    "all": "Tous",
-    "sent": "Envoyés",
-    "unsent": "Non envoyés",
-    "sendWhatsApp": "Envoyer WhatsApp",
-    "showQRCode": "Afficher le QR Code",
-    "idLabel": "ID",
-    "prevPage": "Précédente",
-    "nextPage": "Suivante",
-    "page": "Page",
-    "of": "de",
-    "whatsappMessage": "🎬 Bonjour, {{name}} !\n\n📩 Voici votre *confirmation d'inscription* pour assister à *The Chosen* au *Kinoplex São Luiz*.\n\n🪪 Montrez ce QR Code au personnel de la *Fédération de l'UMP* pour accéder à la séance.\n\n🖼️ Votre QR Code : {{qrLink}}\n\n🍿 Bon film ! 🎉",
-    "whatsappSent": "WhatsApp envoyé à {{name}}"
-    },
-    "reader": {
-      "title": "Lecteur de QR Code",
-      "progress": "Progression",
-      "scanned": "{{readCount}} sur {{totalCount}} lus",
-      "startScan": "Démarrer la lecture",
-      "stopScan": "Arrêter la lecture",
-      "all": "Tous",
-      "read": "Lus",
-      "unread": "Non lus",
-      "participants": "Participants",
-      "verified": "Vérifié",
-      "markAsRead": "Marquer comme lu",
-      "markAsUnread": "Marquer comme non lu",
-      "scanSuccessTitle": "QR Code lu avec succès !",
-      "scanSuccessName": "{{name}}",
-      "close": "Fermer",
-      "scanErrorTitle": "Erreur de lecture du QR Code",
-      "scanErrorMessage": "QR Code invalide. Participant introuvable.",
-      "stopError": "Erreur lors de l'arrêt du lecteur."
-    },
+  "reader": {
+  "title": "Lecteur de QR Code",
+  "progress": "Progression",
+  "scanned": "{{readCount}} sur {{totalCount}} lus",
+  "stopError": "Arrêter",
+  "startScan": "Démarrer la lecture",
+  "stopScan": "Arrêter la lecture",
+  "all": "Tous",
+  "read": "Lu",
+  "unread": "Non lus",
+  "participants": "Participants",
+  "close": "Fermer",
+  "markAsRead": "Marquer comme lu",
+  "markAsUnread": "Marquer comme non lu",
+  "verified": "Vérifié"
+},
     "participants": {
-      "table": {
-        "select": "Sélectionner",
-        "photo": "Photo",
-        "name": "Prénom",
-        "lastName": "Nom",
-        "email": "Email",
-        "combo": "Combo",
-        "sent": "Envoyé",
-        "read": "Lu",
-        "actions": "Actions",
-        "yes": "Oui",
-        "no": "Non",
-        "edit": "Éditer",
-        "delete": "Supprimer",
-        "participants": "Participants"
-      },
-      "modals": {
-        "confirmDelete": {
-          "title": "Confirmer la suppression",
-          "message": "Êtes-vous sûr de vouloir supprimer {{name}} ?",
-          "cancel": "Annuler",
-          "confirm": "Supprimer"
-        },
-        "bulkDelete": {
-          "title": "Supprimer les participants",
-          "message": "Êtes-vous sûr de vouloir supprimer {{count}} participant(s) sélectionné(s) ?",
-          "cancel": "Annuler",
-          "confirm": "Confirmer"
-        }
-      }
+  "table": {
+    "select": "Sélectionner",
+    "photo": "Photo",
+    "name": "Prénom",
+    "lastName": "Nom",
+    "phone": "Téléphone",
+    "email": "Email",
+    "combo": "Combo",
+    "sent": "Envoyé",
+    "read": "Lu",
+    "actions": "Actions",
+    "edit": "Éditer",
+    "delete": "Supprimer",
+    "participants": "Participants",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "common": {
+    "all": "Tous",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "modals": {
+    "confirmDelete": {
+      "title": "Confirmer la suppression",
+      "message": "Êtes-vous sûr de vouloir supprimer {{name}} ?",
+      "cancel": "Annuler",
+      "confirm": "Supprimer"
+    },
+    "bulkDelete": {
+      "title": "Supprimer les participants",
+      "message": "Êtes-vous sûr de vouloir supprimer {{count}} participant(s) sélectionné(s) ?",
+      "cancel": "Annuler",
+      "confirm": "Confirmer"
     }
+  },
+  "actionBar": {
+    "searchPlaceholder": "Rechercher...",
+    "deselectAll": "Tout désélectionner",
+    "selectAll": "Tout sélectionner",
+    "deleteSelected": "Supprimer les sélectionnés",
+    "new": "Ajouter nouveau",
+    "edit": "Modifier le Participant",
+    "hideFilters": "Masquer les filtres",
+    "showFilters": "Afficher les filtres"
+  }
+},
+"settings": {
+  "tabs": {
+    "profile": "Profil",
+    "notifications": "Notifications",
+    "password": "Changer le mot de passe",
+    "preferences": "Préférences",
+    "security": "Sécurité"
+  },
+  "profile": {
+    "title": "Profil",
+    "name": "Nom",
+    "email": "Email"
+  },
+  "notifications": {
+    "email": "Notifications par e-mail",
+    "push": "Notifications push"
+  },
+  "password": {
+    "title": "Changer le mot de passe",
+    "current": "Mot de passe actuel",
+    "new": "Nouveau mot de passe",
+    "confirm": "Confirmer le nouveau mot de passe",
+    "update": "Mettre à jour le mot de passe",
+    "success": "Mot de passe mis à jour avec succès !",
+    "error_mismatch": "Les nouveaux mots de passe ne correspondent pas.",
+    "error_empty": "Veuillez remplir tous les champs.",
+    "error_invalid": "Session invalide.",
+    "error_wrong": "Mot de passe actuel incorrect.",
+    "error_update": "Erreur lors de la mise à jour : {{error}}"
+  },
+  "preferences": {
+    "theme": "Thème",
+    "language": "Langue",
+    "system": "Système",
+    "light": "Clair",
+    "dark": "Sombre",
+    "pt": "Portugais",
+    "en": "Anglais"
+  },
+  "security": {
+    "lastLogin": "Dernière connexion : {{date}}",
+    "devices": "Appareils connectés :",
+    "disconnect": "Déconnecter tous les appareils"
+  },
+  "loadingUser": "Chargement de l'utilisateur..."
+},
+"form": {
+        "name": "Nom",
+        "namePlaceholder": "Ex : Jean",
+        "lastName": "Prénom",
+        "lastNamePlaceholder": "Ex : Dupont",
+        "email": "Email",
+        "emailPlaceholder": "Ex : jean@email.com",
+        "invalidEmail": "Email invalide",
+        "phone": "Téléphone (avec code pays)",
+        "combo": "Avez-vous acheté le Combo ?",
+        "comboYes": "Oui (+ 15 R$)",
+        "comboNo": "Non",
+        "total": "Montant total (R$)",
+        "cancel": "Annuler",
+        "save": "Enregistrer"
+    }
+
     
 }

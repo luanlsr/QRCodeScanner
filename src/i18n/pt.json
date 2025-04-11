@@ -25,44 +25,26 @@
       "valor_total_ingressos": "Valor Total Ingressos",
       "valor_total_combo": "Valor Total Combo",
       "valor_total_arrecadado": "Valor Total Arrecadado",
+      "caixa": "Caixa",
       "status_presenca": "Status de Presença",
       "distribuicao_arrecadacao": "Distribuição de Arrecadação",
       "moeda": "R$ {{valor}}"
     },
-    "participants": {
-      "participantsList": "Lista de Participantes",
-      "all": "Todos",
-      "sent": "Enviados",
-      "unsent": "Não enviados",
-      "sendWhatsApp": "Enviar WhatsApp",
-      "showQRCode": "Mostrar QR Code",
-      "idLabel": "ID",
-      "prevPage": "Anterior",
-      "nextPage": "Próxima",
-      "page": "Página",
-      "of": "de",
-      "whatsappMessage": "🎬 Olá, {{name}}!\n\n📩 Aqui está a sua *confirmação de inscrição* para assistir *The Chosen* no *Kinoplex São Luiz*.\n\n🪪 Mostre este QRCode para o pessoal da *Federação da UMP* para acessar a sessão.\n\n🖼️ Seu QR Code: {{qrLink}}\n\n🍿 Bom filme! 🎉",
-      "whatsappSent": "WhatsApp enviado para {{name}}"
-    },
-    "reader": {
-      "title": "Leitor QR Code",
-      "progress": "Progresso",
-      "scanned": "{{readCount}} de {{totalCount}} lidos",
-      "startScan": "Iniciar Leitura",
+    "reader":{
+      "title":"Leitor QR Code",
+      "progress":"Progresso",
+      "scanned":"{{readCount}} de {{totalCount}} lidos",
+      "stopError":"Parar",
+      "startScan":"Iniciar Leitura",
       "stopScan": "Parar Leitura",
-      "all": "Todos",
-      "read": "Lidos",
-      "unread": "Não lidos",
-      "participants": "Participantes",
-      "verified": "Verificado",
+      "all":"Todos",
+      "read": "Lido",
+      "unread":"Não lidos",
+      "participants":"Participantes",
+      "close": "Fechar",
       "markAsRead": "Marcar como lido",
       "markAsUnread": "Marcar como não lido",
-      "scanSuccessTitle": "QR Code lido com sucesso!",
-      "scanSuccessName": "{{name}}",
-      "close": "Fechar",
-      "scanErrorTitle": "Erro ao ler QR Code",
-      "scanErrorMessage": "QR Code inválido. Participante não encontrado.",
-      "stopError": "Erro ao parar scanner."
+      "verified":"Verificado"
     },
     "participants": {
       "table": {
@@ -70,16 +52,22 @@
         "photo": "Foto",
         "name": "Nome",
         "lastName": "Sobrenome",
+        "phone": "Telefone",
         "email": "Email",
         "combo": "Combo",
         "sent": "Enviado",
         "read": "Lido",
         "actions": "Ações",
-        "yes": "Sim",
-        "no": "Não",
         "edit": "Editar",
         "delete": "Excluir",
-        "participants": "Participantes"
+        "participants": "Participantes",
+        "yes": "Sim",
+        "no": "Não"
+      },
+      "common": {
+        "all": "Todos",
+        "yes": "Sim",
+        "no": "Não"
       },
       "modals": {
         "confirmDelete": {
@@ -94,7 +82,79 @@
           "cancel": "Cancelar",
           "confirm": "Confirmar"
         }
+      },
+      "actionBar": {
+        "searchPlaceholder": "Buscar...",
+        "deselectAll": "Desmarcar todos",
+        "selectAll": "Selecionar todos",
+        "deleteSelected": "Excluir selecionados",
+        "new": "Adicionar Novo",
+        "edit": "Editar Participante",
+        "hideFilters": "Ocultar filtros",
+        "showFilters": "Exibir filtros"
       }
+    },
+    "settings": {
+      "tabs": {
+        "profile": "Perfil",
+        "notifications": "Notificações",
+        "password": "Trocar Senha",
+        "preferences": "Preferências",
+        "security": "Segurança"
+      },
+      "profile": {
+        "title": "Perfil",
+        "name": "Nome",
+        "email": "Email"
+      },
+      "notifications": {
+        "email": "Notificações por e-mail",
+        "push": "Notificações por push"
+      },
+      "password": {
+        "title": "Trocar Senha",
+        "current": "Senha atual",
+        "new": "Nova senha",
+        "confirm": "Confirmar nova senha",
+        "update": "Atualizar senha",
+        "success": "Senha alterada com sucesso!",
+        "error_mismatch": "As senhas novas não coincidem.",
+        "error_empty": "Preencha todos os campos.",
+        "error_invalid": "Sessão inválida.",
+        "error_wrong": "Senha atual incorreta.",
+        "error_update": "Erro ao atualizar: {{error}}"
+      },
+      "preferences": {
+        "theme": "Tema",
+        "language": "Idioma",
+        "system": "Sistema",
+        "light": "Claro",
+        "dark": "Escuro",
+        "pt": "Português",
+        "en": "Inglês"
+      },
+      "security": {
+        "lastLogin": "Último login: {{date}}",
+        "devices": "Dispositivos conectados:",
+        "disconnect": "Desconectar todos os dispositivos"
+      },
+      "loadingUser": "Carregando usuário..."
+    },
+      "form": {
+        "name": "Nome",
+        "namePlaceholder": "Ex: Fulano",
+        "lastName": "Sobrenome",
+        "lastNamePlaceholder": "Ex: de Tal",
+        "email": "Email",
+        "emailPlaceholder": "Ex: joao@email.com",
+        "invalidEmail": "Email inválido",
+        "phone": "Telefone (com DDI)",
+        "combo": "Pagou Combo?",
+        "comboYes": "Sim (+ R$ 15)",
+        "comboNo": "Não",
+        "total": "Valor Total (R$)",
+        "cancel": "Cancelar",
+        "save": "Salvar"
     }
     
   }

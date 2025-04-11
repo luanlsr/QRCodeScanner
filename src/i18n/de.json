@@ -25,78 +25,135 @@
     "valor_total_ingressos": "Gesamtwert der Tickets",
     "valor_total_combo": "Gesamtwert der Combos",
     "valor_total_arrecadado": "Gesamterhobener Betrag",
+    "caixa": "Bargeld",
     "status_presenca": "Anwesenheitsstatus",
     "distribuicao_arrecadacao": "Einnahmenverteilung",
     "moeda": "R$ {{valor}}"
   },
+"reader": {
+  "title": "QR-Code-Leser",
+  "progress": "Fortschritt",
+  "scanned": "{{readCount}} von {{totalCount}} gelesen",
+  "stopError": "Stopp",
+  "startScan": "Scan starten",
+  "stopScan": "Scan stoppen",
+  "all": "Alle",
+  "read": "Gelesen",
+  "unread": "Ungelesen",
+  "participants": "Teilnehmer",
+  "close": "Schließen",
+  "markAsRead": "Als gelesen markieren",
+  "markAsUnread": "Als ungelesen markieren",
+  "verified": "Verifiziert"
+},
   "participants": {
-    "participantsList": "Teilnehmerliste",
-    "all": "Alle",
+  "table": {
+    "select": "Auswählen",
+    "photo": "Foto",
+    "name": "Vorname",
+    "lastName": "Nachname",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "combo": "Kombination",
     "sent": "Gesendet",
-    "unsent": "Nicht gesendet",
-    "sendWhatsApp": "WhatsApp senden",
-    "showQRCode": "QR-Code anzeigen",
-    "idLabel": "ID",
-    "prevPage": "Zurück",
-    "nextPage": "Weiter",
-    "page": "Seite",
-    "of": "von",
-    "whatsappMessage": "🎬 Hallo, {{name}}!\n\n📩 Hier ist deine *Anmeldebestätigung* für die Vorstellung von *The Chosen* im *Kinoplex São Luiz*.\n\n🪪 Zeige diesen QR-Code dem Personal der *UMP-Föderation*, um Zugang zur Vorstellung zu erhalten.\n\n🖼️ Dein QR-Code: {{qrLink}}\n\n🍿 Viel Spaß beim Film! 🎉",
-    "whatsappSent": "WhatsApp an {{name}} gesendet"
-  },
-  "reader": {
-    "title": "QR-Code-Leser",
-    "progress": "Fortschritt",
-    "scanned": "{{readCount}} von {{totalCount}} gelesen",
-    "startScan": "Scan starten",
-    "stopScan": "Scan stoppen",
-    "all": "Alle",
     "read": "Gelesen",
-    "unread": "Ungelesen",
+    "actions": "Aktionen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
     "participants": "Teilnehmer",
-    "verified": "Verifiziert",
-    "markAsRead": "Als gelesen markieren",
-    "markAsUnread": "Als ungelesen markieren",
-    "scanSuccessTitle": "QR-Code erfolgreich gelesen!",
-    "scanSuccessName": "{{name}}",
-    "close": "Schließen",
-    "scanErrorTitle": "Fehler beim Lesen des QR-Codes",
-    "scanErrorMessage": "Ungültiger QR-Code. Teilnehmer nicht gefunden.",
-    "stopError": "Fehler beim Stoppen des Scanners."
+    "yes": "Ja",
+    "no": "Nein"
   },
-  "participants": {
-    "table": {
-      "select": "Auswählen",
-      "photo": "Foto",
-      "name": "Vorname",
-      "lastName": "Nachname",
-      "email": "E-Mail",
-      "combo": "Kombi",
-      "sent": "Gesendet",
-      "read": "Gelesen",
-      "actions": "Aktionen",
-      "yes": "Ja",
-      "no": "Nein",
-      "edit": "Bearbeiten",
-      "delete": "Löschen",
-      "participants": "Teilnehmer"
+  "common": {
+    "all": "Alle",
+    "yes": "Ja",
+    "no": "Nein"
+  },
+  "modals": {
+    "confirmDelete": {
+      "title": "Löschen bestätigen",
+      "message": "Möchten Sie {{name}} wirklich löschen?",
+      "cancel": "Abbrechen",
+      "confirm": "Löschen"
     },
-    "modals": {
-      "confirmDelete": {
-        "title": "Löschen bestätigen",
-        "message": "Möchten Sie {{name}} wirklich löschen?",
-        "cancel": "Abbrechen",
-        "confirm": "Löschen"
-      },
-      "bulkDelete": {
-        "title": "Teilnehmer löschen",
-        "message": "Möchten Sie wirklich {{count}} ausgewählte(r) Teilnehmer löschen?",
-        "cancel": "Abbrechen",
-        "confirm": "Bestätigen"
-      }
+    "bulkDelete": {
+      "title": "Teilnehmer löschen",
+      "message": "Möchten Sie wirklich {{count}} ausgewählte(n) Teilnehmer löschen?",
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen"
     }
+  },
+  "actionBar": {
+    "searchPlaceholder": "Suchen...",
+    "deselectAll": "Alle abwählen",
+    "selectAll": "Alle auswählen",
+    "deleteSelected": "Ausgewählte löschen",
+    "new": "Neu hinzufügen",
+    "edit": "Teilnehmer bearbeiten",
+    "hideFilters": "Filter ausblenden",
+    "showFilters": "Filter anzeigen"
   }
-  
-
-
+},
+"settings": {
+  "tabs": {
+    "profile": "Profil",
+    "notifications": "Benachrichtigungen",
+    "password": "Passwort ändern",
+    "preferences": "Einstellungen",
+    "security": "Sicherheit"
+  },
+  "profile": {
+    "title": "Profil",
+    "name": "Name",
+    "email": "E-Mail"
+  },
+  "notifications": {
+    "email": "E-Mail-Benachrichtigungen",
+    "push": "Push-Benachrichtigungen"
+  },
+  "password": {
+    "title": "Passwort ändern",
+    "current": "Aktuelles Passwort",
+    "new": "Neues Passwort",
+    "confirm": "Neues Passwort bestätigen",
+    "update": "Passwort aktualisieren",
+    "success": "Passwort erfolgreich geändert!",
+    "error_mismatch": "Neue Passwörter stimmen nicht überein.",
+    "error_empty": "Bitte alle Felder ausfüllen.",
+    "error_invalid": "Ungültige Sitzung.",
+    "error_wrong": "Aktuelles Passwort ist falsch.",
+    "error_update": "Fehler beim Aktualisieren: {{error}}"
+  },
+  "preferences": {
+    "theme": "Thema",
+    "language": "Sprache",
+    "system": "System",
+    "light": "Hell",
+    "dark": "Dunkel",
+    "pt": "Portugiesisch",
+    "en": "Englisch"
+  },
+  "security": {
+    "lastLogin": "Letzte Anmeldung: {{date}}",
+    "devices": "Verbundene Geräte:",
+    "disconnect": "Alle Geräte trennen"
+  },
+  "loadingUser": "Benutzer wird geladen..."
+},
+"form": {
+        "name": "Name",
+        "namePlaceholder": "Z.B. John",
+        "lastName": "Nachname",
+        "lastNamePlaceholder": "Z.B. Müller",
+        "email": "E-Mail",
+        "emailPlaceholder": "Z.B. john@email.com",
+        "invalidEmail": "Ungültige E-Mail",
+        "phone": "Telefon (mit Ländervorwahl)",
+        "combo": "Haben Sie das Combo gekauft?",
+        "comboYes": "Ja (+ 15 R$)",
+        "comboNo": "Nein",
+        "total": "Gesamtbetrag (R$)",
+        "cancel": "Abbrechen",
+        "save": "Speichern"
+    }
 }

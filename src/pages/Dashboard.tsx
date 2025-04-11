@@ -156,6 +156,17 @@ export const Dashboard = () => {
                         <p>{t('dashboard.valor_total_arrecadado')}</p>
                     </CardContent>
                 </Card>
+                <Card>
+                    <CardContent className="p-6 text-center dark:bg-gray-800 dark:text-white">
+                        <h2 className="text-2xl font-bold text-blue-600">
+                            {loading ? '...' : (valorPorTipo.ingresso - (total * 19)).toLocaleString('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL',
+                            })}
+                        </h2>
+                        <p>{t('dashboard.caixa')}</p>
+                    </CardContent>
+                </Card>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
                 {/* Gráfico - Status de Presença */}

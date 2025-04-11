@@ -25,76 +25,136 @@
     "valor_total_ingressos": "Total Ticket Value",
     "valor_total_combo": "Total Combo Value",
     "valor_total_arrecadado": "Total Amount Collected",
+    "caixa": "Cash",
     "status_presenca": "Attendance Status",
     "distribuicao_arrecadacao": "Revenue Distribution",
     "moeda": "R$ {{valor}}"
   },
+  "reader": {
+  "title": "QR Code Reader",
+  "progress": "Progress",
+  "scanned": "{{readCount}} of {{totalCount}} scanned",
+  "stopError": "Stop",
+  "startScan": "Start Scanning",
+  "stopScan": "Stop Scanning",
+  "all": "All",
+  "read": "Read",
+  "unread": "Unread",
+  "participants": "Participants",
+  "close": "Close",
+  "markAsRead": "Mark as Read",
+  "markAsUnread": "Mark as Unread",
+  "verified": "Verified"
+},
     "participants": {
-      "participantsList": "Participants List",
-      "all": "All",
+    "table": {
+      "select": "Select",
+      "photo": "Photo",
+      "name": "First Name",
+      "lastName": "Last Name",
+      "phone": "Phone",
+      "email": "Email",
+      "combo": "Combo",
       "sent": "Sent",
-      "unsent": "Unsent",
-      "sendWhatsApp": "Send WhatsApp",
-      "showQRCode": "Show QR Code",
-      "idLabel": "ID",
-      "prevPage": "Previous",
-      "nextPage": "Next",
-      "page": "Page",
-      "of": "of",
-      "whatsappMessage": "🎬 Hello, {{name}}!\n\n📩 Here is your *registration confirmation* to watch *The Chosen* at *Kinoplex São Luiz*.\n\n🪪 Show this QRCode to the *Federação da UMP* staff to access the session.\n\n🖼️ Your QR Code: {{qrLink}}\n\n🍿 Enjoy the movie! 🎉",
-      "whatsappSent": "WhatsApp sent to {{name}}"
-    },
-    "reader": {
-      "title": "QR Code Reader",
-      "progress": "Progress",
-      "scanned": "{{readCount}} of {{totalCount}} read",
-      "startScan": "Start Scanning",
-      "stopScan": "Stop Scanning",
-      "all": "All",
       "read": "Read",
-      "unread": "Unread",
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
       "participants": "Participants",
-      "verified": "Verified",
-      "markAsRead": "Mark as read",
-      "markAsUnread": "Mark as unread",
-      "scanSuccessTitle": "QR Code read successfully!",
-      "scanSuccessName": "{{name}}",
-      "close": "Close",
-      "scanErrorTitle": "QR Code read error",
-      "scanErrorMessage": "Invalid QR Code. Participant not found.",
-      "stopError": "Error stopping scanner."
+      "yes": "Yes",
+      "no": "No"
     },
-    "participants": {
-      "table": {
-        "select": "Select",
-        "photo": "Photo",
-        "name": "First Name",
-        "lastName": "Last Name",
-        "email": "Email",
-        "combo": "Combo",
-        "sent": "Sent",
-        "read": "Read",
-        "actions": "Actions",
-        "yes": "Yes",
-        "no": "No",
-        "edit": "Edit",
-        "delete": "Delete",
-        "participants": "Participants"
+    "common": {
+      "all": "All",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "modals": {
+      "confirmDelete": {
+        "title": "Confirm Deletion",
+        "message": "Are you sure you want to delete {{name}}?",
+        "cancel": "Cancel",
+        "confirm": "Delete"
       },
-      "modals": {
-        "confirmDelete": {
-          "title": "Confirm Deletion",
-          "message": "Are you sure you want to delete {{name}}?",
-          "cancel": "Cancel",
-          "confirm": "Delete"
-        },
-        "bulkDelete": {
-          "title": "Delete Participants",
-          "message": "Are you sure you want to delete {{count}} selected participant(s)?",
-          "cancel": "Cancel",
-          "confirm": "Confirm"
-        }
+      "bulkDelete": {
+        "title": "Delete Participants",
+        "message": "Are you sure you want to delete {{count}} selected participant(s)?",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
       }
+    },
+    "actionBar": {
+      "searchPlaceholder": "Search...",
+      "deselectAll": "Deselect all",
+      "selectAll": "Select all",
+      "deleteSelected": "Delete selected",
+      "new": "Add New",
+      "edit": "Edit Participant",
+      "hideFilters": "Hide filters",
+      "showFilters": "Show filters"
+    }
+  },
+  "settings": {
+    "tabs": {
+      "profile": "Profile",
+      "notifications": "Notifications",
+      "password": "Change Password",
+      "preferences": "Preferences",
+      "security": "Security"
+    },
+    "profile": {
+      "title": "Profile",
+      "name": "Name",
+      "email": "Email"
+    },
+    "notifications": {
+      "email": "Email Notifications",
+      "push": "Push Notifications"
+    },
+    "password": {
+      "title": "Change Password",
+      "current": "Current Password",
+      "new": "New Password",
+      "confirm": "Confirm New Password",
+      "update": "Update Password",
+      "success": "Password updated successfully!",
+      "error_mismatch": "New passwords do not match.",
+      "error_empty": "Please fill all fields.",
+      "error_invalid": "Invalid session.",
+      "error_wrong": "Current password incorrect.",
+      "error_update": "Update error: {{error}}"
+    },
+    "preferences": {
+      "theme": "Theme",
+      "language": "Language",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark",
+      "pt": "Portuguese",
+      "en": "English"
+    },
+    "security": {
+      "lastLogin": "Last login: {{date}}",
+      "devices": "Connected devices:",
+      "disconnect": "Disconnect all devices"
+    },
+    "loadingUser": "Loading user..."
+  },
+  "form": {
+        "name": "Name",
+        "namePlaceholder": "E.g. John",
+        "lastName": "Last Name",
+        "lastNamePlaceholder": "E.g. Doe",
+        "email": "Email",
+        "emailPlaceholder": "E.g. john@email.com",
+        "invalidEmail": "Invalid email",
+        "phone": "Phone (with country code)",
+        "combo": "Bought Combo?",
+        "comboYes": "Yes (+ $15)",
+        "comboNo": "No",
+        "total": "Total Amount ($)",
+        "cancel": "Cancel",
+        "save": "Save"
     }
     
   }

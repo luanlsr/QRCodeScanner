@@ -3,6 +3,7 @@ import { Modal } from './Modal';
 import { Camera, Popcorn, Save, X } from 'lucide-react';
 import { supabase } from '../superbase';
 import { Person } from '../models/Person';
+import { formatPhoneNumber } from '../utils/utils';
 
 interface Props {
     person: Person | null;
@@ -155,7 +156,7 @@ export const ParticipantDetailsModal: FC<Props> = ({ person, isOpen, onClose, on
                     <p><span className="font-medium text-gray-800">Nome:</span> {localPerson.name}</p>
                     <p><span className="font-medium text-gray-800">Sobrenome:</span> {localPerson.last_name}</p>
                     <p><span className="font-medium text-gray-800">E-mail:</span> {localPerson.email || '—'}</p>
-                    <p><span className="font-medium text-gray-800">Telefone:</span> {localPerson.phone || '—'}</p>
+                    <p><span className="font-medium text-gray-800">Telefone:</span> {formatPhoneNumber(localPerson.phone) || '—'}</p>
                     <p>
                         <span className="font-medium text-gray-800">Status de Envio:</span>{' '}
                         <span className={localPerson.sent ? 'text-green-600 font-semibold' : 'text-yellow-600 font-semibold'}>

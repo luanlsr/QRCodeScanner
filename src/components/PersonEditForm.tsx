@@ -3,7 +3,7 @@ import validator from 'validator';
 import { Check, X } from 'lucide-react';
 import PhoneInput from 'react-phone-input-2';
 import { Person } from '../models/Person';
-
+import { useTranslation } from 'react-i18next';
 interface Props {
     person: Person;
     onSave: (person: Person) => void;
@@ -13,7 +13,7 @@ interface Props {
 export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) => {
     const [formData, setFormData] = useState<Person>(person);
     const [emailError, setEmailError] = useState('');
-
+    const { t } = useTranslation();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
@@ -39,7 +39,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
             {/* Nome */}
             <div className="mb-4">
                 <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="name">
-                    Nome
+                    {t('form.name')}
                 </label>
                 <input
                     type="text"
@@ -47,15 +47,16 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Ex: João da Silva"
+                    placeholder={t('form.namePlaceholder')}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white"
                     required
                 />
             </div>
-            {/* Nome */}
+
+            {/* Sobrenome */}
             <div className="mb-4">
                 <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="last_name">
-                    Sobrenome
+                    {t('form.lastName')}
                 </label>
                 <input
                     type="text"
@@ -63,7 +64,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                     name="last_name"
                     value={formData.last_name}
                     onChange={handleChange}
-                    placeholder="Ex: João da Silva"
+                    placeholder={t('form.lastNamePlaceholder')}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white"
                     required
                 />
@@ -72,7 +73,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
             {/* Email */}
             <div className="mb-4">
                 <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="email">
-                    Email
+                    {t('form.email')}
                 </label>
                 <input
                     type="email"
@@ -80,7 +81,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Ex: joao@email.com"
+                    placeholder={t('form.emailPlaceholder')}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-black dark:text-white"
                     required
                 />
@@ -90,7 +91,7 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
             {/* Telefone com código internacional */}
             <div className="mb-6">
                 <label className="block text-gray-700 dark:text-gray-200 mb-2" htmlFor="phone">
-                    Telefone (com DDI)
+                    {t('form.phone')}
                 </label>
                 <PhoneInput
                     country={'br'}
@@ -115,14 +116,14 @@ export const PersonEditForm: React.FC<Props> = ({ person, onSave, onCancel }) =>
                     onClick={onCancel}
                     className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500"
                 >
-                    <X size={18} /> Cancelar
+                    <X size={18} /> {t('form.cancel')}
                 </button>
                 <button
                     type="submit"
                     disabled={!!emailError}
                     className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
-                    <Check size={18} /> Atualizar
+                    <Check size={18} /> {t('form.save')}
                 </button>
             </div>
         </form>
