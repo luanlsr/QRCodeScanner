@@ -496,8 +496,8 @@ export const Participants = () => {
                     columns={desktopColumns}
                     data={filtered}
                     pagination
-                    paginationPerPage={10}
-                    paginationRowsPerPageOptions={[10, 15, 20]}
+                    paginationPerPage={5}
+                    paginationRowsPerPageOptions={[5, 10, 15, 20]}
                     highlightOnHover
                     pointerOnHover
                     responsive
