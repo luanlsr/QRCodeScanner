@@ -1,5 +1,4 @@
 // src/pages/ConfirmPage.tsx
-import { CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const ConfirmPage = () => {

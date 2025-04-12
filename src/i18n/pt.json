@@ -31,6 +31,19 @@
       "distribuicao_arrecadacao": "Distribuição de Arrecadação",
       "moeda": "R$ {{valor}}"
     },
+    "generator":{
+      "participantsList":"Lista de Participantes",
+      "sent":"Enviados",
+      "unsent":"Não enviados",
+      "sendWhatsapp":"Enviar pelo Whatsapp",
+      "showQRCode":"Exibir QR Code",
+      "idLabel":"ID",
+      "prevPage":"Página anterior",
+      "nextPage":"Próxima página",
+      "page":"Página",
+      "of":"de",
+      "all":"Todos"
+    },
     "reader":{
       "title":"Leitor QR Code",
       "progress":"Progresso",

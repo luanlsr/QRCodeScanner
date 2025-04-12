@@ -45,14 +45,14 @@ export const QRGenerator: React.FC<Props> = ({
   const handleSendWhatsApp = (person: Person) => {
     const qrLink = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${person.id}`;
     const message = encodeURIComponent(
-      t('participants.whatsappMessage', {
+      t('generator.whatsappMessage', {
         name: person.name,
         qrLink: qrLink,
       })
     );
     window.open(`https://wa.me/${person.phone}?text=${message}`, '_blank');
     onUpdatePerson({ ...person, sent: true });
-    toast.success(t('participants.whatsappSent', { name: person.name }));
+    toast.success(t('generator.whatsappSent', { name: person.name }));
   };
 
   return (
@@ -63,7 +63,7 @@ export const QRGenerator: React.FC<Props> = ({
           className="flex items-center gap-2 text-gray-700 dark:text-white hover:text-gray-900"
         >
           {showList ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-          <h2 className="text-2xl font-bold">{t('participants.participantsList')}</h2>
+          <h2 className="text-2xl font-bold dark:text-whiate">{t('generator.participantsList')}</h2>
         </button>
 
         <div className="flex flex-wrap gap-2 justify-end">
@@ -71,19 +71,19 @@ export const QRGenerator: React.FC<Props> = ({
             onClick={() => setFilter('all')}
             className={`px-3 py-1 rounded-full text-sm font-medium border ${filter === 'all' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}
           >
-            {t('participants.all')} {data.length}
+            {t('generator.all')} {data.length}
           </button>
           <button
             onClick={() => setFilter('sent')}
             className={`px-3 py-1 rounded-full text-sm font-medium border ${filter === 'sent' ? 'bg-green-600 text-white' : 'bg-white text-green-600'}`}
           >
-            {t('participants.sent')} {data.filter(x => x.sent).length}
+            {t('generator.sent')} {data.filter(x => x.sent).length}
           </button>
           <button
             onClick={() => setFilter('unsent')}
             className={`px-3 py-1 rounded-full text-sm font-medium border ${filter === 'unsent' ? 'bg-yellow-500 text-white' : 'bg-white text-yellow-600'}`}
           >
-            {t('participants.unsent')} {data.filter(x => !x.sent).length}
+            {t('generator.unsent')} {data.filter(x => !x.sent).length}
           </button>
         </div>
       </div>
@@ -111,7 +111,7 @@ export const QRGenerator: React.FC<Props> = ({
                       ? 'bg-green-100 text-green-600 dark:bg-gray-800 dark:text-white'
                       : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-white hover:bg-green-50 hover:text-green-500'
                       }`}
-                    title={t('participants.sendWhatsApp')}
+                    title={t('generator.sendWhatsApp')}
                   >
                     <FaWhatsapp size={20} />
                   </button>
@@ -120,7 +120,7 @@ export const QRGenerator: React.FC<Props> = ({
                       setSelectedPerson(selectedPerson?.id === person.id ? null : person)
                     }
                     className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200"
-                    title={t('participants.showQRCode')}
+                    title={t('generator.showQRCode')}
                   >
                     <QrCode size={20} />
                   </button>
@@ -131,7 +131,7 @@ export const QRGenerator: React.FC<Props> = ({
                 <div className="mt-4 flex flex-col items-center gap-2">
                   <QRCode value={person.id} size={128} />
                   <p className="text-sm text-gray-500 dark:text-white break-words">
-                    {t('participants.idLabel')}: {person.id}
+                    {t('generator.idLabel')}: {person.id}
                   </p>
                 </div>
               )}
@@ -142,19 +142,19 @@ export const QRGenerator: React.FC<Props> = ({
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}
-                className="px-3 py-1 bg-gray-100 dark:bg-gray-600 text-gray-700 rounded disabled:opacity-50"
+                className="px-3 py-1 bg-gray-100 dark:bg-gray-600dark:text-white text-gray-700 rounded disabled:opacity-50"
               >
-                {t('participants.prevPage')}
+                {t('generator.prevPage')}
               </button>
               <span className="text-sm text-gray-600 dark:text-white">
-                {t('participants.page')} {currentPage} {t('participants.of')} {totalPages}
+                {t('generator.page')} {currentPage} {t('generator.of')} {totalPages}
               </span>
               <button
                 onClick={handleNextPage}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1 bg-gray-100 dark:bg-gray-600 dark:text-white text-gray-700 rounded disabled:opacity-50"
+                className="px-3 py-1 bg-gray-100 dark:bg-gray-600dark:text-white text-gray-700 rounded disabled:opacity-50"
               >
-                {t('participants.nextPage')}
+                {t('generator.nextPage')}
               </button>
             </div>
           )}

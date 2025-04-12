@@ -31,6 +31,19 @@
     "distribuicao_arrecadacao": "Revenue Distribution",
     "moeda": "R$ {{valor}}"
   },
+  "generator": {
+  "participantsList": "Participants List",
+  "sent": "Sent",
+  "unsent": "Unsent",
+  "sendWhatsapp": "Send via Whatsapp",
+  "showQRCode": "Show QR Code",
+  "idLabel": "ID",
+  "prevPage": "Previous page",
+  "nextPage": "Next page",
+  "page": "Page",
+  "of": "of",
+  "all": "All"
+},
   "reader": {
   "title": "QR Code Reader",
   "progress": "Progress",

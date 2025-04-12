@@ -31,6 +31,19 @@
     "distribuicao_arrecadacao": "Répartition des Recettes",
     "moeda": "R$ {{valor}}"
   },
+  "generator": {
+  "participantsList": "Liste des participants",
+  "sent": "Envoyés",
+  "unsent": "Non envoyés",
+  "sendWhatsapp": "Envoyer par Whatsapp",
+  "showQRCode": "Afficher le code QR",
+  "idLabel": "ID",
+  "prevPage": "Page précédente",
+  "nextPage": "Page suivante",
+  "page": "Page",
+  "of": "de",
+  "all": "Tous"
+},
   "reader": {
   "title": "Lecteur de QR Code",
   "progress": "Progression",

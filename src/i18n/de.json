@@ -31,6 +31,19 @@
     "distribuicao_arrecadacao": "Einnahmenverteilung",
     "moeda": "R$ {{valor}}"
   },
+  "generator": {
+  "participantsList": "Teilnehmerliste",
+  "sent": "Gesendet",
+  "unsent": "Nicht gesendet",
+  "sendWhatsapp": "Über Whatsapp senden",
+  "showQRCode": "QR-Code anzeigen",
+  "idLabel": "ID",
+  "prevPage": "Vorherige Seite",
+  "nextPage": "Nächste Seite",
+  "page": "Seite",
+  "of": "von",
+  "all": "Alle"
+},
 "reader": {
   "title": "QR-Code-Leser",
   "progress": "Fortschritt",
