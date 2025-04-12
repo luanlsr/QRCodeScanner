@@ -59,7 +59,9 @@
     "close": "Cerrar",
     "markAsRead": "Marcar como leído",
     "markAsUnread": "Marcar como no leído",
-    "verified": "Verificado"
+    "verified": "Verificado",
+    "scanSuccessTitle": "¡Código QR leído con éxito!",
+    "scanErrorTitle": "Error al leer el código QR"
   },
   "participants": {
     "table": {
