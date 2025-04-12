@@ -345,7 +345,7 @@ export const Participants = () => {
                     ))}
                     {filtered.length === 0 && (
                         <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                            Nenhum participante encontrado
+                            {t('participants.table.notFound')}
                         </div>
                     )}
                 </div>
@@ -360,7 +360,7 @@ export const Participants = () => {
                     pointerOnHover
                     responsive
                     onRowClicked={row => setSelectedPerson(row)}
-                    noDataComponent="Nenhum participante encontrado."
+                    noDataComponent={t('participants.table.notFound')}
                     theme={isDarkMode ? 'dark' : 'default'}
                     customStyles={customStyles}
                 />

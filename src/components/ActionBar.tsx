@@ -98,36 +98,121 @@ export const ActionBar = ({
             {/* Filtros */}
             {showFilters && (
                 <div className="flex flex-col sm:flex-row gap-2 mb-4">
-                    <select
-                        value={comboFilter}
-                        onChange={e => setComboFilter(e.target.value)}
-                        className="border rounded px-3 py-2 dark:bg-gray-700 dark:text-white"
-                    >
-                        <option value="">{t('all')}</option>
-                        <option value="nome">{t('name')}</option>
-                        <option value="email">{t('email')}</option>
-                        <option value="telefone">{t('phone')}</option>
-                    </select>
+                    {/* Combo */}
+                    <div className="flex flex-col items-start gap-1">
+                        <span className="text-sm font-medium dark:text-white">
+                            {t('participants.combo.all')}
+                        </span>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setComboFilter('')}
+                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
+        ${comboFilter === ''
+                                        ? 'bg-blue-500 text-white'
+                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
+      `}
+                            >
+                                {t('participants.common.all')}
+                            </button>
+                            <button
+                                onClick={() => setComboFilter('nao')}
+                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
+        ${comboFilter === 'nao'
+                                        ? 'bg-gray-500 text-white'
+                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
+      `}
+                            >
+                                {t('participants.combo.no')}
+                            </button>
+                            <button
+                                onClick={() => setComboFilter('sim')}
+                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
+        ${comboFilter === 'sim'
+                                        ? 'bg-green-500 text-white'
+                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
+      `}
+                            >
+                                {t('participants.combo.yes')}
+                            </button>
+                        </div>
+                    </div>
 
-                    <select
-                        value={sentFilter}
-                        onChange={e => setSentFilter(e.target.value)}
-                        className="border rounded px-3 py-2 dark:bg-gray-700 dark:text-white"
-                    >
-                        <option value="">{t('participants.table.sent')}</option>
-                        <option value="sim">{t('participants.common.yes')}</option>
-                        <option value="nao">{t('participants.common.no')}</option>
-                    </select>
-
-                    <select
-                        value={readFilter}
-                        onChange={e => setReadFilter(e.target.value)}
-                        className="border rounded px-3 py-2 dark:bg-gray-700 dark:text-white"
-                    >
-                        <option value="">{t('read')}</option>
-                        <option value="sim">{t('yes')}</option>
-                        <option value="nao">{t('no')}</option>
-                    </select>
+                    {/* Enviado */}
+                    <div className="flex flex-col items-start gap-1">
+                        <span className="text-sm font-medium dark:text-white">
+                            {t('participants.table.sent')}
+                        </span>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setSentFilter('')}
+                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
+        ${sentFilter === ''
+                                        ? 'bg-blue-500 text-white'
+                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
+      `}
+                            >
+                                {t('participants.common.all')}
+                            </button>
+                            <button
+                                onClick={() => setSentFilter('nao')}
+                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
+        ${sentFilter === 'nao'
+                                        ? 'bg-gray-500 text-white'
+                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
+      `}
+                            >
+                                {t('participants.common.no')}
+                            </button>
+                            <button
+                                onClick={() => setSentFilter('sim')}
+                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
+        ${sentFilter === 'sim'
+                                        ? 'bg-green-500 text-white'
+                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
+      `}
+                            >
+                                {t('participants.common.yes')}
+                            </button>
+                        </div>
+                    </div>
+                    {/* Lidos */}
+                    <div className="flex flex-col items-start gap-1">
+                        <span className="text-sm font-medium dark:text-white">
+                            {t('participants.actionBar.read')}
+                        </span>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setReadFilter('')}
+                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
+        ${readFilter === ''
+                                        ? 'bg-blue-500 text-white'
+                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
+      `}
+                            >
+                                {t('participants.common.all')}
+                            </button>
+                            <button
+                                onClick={() => setReadFilter('nao')}
+                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
+        ${readFilter === 'nao'
+                                        ? 'bg-gray-500 text-white'
+                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
+      `}
+                            >
+                                {t('participants.actionBar.no')}
+                            </button>
+                            <button
+                                onClick={() => setReadFilter('sim')}
+                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
+        ${readFilter === 'sim'
+                                        ? 'bg-green-500 text-white'
+                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
+      `}
+                            >
+                                {t('participants.actionBar.yes')}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
 

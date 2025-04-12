@@ -62,13 +62,19 @@
     "delete": "Supprimer",
     "participants": "Participants",
     "yes": "Oui",
-    "no": "Non"
+    "no": "Non",
+    "notFound": "Aucun participant trouvé"
   },
   "common": {
     "all": "Tous",
     "yes": "Oui",
     "no": "Non"
   },
+  "combo": {
+  "all": "Avec des combos",
+  "yes": "Oui",
+  "no": "Non"
+},
   "modals": {
     "confirmDelete": {
       "title": "Confirmer la suppression",
@@ -141,21 +147,24 @@
   "loadingUser": "Chargement de l'utilisateur..."
 },
 "form": {
-        "name": "Nom",
-        "namePlaceholder": "Ex : Jean",
-        "lastName": "Prénom",
-        "lastNamePlaceholder": "Ex : Dupont",
-        "email": "Email",
-        "emailPlaceholder": "Ex : jean@email.com",
-        "invalidEmail": "Email invalide",
-        "phone": "Téléphone (avec code pays)",
-        "combo": "Avez-vous acheté le Combo ?",
-        "comboYes": "Oui (+ 15 R$)",
-        "comboNo": "Non",
-        "total": "Montant total (R$)",
-        "cancel": "Annuler",
-        "save": "Enregistrer"
-    }
-
-    
+  "name": "Nom",
+  "namePlaceholder": "Ex : Jean",
+  "lastName": "Prénom",
+  "lastNamePlaceholder": "Ex : Dupont",
+  "email": "Email",
+  "emailPlaceholder": "Ex : jean@email.com",
+  "invalidEmail": "Email invalide",
+  "phone": "Téléphone (avec code pays)",
+  "combo": "Avez-vous acheté le Combo ?",
+  "comboYes": "Oui (+ 15 R$)",
+  "comboNo": "Non",
+  "total": "Montant total (R$)",
+  "cancel": "Annuler",
+  "save": "Enregistrer"
+},
+"notFound": {
+  "notFound": "Page non trouvée",
+  "pageNotFound": "La page que vous recherchez n'existe pas.",
+  "goHome": "Retourner à la page d'accueil"
+}
 }

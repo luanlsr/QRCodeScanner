@@ -62,13 +62,19 @@
     "delete": "Eliminar",
     "participants": "Participantes",
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "notFound": "No se encontraron participantes"
   },
   "common": {
     "all": "Todos",
     "yes": "Sí",
     "no": "No"
   },
+  "combo": {
+  "all": "Con combos",
+  "yes": "Sí",
+  "no": "No"
+},
   "modals": {
     "confirmDelete": {
       "title": "Confirmar eliminación",
@@ -155,5 +161,10 @@
       "total": "Monto Total (R$)",
       "cancel": "Cancelar",
       "save": "Guardar"
+  },
+  "notFound": {
+    "notFound": "Página no encontrada",
+    "pageNotFound": "La página que buscas no existe.",
+    "goHome": "Volver a la página principal"
   }
 }

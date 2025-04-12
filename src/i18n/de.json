@@ -62,13 +62,19 @@
     "delete": "Löschen",
     "participants": "Teilnehmer",
     "yes": "Ja",
-    "no": "Nein"
+    "no": "Nein",
+    "notFound": "Keine Teilnehmer gefunden"
   },
   "common": {
     "all": "Alle",
     "yes": "Ja",
     "no": "Nein"
   },
+  "combo": {
+  "all": "Mit Kombos",
+  "yes": "Ja",
+  "no": "Nein"
+},
   "modals": {
     "confirmDelete": {
       "title": "Löschen bestätigen",
@@ -155,5 +161,10 @@
         "total": "Gesamtbetrag (R$)",
         "cancel": "Abbrechen",
         "save": "Speichern"
+    },
+    "notFound": {
+      "notFound": "Seite nicht gefunden",
+      "pageNotFound": "Die gesuchte Seite existiert nicht.",
+      "goHome": "Zur Startseite zurückkehren"
     }
 }

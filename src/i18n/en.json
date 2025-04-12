@@ -62,10 +62,16 @@
       "delete": "Delete",
       "participants": "Participants",
       "yes": "Yes",
-      "no": "No"
+      "no": "No",
+      "notFound": "No participants found"
     },
     "common": {
       "all": "All",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "combo": {
+      "all": "With combos",
       "yes": "Yes",
       "no": "No"
     },
@@ -155,7 +161,11 @@
         "total": "Total Amount ($)",
         "cancel": "Cancel",
         "save": "Save"
+    },
+    "notFound": {
+      "notFound": "Page not found",
+      "pageNotFound": "The page you are looking for does not exist.",
+      "goHome": "Go back to the homepage"
     }
-    
   }
   

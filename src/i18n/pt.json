@@ -62,10 +62,16 @@
         "delete": "Excluir",
         "participants": "Participantes",
         "yes": "Sim",
-        "no": "Não"
+        "no": "Não",
+        "notFound":"Nenhum participante encontrado"
       },
       "common": {
         "all": "Todos",
+        "yes": "Sim",
+        "no": "Não"
+      },
+      "combo": {
+        "all": "Com combos",
         "yes": "Sim",
         "no": "Não"
       },
@@ -91,7 +97,10 @@
         "new": "Adicionar Novo",
         "edit": "Editar Participante",
         "hideFilters": "Ocultar filtros",
-        "showFilters": "Exibir filtros"
+        "showFilters": "Exibir filtros",
+        "read": "Lidos",
+        "yes": "Sim",
+        "no": "Não"
       }
     },
     "settings": {
@@ -155,6 +164,11 @@
         "total": "Valor Total (R$)",
         "cancel": "Cancelar",
         "save": "Salvar"
+    },
+    "notFound":{
+      "notFound": "Página não encontrada",
+      "pageNotFound": "A página que você está procurando não existe.",
+      "goHome": "Voltar para a página inicial"
     }
     
   }

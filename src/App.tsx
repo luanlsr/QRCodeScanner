@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, matchRoutes } from 'react-router-dom';
 import { Dashboard } from './pages/Dashboard';
 import { Participants } from './pages/Participants';
 import { SettingsPage } from './pages/SettingsPage';
@@ -13,11 +13,37 @@ import { RegisterPage } from './pages/RegisterPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
 import { PublicRegisterPage } from './pages/PublicRegisterPage';
+import NotFound from './pages/NotFoundPage';
 
 function AppWrapper() {
+  const hideHeaderRoutes = [
+    '/login',
+    '/register',
+    '/forgot',
+    '/reset-password',
+    '/inscricao',
+  ];
+  const validRoutes = [
+    '/',
+    '/dashboard',
+    '/qrcode',
+    '/leitor',
+    '/participantes',
+    '/configuracoes',
+    '/inscricao',
+    '/login',
+    '/register',
+    '/forgot',
+    '/reset-password',
+  ];
+
   const location = useLocation();
-  const hideHeaderRoutes = ['/login', '/register', '/forgot', '/reset-password', '/inscricao'];
-  const showHeader = !hideHeaderRoutes.includes(location.pathname);
+  const routeMatch = matchRoutes(
+    validRoutes.map((path) => ({ path })),
+    location
+  );
+  const is404 = !routeMatch;
+  const showHeader = !hideHeaderRoutes.includes(location.pathname) && !is404;
 
   return (
     <div className="flex flex-col h-screen dark:bg-gray-900">
@@ -41,7 +67,8 @@ function AppWrapper() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
-
+          {/* ✅ Rota para páginas não encontradas */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <Toaster position="top-right" reverseOrder={false} />
       </div>
