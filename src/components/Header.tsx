@@ -158,7 +158,7 @@ export const Header = () => {
                                     className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded shadow-lg overflow-hidden z-50"
                                 >
                                     <div className='p-3'>
-                                        <span className='font-bold'>{userData?.name}</span>
+                                        <span className='font-bold dark:text-white'>{userData?.name}</span>
                                         <hr className="my-4 border-gray-300 dark:border-gray-600" />
 
                                         <button
