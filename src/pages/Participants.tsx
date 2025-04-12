@@ -17,6 +17,7 @@ import { formatPhoneNumber } from '../utils/utils';
 import { ConfirmDeleteModal } from '../components/ConfirmDeleteModal';
 import { ActionBar } from '../components/ActionBar';
 import { BulkDeleteModal } from '../components/BulkDeleteModal';
+import { createCustomDarkTheme, createCustomStyles } from '../components/datatable/styles';
 
 export const Participants = () => {
     const [participants, setParticipants] = useState<Person[]>([]);
@@ -41,66 +42,11 @@ export const Participants = () => {
     const isMobile = useMediaQuery('(max-width: 768px)');
     useProtectRoute();
 
-    // Estilos personalizados para a tabela
-    const customStyles = {
-        headCells: {
-            style: {
-                backgroundColor: isDarkMode ? '#374151' : '#f3f4f6',
-                color: isDarkMode ? '#f9fafb' : '#111827',
-                fontWeight: '600',
-                fontSize: '14px',
-                paddingTop: '16px',
-                paddingBottom: '16px',
-            },
-        },
-        rows: {
-            style: {
-                minHeight: '64px',
-                fontSize: '15px',
-                backgroundColor: isDarkMode ? '#1f2937' : '#ffffff',
-                color: isDarkMode ? '#f9fafb' : '#111827',
-            },
-        },
-        cells: {
-            style: {
-                paddingTop: '12px',
-                paddingBottom: '12px',
-            },
-        },
-        pagination: {
-            style: {
-                backgroundColor: isDarkMode ? '#1f2937' : '#f9fafb',
-                color: isDarkMode ? '#f9fafb' : '#111827',
-            },
-        },
-    };
+    useEffect(() => {
+        createCustomDarkTheme();
+    }, []);
 
-    // Tema escuro para a tabela
-    createTheme('dark', {
-        text: {
-            primary: '#ffffff',
-            secondary: '#cccccc',
-        },
-        background: {
-            default: '',
-        },
-        context: {
-            background: '#262626',
-            text: '#ffffff',
-        },
-        divider: {
-            default: '#374151',
-        },
-        button: {
-            default: '#ffffff',
-            hover: '#e2e8f0',
-            focus: '#e2e8f0',
-            disabled: '#9ca3af',
-        },
-        sortFocus: {
-            default: '#3b82f6',
-        },
-    });
+    const customStyles = createCustomStyles(isDarkMode);
 
     // Alternar seleção de participantes
     const toggleSelection = useCallback((id: string) => {

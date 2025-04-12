@@ -91,9 +91,15 @@ export const Header = () => {
                     onClick={toggleMenu}
                 >
                     <div className="absolute inset-0 flex flex-col justify-center items-center gap-1.5">
-                        <span className={`h-0.5 w-6 bg-gray-800 transition-transform duration-300 ${menuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
-                        <span className={`h-0.5 w-6 bg-gray-800 transition-opacity duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
-                        <span className={`h-0.5 w-6 bg-gray-800 transition-transform duration-300 ${menuOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
+                        <span
+                            className={`h-0.5 w-6 transition-transform duration-300 ${menuOpen ? 'rotate-45 translate-y-1.5 bg-white' : 'bg-gray-800 dark:bg-white'}`}
+                        />
+                        <span
+                            className={`h-0.5 w-6 transition-opacity duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100 bg-gray-800 dark:bg-white'}`}
+                        />
+                        <span
+                            className={`h-0.5 w-6 transition-transform duration-300 ${menuOpen ? '-rotate-45 -translate-y-1.5 bg-white' : 'bg-gray-800 dark:bg-white'}`}
+                        />
                     </div>
                 </button>
 
