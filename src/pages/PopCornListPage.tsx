@@ -27,7 +27,7 @@ export default function PopCornListPage() {
 
     return (
         <div className="p-4">
-            <h1 className="text-3xl font-semibold mb-4 text-center">Lista de Participantes com Combo</h1>
+            <h1 className="text-3xl font-semibold mb-4 text-center dark:text-white">Lista de Participantes com Combo</h1>
 
             {/* Filtro de Toggle */}
             <div className="mb-4 flex justify-center space-x-4">
@@ -47,7 +47,7 @@ export default function PopCornListPage() {
 
             <div className="space-y-4">
                 {filteredParticipants.length > 0 ? (
-                    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 dark:text-white">
                         {filteredParticipants.map(person => (
                             <div
                                 key={person.id}
