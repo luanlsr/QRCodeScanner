@@ -1,6 +1,6 @@
 {
     "home": {
-      "title": "Bem-vindo ao Sistema de QR Code",
+      "title": "Bem-vindo ao Sistema QR Evento",
       "description": "Gere códigos personalizados para seus convidados ou escaneie para verificar presença.",
       "send_qr": "Enviar QR Code",
       "read_qr": "Ler QR Code"

@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Welcome to the QR Code System",
+    "title": "Welcome to the QR Evento System",
     "description": "Generate personalized codes for your guests or scan to verify attendance.",
     "send_qr": "Send QR Code",
     "read_qr": "Read QR Code"

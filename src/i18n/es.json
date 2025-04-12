@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Bienvenido al Sistema de Código QR",
+    "title": "Bienvenido al Sistema QR Evento",
     "description": "Genera códigos personalizados para tus invitados o escanea para verificar asistencia.",
     "send_qr": "Enviar Código QR",
     "read_qr": "Leer Código QR"
