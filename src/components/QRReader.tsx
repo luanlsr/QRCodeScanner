@@ -215,7 +215,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
                   <Popcorn
 
                     size={20}
-                    className={successPerson.combo ? 'text-green-500' : 'text-gray-400'}
+                    className='text-white'
                   />
                 </>
               )}
