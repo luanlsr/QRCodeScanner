@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
 import toast from 'react-hot-toast';
-import { AlertTriangle, Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { AlertTriangle, Check, ChevronDown, ChevronUp, Popcorn } from 'lucide-react';
 import { Person } from '../models/Person';
 import { useTranslation } from 'react-i18next';
 
@@ -209,6 +209,16 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
               <Check className="mb-4" size={56} />
               <h2 className="text-2xl font-bold mb-2">{t('reader.scanSuccessTitle')}</h2>
               <p className="text-lg font-medium">{successPerson.name} {successPerson.last_name} </p>
+              {successPerson.combo && (
+                <>
+                  <h3>Entregar Pipoca</h3>
+                  <Popcorn
+
+                    size={20}
+                    className={successPerson.combo ? 'text-green-500' : 'text-gray-400'}
+                  />
+                </>
+              )}
               <button
                 onClick={() => setSuccessPerson(null)}
                 className="mt-6 px-6 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100"
