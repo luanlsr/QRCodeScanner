@@ -208,7 +208,7 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
             <div className="bg-green-500 text-white rounded-none sm:rounded-2xl p-6 w-full h-full sm:max-w-md sm:h-auto mx-auto shadow-lg text-center flex flex-col items-center justify-center">
               <Check className="mb-4" size={56} />
               <h2 className="text-2xl font-bold mb-2">{t('reader.scanSuccessTitle')}</h2>
-              <p className="text-lg font-medium">{successPerson.name} </p>
+              <p className="text-lg font-medium">{successPerson.name} {successPerson.last_name} </p>
               <button
                 onClick={() => setSuccessPerson(null)}
                 className="mt-6 px-6 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100"

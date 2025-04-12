@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Person } from '../models/Person';
 import { getAllParticipants } from '../data/crud';
 import { Popcorn } from 'lucide-react';
@@ -7,6 +7,7 @@ export default function PopCornListPage() {
     const [participants, setParticipants] = useState<Person[]>([]);
     const [deliveredState, setDeliveredState] = useState<{ [key: string]: boolean }>({});
     const [showCombo, setShowCombo] = useState<boolean>(true);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,6 +17,14 @@ export default function PopCornListPage() {
         fetchData();
     }, []);
 
+    const filteredParticipants = useMemo(() => {
+        return participants.filter(person => {
+            const matchesName = person.name.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesCombo = person.combo === showCombo;
+            return matchesName && matchesCombo;
+        });
+    }, [participants, searchTerm, showCombo]);
+
     const handleToggleDelivered = (id: string) => {
         setDeliveredState(prevState => ({
             ...prevState,
@@ -23,13 +32,12 @@ export default function PopCornListPage() {
         }));
     };
 
-    const filteredParticipants = participants.filter(person => person.combo === showCombo);
-
     return (
         <div className="p-4">
-            <h1 className="text-3xl font-semibold mb-4 text-center dark:text-white">Lista de Participantes com Combo</h1>
+            <h1 className="text-3xl font-semibold mb-4 text-center dark:text-white">
+                Lista de Participantes com Combo
+            </h1>
 
-            {/* Filtro de Toggle */}
             <div className="mb-4 flex justify-center space-x-4">
                 <button
                     className={`px-6 py-2 rounded-lg ${showCombo ? 'bg-green-500' : 'bg-gray-300'} text-white`}
@@ -43,6 +51,17 @@ export default function PopCornListPage() {
                 >
                     Sem Combos
                 </button>
+            </div>
+
+            <div className="mb-4 flex justify-center">
+                <input
+                    type="text"
+                    placeholder="Buscar por nome"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="px-3 py-1 rounded-3 text-sm border border-gray-300 dark:bg-gray-700 dark:text-white"
+                    style={{ minWidth: '200px' }}
+                />
             </div>
 
             <div className="space-y-4">
@@ -75,7 +94,7 @@ export default function PopCornListPage() {
                     </div>
                 ) : (
                     <p className="text-center text-gray-500 dark:text-gray-400">
-                        Nenhum participante com combo encontrado.
+                        Nenhum participante encontrado.
                     </p>
                 )}
             </div>
