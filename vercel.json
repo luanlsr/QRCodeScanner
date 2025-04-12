@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "qr-code-scanner-ecru.vercel.app" }],
+      "destination": "https://www.qrevento.com.br/:1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/:path*",
