@@ -209,9 +209,10 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
               <Check className="mb-4" size={56} />
               <h2 className="text-2xl font-bold mb-2">{t('reader.scanSuccessTitle')}</h2>
               <p className="text-lg font-medium">{successPerson.name} {successPerson.last_name} </p>
+              <br />
               {successPerson.combo && (
                 <>
-                  <h3>Entregar Pipoca</h3>
+                  <h1 className='text-white'>Entregar Pipoca</h1>
                   <Popcorn
 
                     size={20}
