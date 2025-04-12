@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import Flag from "react-world-flags";
 import i18n from "../i18n";
-import Flag from "react-world-flags"; // substitua pelo nome da sua lib, se for outro
 import { languages } from "../utils/languages";
 
-export const LanguageCollapse = () => {
+export const LanguageSelector = () => {
     const [open, setOpen] = useState(false);
     const collapseRef = useRef<HTMLDivElement>(null);
 
-    const current = languages.find((lang) => lang.code === i18n.language) || languages[0];
+    const current = languages.find(lang => lang.code === i18n.language) || languages[0];
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -20,17 +20,21 @@ export const LanguageCollapse = () => {
     }, []);
 
     return (
-        <div ref={collapseRef} className="relative z-50">
+        <div ref={collapseRef} className="relative w-full">
             <button
                 onClick={() => setOpen(!open)}
-                className="flex items-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="w-full flex justify-between items-center px-4 py-2 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white"
             >
-                <Flag code={current.country} style={{ width: "24px", height: "16px" }} />
+                <div className="flex items-center gap-2">
+                    <Flag code={current.country} style={{ width: "24px", height: "16px" }} />
+                    {current.label}
+                </div>
+                <span className="ml-2">▼</span>
             </button>
 
             {open && (
-                <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md">
-                    {languages.map((lang) => (
+                <div className="absolute left-0 mt-2 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-md z-10">
+                    {languages.map(lang => (
                         <button
                             key={lang.code}
                             onClick={() => {

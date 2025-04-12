@@ -4,6 +4,9 @@ import toast from 'react-hot-toast';
 import { useProtectRoute } from '../hooks/useProtectRout';
 import { useUser } from '../context/userContext';
 import { useTranslation } from 'react-i18next';
+import { LanguageSelector } from '../components/LanguageSelector';
+import { useDarkMode } from '../hooks/darkMode';
+import { useThemeStore } from '../zustand/store/themeStore';
 
 export const SettingsPage = () => {
     const { t } = useTranslation();
@@ -21,11 +24,13 @@ export const SettingsPage = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
-
     const { userData, isLoading } = useUser();
+    const [enabled, setEnabled] = useDarkMode();
 
     useProtectRoute();
 
+    const theme = useThemeStore((state) => state.theme);
+    const setTheme = useThemeStore((state) => state.setTheme);
     const handleChangePassword = async () => {
         setMessage('');
 
@@ -217,27 +222,29 @@ export const SettingsPage = () => {
                         </div>
                     )}
 
-                    {/* Aba de Preferências */}
                     {selected === 'preferences' && (
                         <div className="space-y-4">
+                            {/* Tema */}
                             <div>
                                 <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
                                     {t('settings.preferences.theme')}
                                 </label>
-                                <select className="w-full p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white">
-                                    <option>{t('settings.preferences.system')}</option>
-                                    <option>{t('settings.preferences.light')}</option>
-                                    <option>{t('settings.preferences.dark')}</option>
+                                <select
+                                    className="w-full p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white"
+                                    value={theme}
+                                    onChange={(e) => setTheme(e.target.value as 'light' | 'dark')}
+                                >
+                                    <option value="light">{t('settings.preferences.light')}</option>
+                                    <option value="dark">{t('settings.preferences.dark')}</option>
                                 </select>
                             </div>
+
+                            {/* Idioma */}
                             <div>
                                 <label className="block text-sm text-gray-700 dark:text-gray-300 mb-1">
                                     {t('settings.preferences.language')}
                                 </label>
-                                <select className="w-full p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white">
-                                    <option>Português</option>
-                                    <option>English</option>
-                                </select>
+                                <LanguageSelector />
                             </div>
                         </div>
                     )}

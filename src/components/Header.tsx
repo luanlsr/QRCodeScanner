@@ -8,6 +8,7 @@ import { User } from '@supabase/supabase-js';
 import { ChevronDown, Settings, LogOut } from 'lucide-react';
 import { LanguageCollapse } from './LanguageCollapse';
 import { useTranslation } from 'react-i18next';
+import { useThemeStore } from '../zustand/store/themeStore';
 
 interface UserIdentityData {
     name?: string;
@@ -26,6 +27,9 @@ export const Header = () => {
 
     const toggleMenu = () => setMenuOpen(prev => !prev);
     const closeMenu = () => setMenuOpen(false);
+
+    const theme = useThemeStore((state) => state.theme);
+    const setTheme = useThemeStore((state) => state.setTheme);
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
@@ -76,8 +80,8 @@ export const Header = () => {
         ['/qrcode', t('header.send_qrcode')],
         ['/leitor', t('header.reader')],
         ['/participantes', t('header.participants')],
-        ['/configuracoes', t('header.settings')],
-        ['/popcorn', t('header.popcorn')]
+        ['/popcorn', t('header.popcorn')],
+        ['/configuracoes', t('header.settings')]
     ];
 
     return (
@@ -122,18 +126,21 @@ export const Header = () => {
                 </nav>
 
                 <div className="hidden md:flex items-center gap-3 relative">
-                    <Switch
-                        checked={enabled}
-                        onChange={setEnabled}
-                        className={`relative inline-flex h-6 w-12 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-200 ease-in-out ${enabled ? 'bg-blue-600' : 'bg-gray-300'
-                            }`}
-                    >
-                        <span className="sr-only">{t('header.dark_mode')}</span>
-                        <span
-                            className={`inline-block h-5 w-5 transform rounded-full bg-white dark:bg-gray-900 shadow transition duration-200 ease-in-out ${enabled ? 'translate-x-6' : 'translate-x-0.5'
+                    <div className="flex items-center space-x-2">
+                        <label className="text-sm text-gray-700 dark:text-gray-300">{t('settings.preferences.theme')}</label>
+                        <Switch
+                            checked={theme === 'dark'}
+                            onChange={(value) => setTheme(value ? 'dark' : 'light')}
+                            className={`relative inline-flex h-6 w-12 items-center rounded-full transition-colors duration-200 ease-in-out ${theme === 'dark' ? 'bg-blue-600' : 'bg-gray-300'
                                 }`}
-                        />
-                    </Switch>
+                        >
+                            <span className="sr-only">{t('header.dark_mode')}</span>
+                            <span
+                                className={`inline-block h-5 w-5 transform rounded-full bg-white dark:bg-gray-900 shadow transition duration-200 ease-in-out ${theme === 'dark' ? 'translate-x-6' : 'translate-x-0.5'
+                                    }`}
+                            />
+                        </Switch>
+                    </div>
                     <LanguageCollapse />
 
                     <div className="relative" ref={dropdownRef}>
