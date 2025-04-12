@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import QRCode from 'react-qr-code';
 import { Edit, Trash, QrCode, ChevronUp, ChevronDown } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
@@ -18,15 +18,29 @@ export const QRGenerator: React.FC<Props> = ({
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
   const [showList, setShowList] = useState(true);
   const [filter, setFilter] = useState<'all' | 'sent' | 'unsent'>('all');
+  const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const { t } = useTranslation();
 
-  const filteredData = data.filter(person => {
-    if (filter === 'sent') return person.sent;
-    if (filter === 'unsent') return !person.sent;
-    return true;
-  });
+  // const filteredData = data.filter(person => {
+  //   if (filter === 'sent') return person.sent;
+  //   if (filter === 'unsent') return !person.sent;
+  //   return true;
+  // });
+  const filteredData = useMemo(() => {
+    return data.filter(person => {
+      const matchesStatus =
+        (filter === 'sent' && person.sent) ||
+        (filter === 'unsent' && !person.sent) ||
+        filter === 'all';
+
+      const matchesName = person.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        person.last_name.toLowerCase().includes(searchTerm.toLowerCase());
+
+      return matchesStatus && matchesName;
+    });
+  }, [data, filter, searchTerm]);
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const paginatedData = filteredData.slice(
@@ -45,10 +59,11 @@ export const QRGenerator: React.FC<Props> = ({
   const handleSendWhatsApp = (person: Person) => {
     const qrLink = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${person.id}`;
     const message = encodeURIComponent(
-      t('generator.whatsappMessage', {
-        name: person.name,
-        qrLink: qrLink,
-      })
+      `🎬 Olá, ${person.name}!\n\n` +
+      `📩 Aqui está a sua *confirmação de inscrição* para assistir *The Chosen* no *Kinoplex São Luiz*.\n\n` +
+      `🪪 Mostre este QRCode para o pessoal da *Federação da UMP* para acessar a sessão.\n\n` +
+      `🖼️ Seu QR Code: ${qrLink}\n\n` +
+      `🍿 Bom filme! 🎉`
     );
     window.open(`https://wa.me/${person.phone}?text=${message}`, '_blank');
     onUpdatePerson({ ...person, sent: true });
@@ -67,6 +82,14 @@ export const QRGenerator: React.FC<Props> = ({
         </button>
 
         <div className="flex flex-wrap gap-2 justify-end">
+          <input
+            type="text"
+            placeholder={t('generator.searchByName') || "Buscar por nome"}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="px-3 py-1 rounded-3 text-sm border border-gray-300 dark:bg-gray-700 dark:text-white"
+            style={{ minWidth: '200px' }}
+          />
           <button
             onClick={() => setFilter('all')}
             className={`px-3 py-1 rounded-full text-sm font-medium border ${filter === 'all' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}

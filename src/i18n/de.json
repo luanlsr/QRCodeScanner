@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "Willkommen im System QR Evento",
-    "description": "Erstellen Sie personalisierte Codes für Ihre Gäste oder scannen Sie, um die Anwesenheit zu überprüfen.",
+    "title": "Willkommen im Event-QR-System",
+    "description": "Erstellen Sie individuelle QR-Codes für Ihre Gäste oder scannen Sie zur Anwesenheitskontrolle.",
     "send_qr": "QR-Code senden",
     "read_qr": "QR-Code lesen"
   },
@@ -15,170 +15,174 @@
     "popcorn": "Popcorn-Kombos",
     "logout": "Abmelden",
     "dark_mode": "Dunkelmodus umschalten",
-    "menu_title": "QR-Event"
+    "menu_title": "Event QR"
   },
   "dashboard": {
     "title": "Dashboard",
-    "total_participantes": "Gesamtanzahl der Teilnehmer",
+    "total_participantes": "Gesamtteilnehmer",
     "enviados": "Gesendet",
     "nao_enviados": "Nicht gesendet",
-    "com_combo": "Teilnehmer mit Combo",
-    "valor_total_ingressos": "Gesamtwert der Tickets",
-    "valor_total_combo": "Gesamtwert der Combos",
-    "valor_total_arrecadado": "Gesamterhobener Betrag",
-    "caixa": "Bargeld",
+    "com_combo": "Teilnehmer mit Kombo",
+    "valor_total_ingressos": "Gesamteinnahmen Tickets",
+    "valor_total_combo": "Gesamteinnahmen Kombos",
+    "valor_total_arrecadado": "Gesamteinnahmen insgesamt",
+    "caixa": "Kasse",
     "status_presenca": "Anwesenheitsstatus",
-    "distribuicao_arrecadacao": "Einnahmenverteilung",
+    "distribuicao_arrecadacao": "Einnahmeverteilung",
     "moeda": "R$ {{valor}}"
   },
   "generator": {
-  "participantsList": "Teilnehmerliste",
-  "sent": "Gesendet",
-  "unsent": "Nicht gesendet",
-  "sendWhatsapp": "Über Whatsapp senden",
-  "showQRCode": "QR-Code anzeigen",
-  "idLabel": "ID",
-  "prevPage": "Vorherige Seite",
-  "nextPage": "Nächste Seite",
-  "page": "Seite",
-  "of": "von",
-  "all": "Alle"
-},
-"reader": {
-  "title": "QR-Code-Leser",
-  "progress": "Fortschritt",
-  "scanned": "{{readCount}} von {{totalCount}} gelesen",
-  "stopError": "Stopp",
-  "startScan": "Scan starten",
-  "stopScan": "Scan stoppen",
-  "all": "Alle",
-  "read": "Gelesen",
-  "unread": "Ungelesen",
-  "participants": "Teilnehmer",
-  "close": "Schließen",
-  "markAsRead": "Als gelesen markieren",
-  "markAsUnread": "Als ungelesen markieren",
-  "verified": "Verifiziert"
-},
-  "participants": {
-  "table": {
-    "select": "Auswählen",
-    "photo": "Foto",
-    "name": "Vorname",
-    "lastName": "Nachname",
-    "phone": "Telefon",
-    "email": "E-Mail",
-    "combo": "Kombination",
+    "participantsList": "Teilnehmerliste",
     "sent": "Gesendet",
-    "read": "Gelesen",
-    "actions": "Aktionen",
-    "edit": "Bearbeiten",
-    "delete": "Löschen",
-    "participants": "Teilnehmer",
-    "yes": "Ja",
-    "no": "Nein",
-    "notFound": "Keine Teilnehmer gefunden"
-  },
-  "common": {
+    "unsent": "Nicht gesendet",
+    "sendWhatsapp": "Per WhatsApp senden",
+    "showQRCode": "QR-Code anzeigen",
+    "idLabel": "ID",
+    "prevPage": "Vorherige Seite",
+    "nextPage": "Nächste Seite",
+    "page": "Seite",
+    "of": "von",
     "all": "Alle",
-    "yes": "Ja",
-    "no": "Nein"
+    "searchByName": "Nach Name suchen"
   },
-  "combo": {
-  "all": "Mit Kombos",
-  "yes": "Ja",
-  "no": "Nein"
-},
-  "modals": {
-    "confirmDelete": {
-      "title": "Löschen bestätigen",
-      "message": "Möchten Sie {{name}} wirklich löschen?",
-      "cancel": "Abbrechen",
-      "confirm": "Löschen"
+  "reader": {
+    "title": "QR-Code-Leser",
+    "progress": "Fortschritt",
+    "scanned": "{{readCount}} von {{totalCount}} gelesen",
+    "stopError": "Stopp",
+    "startScan": "Scannen starten",
+    "stopScan": "Scannen stoppen",
+    "all": "Alle",
+    "read": "Gelesen",
+    "unread": "Ungelesen",
+    "participants": "Teilnehmer",
+    "close": "Schließen",
+    "markAsRead": "Als gelesen markieren",
+    "markAsUnread": "Als ungelesen markieren",
+    "verified": "Verifiziert"
+  },
+  "participants": {
+    "table": {
+      "select": "Auswählen",
+      "photo": "Foto",
+      "name": "Vorname",
+      "lastName": "Nachname",
+      "phone": "Telefon",
+      "email": "E-Mail",
+      "combo": "Kombo",
+      "sent": "Gesendet",
+      "read": "Gelesen",
+      "actions": "Aktionen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "participants": "Teilnehmer",
+      "yes": "Ja",
+      "no": "Nein",
+      "notFound": "Keine Teilnehmer gefunden"
     },
-    "bulkDelete": {
-      "title": "Teilnehmer löschen",
-      "message": "Möchten Sie wirklich {{count}} ausgewählte(n) Teilnehmer löschen?",
-      "cancel": "Abbrechen",
-      "confirm": "Bestätigen"
-    }
-  },
-  "actionBar": {
-    "searchPlaceholder": "Suchen...",
-    "deselectAll": "Alle abwählen",
-    "selectAll": "Alle auswählen",
-    "deleteSelected": "Ausgewählte löschen",
-    "new": "Neu hinzufügen",
-    "edit": "Teilnehmer bearbeiten",
-    "hideFilters": "Filter ausblenden",
-    "showFilters": "Filter anzeigen"
-  }
-},
-"settings": {
-  "tabs": {
-    "profile": "Profil",
-    "notifications": "Benachrichtigungen",
-    "password": "Passwort ändern",
-    "preferences": "Einstellungen",
-    "security": "Sicherheit"
-  },
-  "profile": {
-    "title": "Profil",
-    "name": "Name",
-    "email": "E-Mail"
-  },
-  "notifications": {
-    "email": "E-Mail-Benachrichtigungen",
-    "push": "Push-Benachrichtigungen"
-  },
-  "password": {
-    "title": "Passwort ändern",
-    "current": "Aktuelles Passwort",
-    "new": "Neues Passwort",
-    "confirm": "Neues Passwort bestätigen",
-    "update": "Passwort aktualisieren",
-    "success": "Passwort erfolgreich geändert!",
-    "error_mismatch": "Neue Passwörter stimmen nicht überein.",
-    "error_empty": "Bitte alle Felder ausfüllen.",
-    "error_invalid": "Ungültige Sitzung.",
-    "error_wrong": "Aktuelles Passwort ist falsch.",
-    "error_update": "Fehler beim Aktualisieren: {{error}}"
-  },
-  "preferences": {
-    "theme": "Thema",
-    "language": "Sprache",
-    "system": "System",
-    "light": "Hell",
-    "dark": "Dunkel",
-    "pt": "Portugiesisch",
-    "en": "Englisch"
-  },
-  "security": {
-    "lastLogin": "Letzte Anmeldung: {{date}}",
-    "devices": "Verbundene Geräte:",
-    "disconnect": "Alle Geräte trennen"
-  },
-  "loadingUser": "Benutzer wird geladen..."
-},
-"form": {
-        "name": "Name",
-        "namePlaceholder": "Z.B. John",
-        "lastName": "Nachname",
-        "lastNamePlaceholder": "Z.B. Müller",
-        "email": "E-Mail",
-        "emailPlaceholder": "Z.B. john@email.com",
-        "invalidEmail": "Ungültige E-Mail",
-        "phone": "Telefon (mit Ländervorwahl)",
-        "combo": "Haben Sie das Combo gekauft?",
-        "comboYes": "Ja (+ 15 R$)",
-        "comboNo": "Nein",
-        "total": "Gesamtbetrag (R$)",
+    "common": {
+      "all": "Alle",
+      "yes": "Ja",
+      "no": "Nein"
+    },
+    "combo": {
+      "all": "Mit Kombo",
+      "yes": "Ja",
+      "no": "Nein"
+    },
+    "modals": {
+      "confirmDelete": {
+        "title": "Löschen bestätigen",
+        "message": "Möchten Sie {{name}} wirklich löschen?",
         "cancel": "Abbrechen",
-        "save": "Speichern"
+        "confirm": "Löschen"
+      },
+      "bulkDelete": {
+        "title": "Teilnehmer löschen",
+        "message": "Möchten Sie die ausgewählten {{count}} Teilnehmer wirklich löschen?",
+        "cancel": "Abbrechen",
+        "confirm": "Bestätigen"
+      }
     },
-    "notFound": {
-      "notFound": "Seite nicht gefunden",
-      "pageNotFound": "Die gesuchte Seite existiert nicht.",
-      "goHome": "Zur Startseite zurückkehren"
+    "actionBar": {
+      "searchPlaceholder": "Suchen...",
+      "deselectAll": "Alle abwählen",
+      "selectAll": "Alle auswählen",
+      "deleteSelected": "Ausgewählte löschen",
+      "new": "Neuer Teilnehmer",
+      "edit": "Teilnehmer bearbeiten",
+      "hideFilters": "Filter ausblenden",
+      "showFilters": "Filter anzeigen",
+      "read": "Gelesen",
+      "yes": "Ja",
+      "no": "Nein"
     }
+  },
+  "settings": {
+    "tabs": {
+      "profile": "Profil",
+      "notifications": "Benachrichtigungen",
+      "password": "Passwort ändern",
+      "preferences": "Einstellungen",
+      "security": "Sicherheit"
+    },
+    "profile": {
+      "title": "Profil",
+      "name": "Name",
+      "email": "E-Mail"
+    },
+    "notifications": {
+      "email": "E-Mail-Benachrichtigungen",
+      "push": "Push-Benachrichtigungen"
+    },
+    "password": {
+      "title": "Passwort ändern",
+      "current": "Aktuelles Passwort",
+      "new": "Neues Passwort",
+      "confirm": "Neues Passwort bestätigen",
+      "update": "Passwort aktualisieren",
+      "success": "Passwort erfolgreich geändert!",
+      "error_mismatch": "Neue Passwörter stimmen nicht überein.",
+      "error_empty": "Bitte füllen Sie alle Felder aus.",
+      "error_invalid": "Ungültige Sitzung.",
+      "error_wrong": "Falsches aktuelles Passwort.",
+      "error_update": "Fehler beim Aktualisieren: {{error}}"
+    },
+    "preferences": {
+      "theme": "Thema",
+      "language": "Sprache",
+      "system": "System",
+      "light": "Hell",
+      "dark": "Dunkel",
+      "pt": "Portugiesisch",
+      "en": "Englisch"
+    },
+    "security": {
+      "lastLogin": "Letzte Anmeldung: {{date}}",
+      "devices": "Angemeldete Geräte:",
+      "disconnect": "Alle Geräte abmelden"
+    },
+    "loadingUser": "Benutzer wird geladen..."
+  },
+  "form": {
+    "name": "Vorname",
+    "namePlaceholder": "Z. B.: Max",
+    "lastName": "Nachname",
+    "lastNamePlaceholder": "Z. B.: Mustermann",
+    "email": "E-Mail",
+    "emailPlaceholder": "Z. B.: max@email.de",
+    "invalidEmail": "Ungültige E-Mail-Adresse",
+    "phone": "Telefonnummer (mit Vorwahl)",
+    "combo": "Hat Kombo bezahlt?",
+    "comboYes": "Ja (+ R$ 15)",
+    "comboNo": "Nein",
+    "total": "Gesamt (R$)",
+    "cancel": "Abbrechen",
+    "save": "Speichern"
+  },
+  "notFound": {
+    "notFound": "Seite nicht gefunden",
+    "pageNotFound": "Die gesuchte Seite existiert nicht.",
+    "goHome": "Zur Startseite"
+  }
 }

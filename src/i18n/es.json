@@ -1,184 +1,188 @@
 {
   "home": {
     "title": "Bienvenido al Sistema QR Evento",
-    "description": "Genera códigos personalizados para tus invitados o escanea para verificar asistencia.",
-    "send_qr": "Enviar Código QR",
-    "read_qr": "Leer Código QR"
+    "description": "Genera códigos personalizados para tus invitados o escanea para verificar la asistencia.",
+    "send_qr": "Enviar QR Code",
+    "read_qr": "Leer QR Code"
   },
   "header": {
     "home": "Inicio",
-    "dashboard": "Panel",
-    "send_qrcode": "Enviar Código QR",
-    "reader": "Lector de Código QR",
+    "dashboard": "Panel de control",
+    "send_qrcode": "Enviar QR Code",
+    "reader": "Lector de QR Code",
     "participants": "Participantes",
     "settings": "Configuraciones",
     "popcorn": "Combos de Palomitas",
     "logout": "Cerrar sesión",
     "dark_mode": "Alternar modo oscuro",
-    "menu_title": "Evento QR"
+    "menu_title": "QR Evento"
   },
   "dashboard": {
-    "title": "Tablero",
+    "title": "Panel de control",
     "total_participantes": "Total de Participantes",
     "enviados": "Enviados",
     "nao_enviados": "No enviados",
     "com_combo": "Participantes con Combo",
     "valor_total_ingressos": "Valor Total de Entradas",
-    "valor_total_combo": "Valor Total del Combo",
-    "valor_total_arrecadado": "Total Recaudado",
-    "caixa": "Efectivo",
+    "valor_total_combo": "Valor Total de Combo",
+    "valor_total_arrecadado": "Valor Total Recaudado",
+    "caixa": "Caja",
     "status_presenca": "Estado de Asistencia",
     "distribuicao_arrecadacao": "Distribución de Recaudación",
     "moeda": "R$ {{valor}}"
   },
   "generator": {
-  "participantsList": "Lista de Participantes",
-  "sent": "Enviados",
-  "unsent": "No enviados",
-  "sendWhatsapp": "Enviar por Whatsapp",
-  "showQRCode": "Mostrar código QR",
-  "idLabel": "ID",
-  "prevPage": "Página anterior",
-  "nextPage": "Página siguiente",
-  "page": "Página",
-  "of": "de",
-  "all": "Todos"
-},
-  "reader": {
-  "title": "Lector de QR Code",
-  "progress": "Progreso",
-  "scanned": "{{readCount}} de {{totalCount}} escaneados",
-  "stopError": "Detener",
-  "startScan": "Iniciar Lectura",
-  "stopScan": "Detener Lectura",
-  "all": "Todos",
-  "read": "Leído",
-  "unread": "No leídos",
-  "participants": "Participantes",
-  "close": "Cerrar",
-  "markAsRead": "Marcar como leído",
-  "markAsUnread": "Marcar como no leído",
-  "verified": "Verificado"
-},
-    "participants": {
-  "table": {
-    "select": "Seleccionar",
-    "photo": "Foto",
-    "name": "Nombre",
-    "lastName": "Apellido",
-    "phone": "Teléfono",
-    "email": "Correo electrónico",
-    "combo": "Combo",
-    "sent": "Enviado",
-    "read": "Leído",
-    "actions": "Acciones",
-    "edit": "Editar",
-    "delete": "Eliminar",
-    "participants": "Participantes",
-    "yes": "Sí",
-    "no": "No",
-    "notFound": "No se encontraron participantes"
-  },
-  "common": {
+    "participantsList": "Lista de Participantes",
+    "sent": "Enviados",
+    "unsent": "No enviados",
+    "sendWhatsapp": "Enviar por WhatsApp",
+    "showQRCode": "Mostrar QR Code",
+    "idLabel": "ID",
+    "prevPage": "Página anterior",
+    "nextPage": "Página siguiente",
+    "page": "Página",
+    "of": "de",
     "all": "Todos",
-    "yes": "Sí",
-    "no": "No"
+    "searchByName": "Buscar por nombre"
   },
-  "combo": {
-  "all": "Con combos",
-  "yes": "Sí",
-  "no": "No"
-},
-  "modals": {
-    "confirmDelete": {
-      "title": "Confirmar eliminación",
-      "message": "¿Está seguro de que desea eliminar a {{name}}?",
-      "cancel": "Cancelar",
-      "confirm": "Eliminar"
+  "reader": {
+    "title": "Lector de QR Code",
+    "progress": "Progreso",
+    "scanned": "{{readCount}} de {{totalCount}} leídos",
+    "stopError": "Detener",
+    "startScan": "Iniciar Lectura",
+    "stopScan": "Detener Lectura",
+    "all": "Todos",
+    "read": "Leído",
+    "unread": "No leído",
+    "participants": "Participantes",
+    "close": "Cerrar",
+    "markAsRead": "Marcar como leído",
+    "markAsUnread": "Marcar como no leído",
+    "verified": "Verificado"
+  },
+  "participants": {
+    "table": {
+      "select": "Seleccionar",
+      "photo": "Foto",
+      "name": "Nombre",
+      "lastName": "Apellido",
+      "phone": "Teléfono",
+      "email": "Correo electrónico",
+      "combo": "Combo",
+      "sent": "Enviado",
+      "read": "Leído",
+      "actions": "Acciones",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "participants": "Participantes",
+      "yes": "Sí",
+      "no": "No",
+      "notFound": "No se encontraron participantes"
     },
-    "bulkDelete": {
-      "title": "Eliminar participantes",
-      "message": "¿Está seguro de que desea eliminar a {{count}} participante(s) seleccionados?",
-      "cancel": "Cancelar",
-      "confirm": "Confirmar"
+    "common": {
+      "all": "Todos",
+      "yes": "Sí",
+      "no": "No"
+    },
+    "combo": {
+      "all": "Con combos",
+      "yes": "Sí",
+      "no": "No"
+    },
+    "modals": {
+      "confirmDelete": {
+        "title": "Confirmar eliminación",
+        "message": "¿Estás seguro de que deseas eliminar a {{name}}?",
+        "cancel": "Cancelar",
+        "confirm": "Eliminar"
+      },
+      "bulkDelete": {
+        "title": "Eliminar Participantes",
+        "message": "¿Estás seguro de que deseas eliminar {{count}} participante(s) seleccionado(s)?",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar"
+      }
+    },
+    "actionBar": {
+      "searchPlaceholder": "Buscar...",
+      "deselectAll": "Deseleccionar todos",
+      "selectAll": "Seleccionar todos",
+      "deleteSelected": "Eliminar seleccionados",
+      "new": "Agregar Nuevo",
+      "edit": "Editar Participante",
+      "hideFilters": "Ocultar filtros",
+      "showFilters": "Mostrar filtros",
+      "read": "Leídos",
+      "yes": "Sí",
+      "no": "No"
     }
   },
-  "actionBar": {
-    "searchPlaceholder": "Buscar...",
-    "deselectAll": "Deseleccionar todo",
-    "selectAll": "Seleccionar todo",
-    "deleteSelected": "Eliminar seleccionados",
-    "new": "Agregar nuevo",
-    "edit": "Editar Participante",
-    "hideFilters": "Ocultar filtros",
-    "showFilters": "Mostrar filtros"
-  }
-},
-"settings": {
-  "tabs": {
-    "profile": "Perfil",
-    "notifications": "Notificaciones",
-    "password": "Cambiar Contraseña",
-    "preferences": "Preferencias",
-    "security": "Seguridad"
-  },
-  "profile": {
-    "title": "Perfil",
-    "name": "Nombre",
-    "email": "Correo electrónico"
-  },
-  "notifications": {
-    "email": "Notificaciones por correo",
-    "push": "Notificaciones push"
-  },
-  "password": {
-    "title": "Cambiar Contraseña",
-    "current": "Contraseña actual",
-    "new": "Nueva contraseña",
-    "confirm": "Confirmar nueva contraseña",
-    "update": "Actualizar contraseña",
-    "success": "¡Contraseña actualizada con éxito!",
-    "error_mismatch": "Las nuevas contraseñas no coinciden.",
-    "error_empty": "Rellene todos los campos.",
-    "error_invalid": "Sesión inválida.",
-    "error_wrong": "Contraseña actual incorrecta.",
-    "error_update": "Error al actualizar: {{error}}"
-  },
-  "preferences": {
-    "theme": "Tema",
-    "language": "Idioma",
-    "system": "Sistema",
-    "light": "Claro",
-    "dark": "Oscuro",
-    "pt": "Portugués",
-    "en": "Inglés"
-  },
-  "security": {
-    "lastLogin": "Último acceso: {{date}}",
-    "devices": "Dispositivos conectados:",
-    "disconnect": "Desconectar todos los dispositivos"
-  },
-  "loadingUser": "Cargando usuario..."
-},
-  "form": {
+  "settings": {
+    "tabs": {
+      "profile": "Perfil",
+      "notifications": "Notificaciones",
+      "password": "Cambiar Contraseña",
+      "preferences": "Preferencias",
+      "security": "Seguridad"
+    },
+    "profile": {
+      "title": "Perfil",
       "name": "Nombre",
-      "namePlaceholder": "Ej: Juan",
-      "lastName": "Apellido",
-      "lastNamePlaceholder": "Ej: Pérez",
-      "email": "Correo electrónico",
-      "emailPlaceholder": "Ej: juan@email.com",
-      "invalidEmail": "Correo electrónico inválido",
-      "phone": "Teléfono (con código de país)",
-      "combo": "¿Compró Combo?",
-      "comboYes": "Sí (+ R$ 15)",
-      "comboNo": "No",
-      "total": "Monto Total (R$)",
-      "cancel": "Cancelar",
-      "save": "Guardar"
+      "email": "Correo electrónico"
+    },
+    "notifications": {
+      "email": "Notificaciones por correo electrónico",
+      "push": "Notificaciones push"
+    },
+    "password": {
+      "title": "Cambiar Contraseña",
+      "current": "Contraseña actual",
+      "new": "Nueva contraseña",
+      "confirm": "Confirmar nueva contraseña",
+      "update": "Actualizar contraseña",
+      "success": "¡Contraseña cambiada exitosamente!",
+      "error_mismatch": "Las nuevas contraseñas no coinciden.",
+      "error_empty": "Por favor, complete todos los campos.",
+      "error_invalid": "Sesión inválida.",
+      "error_wrong": "Contraseña actual incorrecta.",
+      "error_update": "Error al actualizar: {{error}}"
+    },
+    "preferences": {
+      "theme": "Tema",
+      "language": "Idioma",
+      "system": "Sistema",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "pt": "Portugués",
+      "en": "Inglés"
+    },
+    "security": {
+      "lastLogin": "Último acceso: {{date}}",
+      "devices": "Dispositivos conectados:",
+      "disconnect": "Desconectar todos los dispositivos"
+    },
+    "loadingUser": "Cargando usuario..."
+  },
+  "form": {
+    "name": "Nombre",
+    "namePlaceholder": "Ej: Juan",
+    "lastName": "Apellido",
+    "lastNamePlaceholder": "Ej: Pérez",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "Ej: juan@email.com",
+    "invalidEmail": "Correo electrónico inválido",
+    "phone": "Teléfono (con código de país)",
+    "combo": "¿Pagó Combo?",
+    "comboYes": "Sí (+ R$ 15)",
+    "comboNo": "No",
+    "total": "Total (R$)",
+    "cancel": "Cancelar",
+    "save": "Guardar"
   },
   "notFound": {
     "notFound": "Página no encontrada",
-    "pageNotFound": "La página que buscas no existe.",
-    "goHome": "Volver a la página principal"
+    "pageNotFound": "La página que estás buscando no existe.",
+    "goHome": "Volver a la página de inicio"
   }
 }

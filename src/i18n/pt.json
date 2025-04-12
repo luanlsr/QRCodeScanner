@@ -42,7 +42,8 @@
       "nextPage":"Próxima página",
       "page":"Página",
       "of":"de",
-      "all":"Todos"
+      "all":"Todos",
+      "searchByName":"Buscar por nome"
     },
     "reader":{
       "title":"Leitor QR Code",

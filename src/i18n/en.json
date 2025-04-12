@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "Welcome to the QR Evento System",
-    "description": "Generate personalized codes for your guests or scan to verify attendance.",
+    "title": "Welcome to the QR Event System",
+    "description": "Generate personalized codes for your guests or scan to confirm attendance.",
     "send_qr": "Send QR Code",
     "read_qr": "Read QR Code"
   },
@@ -14,7 +14,7 @@
     "settings": "Settings",
     "popcorn": "Popcorn Combos",
     "logout": "Logout",
-    "dark_mode": "Toggle Dark Mode",
+    "dark_mode": "Toggle dark mode",
     "menu_title": "QR Event"
   },
   "dashboard": {
@@ -25,42 +25,43 @@
     "com_combo": "Participants with Combo",
     "valor_total_ingressos": "Total Ticket Value",
     "valor_total_combo": "Total Combo Value",
-    "valor_total_arrecadado": "Total Amount Collected",
+    "valor_total_arrecadado": "Total Collected",
     "caixa": "Cash",
     "status_presenca": "Attendance Status",
     "distribuicao_arrecadacao": "Revenue Distribution",
     "moeda": "R$ {{valor}}"
   },
   "generator": {
-  "participantsList": "Participants List",
-  "sent": "Sent",
-  "unsent": "Unsent",
-  "sendWhatsapp": "Send via Whatsapp",
-  "showQRCode": "Show QR Code",
-  "idLabel": "ID",
-  "prevPage": "Previous page",
-  "nextPage": "Next page",
-  "page": "Page",
-  "of": "of",
-  "all": "All"
-},
+    "participantsList": "Participants List",
+    "sent": "Sent",
+    "unsent": "Unsent",
+    "sendWhatsapp": "Send via WhatsApp",
+    "showQRCode": "Show QR Code",
+    "idLabel": "ID",
+    "prevPage": "Previous page",
+    "nextPage": "Next page",
+    "page": "Page",
+    "of": "of",
+    "all": "All",
+    "searchByName": "Search by name"
+  },
   "reader": {
-  "title": "QR Code Reader",
-  "progress": "Progress",
-  "scanned": "{{readCount}} of {{totalCount}} scanned",
-  "stopError": "Stop",
-  "startScan": "Start Scanning",
-  "stopScan": "Stop Scanning",
-  "all": "All",
-  "read": "Read",
-  "unread": "Unread",
-  "participants": "Participants",
-  "close": "Close",
-  "markAsRead": "Mark as Read",
-  "markAsUnread": "Mark as Unread",
-  "verified": "Verified"
-},
-    "participants": {
+    "title": "QR Code Reader",
+    "progress": "Progress",
+    "scanned": "{{readCount}} of {{totalCount}} scanned",
+    "stopError": "Stop",
+    "startScan": "Start Scanning",
+    "stopScan": "Stop Scanning",
+    "all": "All",
+    "read": "Read",
+    "unread": "Unread",
+    "participants": "Participants",
+    "close": "Close",
+    "markAsRead": "Mark as read",
+    "markAsUnread": "Mark as unread",
+    "verified": "Verified"
+  },
+  "participants": {
     "table": {
       "select": "Select",
       "photo": "Photo",
@@ -91,7 +92,7 @@
     },
     "modals": {
       "confirmDelete": {
-        "title": "Confirm Deletion",
+        "title": "Confirm deletion",
         "message": "Are you sure you want to delete {{name}}?",
         "cancel": "Cancel",
         "confirm": "Delete"
@@ -111,7 +112,10 @@
       "new": "Add New",
       "edit": "Edit Participant",
       "hideFilters": "Hide filters",
-      "showFilters": "Show filters"
+      "showFilters": "Show filters",
+      "read": "Read",
+      "yes": "Yes",
+      "no": "No"
     }
   },
   "settings": {
@@ -128,21 +132,21 @@
       "email": "Email"
     },
     "notifications": {
-      "email": "Email Notifications",
-      "push": "Push Notifications"
+      "email": "Email notifications",
+      "push": "Push notifications"
     },
     "password": {
       "title": "Change Password",
-      "current": "Current Password",
-      "new": "New Password",
-      "confirm": "Confirm New Password",
-      "update": "Update Password",
-      "success": "Password updated successfully!",
+      "current": "Current password",
+      "new": "New password",
+      "confirm": "Confirm new password",
+      "update": "Update password",
+      "success": "Password changed successfully!",
       "error_mismatch": "New passwords do not match.",
-      "error_empty": "Please fill all fields.",
+      "error_empty": "Please fill in all fields.",
       "error_invalid": "Invalid session.",
-      "error_wrong": "Current password incorrect.",
-      "error_update": "Update error: {{error}}"
+      "error_wrong": "Incorrect current password.",
+      "error_update": "Error updating: {{error}}"
     },
     "preferences": {
       "theme": "Theme",
@@ -161,25 +165,24 @@
     "loadingUser": "Loading user..."
   },
   "form": {
-        "name": "Name",
-        "namePlaceholder": "E.g. John",
-        "lastName": "Last Name",
-        "lastNamePlaceholder": "E.g. Doe",
-        "email": "Email",
-        "emailPlaceholder": "E.g. john@email.com",
-        "invalidEmail": "Invalid email",
-        "phone": "Phone (with country code)",
-        "combo": "Bought Combo?",
-        "comboYes": "Yes (+ $15)",
-        "comboNo": "No",
-        "total": "Total Amount ($)",
-        "cancel": "Cancel",
-        "save": "Save"
-    },
-    "notFound": {
-      "notFound": "Page not found",
-      "pageNotFound": "The page you are looking for does not exist.",
-      "goHome": "Go back to the homepage"
-    }
+    "name": "First Name",
+    "namePlaceholder": "Ex: John",
+    "lastName": "Last Name",
+    "lastNamePlaceholder": "Ex: Doe",
+    "email": "Email",
+    "emailPlaceholder": "Ex: john@email.com",
+    "invalidEmail": "Invalid email",
+    "phone": "Phone (with country code)",
+    "combo": "Paid Combo?",
+    "comboYes": "Yes (+ R$ 15)",
+    "comboNo": "No",
+    "total": "Total Amount (R$)",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "notFound": {
+    "notFound": "Page not found",
+    "pageNotFound": "The page you are looking for does not exist.",
+    "goHome": "Return to the homepage"
   }
-  
+}

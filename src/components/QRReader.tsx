@@ -1,5 +1,5 @@
 // src/components/QRReader.tsx
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
 import toast from 'react-hot-toast';
 import { AlertTriangle, Check, ChevronDown, ChevronUp } from 'lucide-react';
@@ -14,8 +14,10 @@ interface Props {
 export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
   const { t } = useTranslation();
   const [scanning, setScanning] = useState(false);
-  const [showList, setShowList] = useState(false);
+  const [showList, setShowList] = useState(true);
   const [filter, setFilter] = useState<'all' | 'read' | 'unread'>('all');
+  const [searchTerm, setSearchTerm] = useState('');
+
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const [successPerson, setSuccessPerson] = useState<Person | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -24,11 +26,20 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
   const readCount = activeData.filter(p => p.read).length;
   const progress = totalCount > 0 ? (readCount / totalCount) * 100 : 0;
 
-  const filteredData = activeData.filter(person => {
-    if (filter === 'read') return person.read;
-    if (filter === 'unread') return !person.read;
-    return true;
-  });
+  const filteredData = useMemo(() => {
+    return data.filter(person => {
+      const matchesStatus =
+        (filter === 'read' && person.read) ||
+        (filter === 'unread' && !person.read) ||
+        filter === 'all';
+
+      const matchesName = person.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        person.last_name.toLowerCase().includes(searchTerm.toLowerCase());
+
+      return matchesStatus && matchesName;
+    });
+  }, [data, filter, searchTerm]);
+
 
   useEffect(() => {
     const scannerId = 'reader';
@@ -118,15 +129,32 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
       {scanning && <div id="reader" className="w-full max-w-md mx-auto mb-6" />}
 
       {/* Filtro */}
-      <select
-        value={filter}
-        onChange={(e) => setFilter(e.target.value as any)}
-        className="px-3 py-1 border rounded-lg bg-white text-sm my-5 dark:bg-gray-600"
+      <button
+        onClick={() => setFilter('all')}
+        className={`px-3 py-1 rounded-full text-sm mr-3 mb-3 font-medium border ${filter === 'all' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'}`}
       >
-        <option value="all">{t('reader.all')}</option>
-        <option value="read">{t('reader.read')}</option>
-        <option value="unread">{t('reader.unread')}</option>
-      </select>
+        {t('reader.all')} {data.length}
+      </button>
+      <button
+        onClick={() => setFilter('read')}
+        className={`px-3 py-1 rounded-full text-sm mr-3 mb-3 font-medium border ${filter === 'read' ? 'bg-green-600 text-white' : 'bg-white text-green-600'}`}
+      >
+        {t('reader.read')} {data.filter(x => x.read).length}
+      </button>
+      <button
+        onClick={() => setFilter('unread')}
+        className={`px-3 py-1 rounded-full text-sm mr-3 mb-3 font-medium border ${filter === 'unread' ? 'bg-yellow-500 text-white' : 'bg-white text-yellow-600'}`}
+      >
+        {t('reader.unread')} {data.filter(x => !x.read).length}
+      </button>
+      <input
+        type="text"
+        placeholder={t('generator.searchByName') || "Buscar por nome"}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="px-3 py-1 rounded-4 mb-3 text-sm border border-gray-300 dark:bg-gray-700 dark:text-white"
+        style={{ minWidth: '200px' }}
+      />
 
       {/* Lista de participantes */}
       <div className="rounded-xl shadow mb-6 text-white bg-blue-500">

@@ -298,8 +298,6 @@ export const Participants = () => {
         }
     ];
 
-
-
     return (
         <main className="pt-[80px] px-4 py-6 bg-gray-50 dark:bg-gray-800 text-gray-800 min-h-[calc(100vh-73px)]">
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 dark:text-white">
