@@ -76,7 +76,8 @@ export const Header = () => {
         ['/qrcode', t('header.send_qrcode')],
         ['/leitor', t('header.reader')],
         ['/participantes', t('header.participants')],
-        ['/configuracoes', t('header.settings')]
+        ['/configuracoes', t('header.settings')],
+        ['/popcorn', t('header.popcorn')]
     ];
 
     return (

@@ -14,6 +14,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
 import { PublicRegisterPage } from './pages/PublicRegisterPage';
 import NotFound from './pages/NotFoundPage';
+import PopCornListPage from './pages/PopCornListPage';
 
 function AppWrapper() {
   const hideHeaderRoutes = [
@@ -35,6 +36,7 @@ function AppWrapper() {
     '/register',
     '/forgot',
     '/reset-password',
+    '/popcorn'
   ];
 
   const location = useLocation();
@@ -67,6 +69,7 @@ function AppWrapper() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/popcorn" element={<PopCornListPage />} />
           {/* ✅ Rota para páginas não encontradas */}
           <Route path="*" element={<NotFound />} />
         </Routes>
