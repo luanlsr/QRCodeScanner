@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
 import toast from 'react-hot-toast';
-import { AlertTriangle, Check, ChevronDown, ChevronUp, Popcorn } from 'lucide-react';
+import { AlertTriangle, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { Person } from '../models/Person';
 import { useTranslation } from 'react-i18next';
 
@@ -185,7 +185,8 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
                       </span>
                     )}
                   </h4>
-                  <p className="text-sm text-gray-600 break-words dark:text-gray-400 dark:text-white">{person.email}</p>
+                  <p className={`text-sm text-gray-600 break-words dark:text-gray-400 
+                    ${person.read ? 'dark:text-black' : 'dark:text-white'}`}>{person.email}</p>
                 </div>
 
                 <button
@@ -209,17 +210,6 @@ export const QRReader: React.FC<Props> = ({ data, onUpdatePerson }) => {
               <Check className="mb-4" size={56} />
               <h2 className="text-2xl font-bold mb-2">{t('reader.scanSuccessTitle')}</h2>
               <p className="text-lg font-medium">{successPerson.name} {successPerson.last_name} </p>
-              <br />
-              {successPerson.combo && (
-                <>
-                  <h1 className='text-white'>Entregar Pipoca</h1>
-                  <Popcorn
-
-                    size={20}
-                    className='text-white'
-                  />
-                </>
-              )}
               <button
                 onClick={() => setSuccessPerson(null)}
                 className="mt-6 px-6 py-2 bg-white text-green-600 font-semibold rounded-lg hover:bg-gray-100"

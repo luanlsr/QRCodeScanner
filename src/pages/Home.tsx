@@ -27,18 +27,7 @@ export const Home: React.FC = () => {
             </p>
 
             <div className="flex gap-4 flex-col sm:flex-row">
-                <button
-                    onClick={() => navigate('/qrcode')}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
-                >
-                    {t("home.send_qr")}
-                </button>
-                <button
-                    onClick={() => navigate('/leitor')}
-                    className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition"
-                >
-                    {t("home.read_qr")}
-                </button>
+
             </div>
         </main>
     );

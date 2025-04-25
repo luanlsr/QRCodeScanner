@@ -118,7 +118,17 @@
         "read": "Lidos",
         "yes": "Sim",
         "no": "Não"
-      }
+      },
+      "status": {
+        "sent": "Enviado",
+        "read": "Lido"
+      },
+      "qrCode": {
+        "view": "Ver QR Code",
+        "hide": "Ocultar QR Code"
+      },
+      "message": "Enviar mensagem",
+      "sendWhatsApp": "Enviar WhatsApp"
     },
     "settings": {
       "tabs": {
@@ -166,27 +176,46 @@
       },
       "loadingUser": "Carregando usuário..."
     },
-      "form": {
-        "name": "Nome",
-        "namePlaceholder": "Ex: Fulano",
-        "lastName": "Sobrenome",
-        "lastNamePlaceholder": "Ex: de Tal",
-        "email": "Email",
-        "emailPlaceholder": "Ex: joao@email.com",
-        "invalidEmail": "Email inválido",
-        "phone": "Telefone (com DDI)",
-        "combo": "Pagou Combo?",
-        "comboYes": "Sim (+ R$ 15)",
-        "comboNo": "Não",
-        "total": "Valor Total (R$)",
-        "cancel": "Cancelar",
-        "save": "Salvar"
+    "form": {
+      "name": "Nome",
+      "namePlaceholder": "Ex: Fulano",
+      "lastName": "Sobrenome",
+      "lastNamePlaceholder": "Ex: de Tal",
+      "email": "Email",
+      "emailPlaceholder": "Ex: joao@email.com",
+      "invalidEmail": "Email inválido",
+      "phone": "Telefone (com DDI)",
+      "combo": "Pagou Combo?",
+      "comboYes": "Sim (+ R$ 15)",
+      "comboNo": "Não",
+      "total": "Valor Total (R$)",
+      "cancel": "Cancelar",
+      "save": "Salvar"
     },
     "notFound":{
       "notFound": "Página não encontrada",
       "pageNotFound": "A página que você está procurando não existe.",
       "goHome": "Voltar para a página inicial"
+    },
+    "common": {
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "delete": "Excluir",
+      "edit": "Editar",
+      "remove": "Remover"
+    },
+    "participantDetails": {
+      "title": "Detalhes do Participante",
+      "photo": "Foto do participante",
+      "avatar": "Avatar padrão",
+      "uploading": "Enviando...",
+      "uploadPhoto": "Enviar foto",
+      "photoUploaded": "Foto enviada com sucesso",
+      "errorUploadingPhoto": "Erro ao enviar foto",
+      "photoRemoved": "Foto removida com sucesso",
+      "sentStatus": "Status de Envio",
+      "readStatus": "Status de Leitura",
+      "saving": "Salvando..."
     }
-    
   }
   

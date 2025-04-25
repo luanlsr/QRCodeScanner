@@ -1,9 +1,12 @@
-import { FC, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from './Modal';
-import { Camera, Popcorn, Save, X } from 'lucide-react';
+import { Camera, Save, X } from 'lucide-react';
 import { supabase } from '../superbase';
 import { Person } from '../models/Person';
 import { formatPhoneNumber } from '../utils/utils';
+import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
+import { QRCodeDisplay } from './QRCodeDisplay';
 
 interface Props {
     person: Person | null;
@@ -12,10 +15,12 @@ interface Props {
     onUpdate?: (person: Person) => void;
 }
 
-export const ParticipantDetailsModal: FC<Props> = ({ person, isOpen, onClose, onUpdate }) => {
+export const ParticipantDetailsModal = ({ person, isOpen, onClose, onUpdate }: Props) => {
     const [localPerson, setLocalPerson] = useState<Person | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [uploading, setUploading] = useState(false);
+    const [showQrCode, setShowQrCode] = useState(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setLocalPerson(person);
@@ -56,9 +61,11 @@ export const ParticipantDetailsModal: FC<Props> = ({ person, isOpen, onClose, on
             } else {
                 // Atualiza o estado local também
                 setLocalPerson(prev => prev ? { ...prev, photo_url: publicUrl } : null);
+                toast.success(t('participantDetails.photoUploaded'));
             }
         } else {
             console.error('Erro ao enviar imagem:', uploadError.message);
+            toast.error(t('participantDetails.errorUploadingPhoto'));
         }
 
         setUploading(false);
@@ -93,25 +100,30 @@ export const ParticipantDetailsModal: FC<Props> = ({ person, isOpen, onClose, on
         // Limpa o estado local e o preview
         setLocalPerson((prev) => prev ? { ...prev, photo_url: '' } : null);
         setPreviewUrl(null);
+        toast.success(t('participantDetails.photoRemoved'));
+    };
+
+    const toggleQrCode = () => {
+        setShowQrCode(!showQrCode);
     };
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} title="Detalhes do Participante" size="xxl">
+        <Modal isOpen={isOpen} onClose={onClose} title={`${t('participantDetails.title')}: ${localPerson.name} ${localPerson.last_name}`} size="xxl">
             <div className="flex flex-col sm:flex-row gap-6">
                 {/* FOTO */}
                 <div className="relative w-40 h-40 mx-auto md:mx-0 flex flex-col items-center mb-5">
                     {/* Foto ou avatar (quadrado) */}
-                    <div className="w-40 h-40  border border-gray-300 shadow-sm rounded-lg">
+                    <div className="w-40 h-40 border border-gray-300 shadow-sm rounded-lg dark:border-gray-600">
                         {previewUrl || localPerson.photo_url ? (
                             <img
                                 src={previewUrl || localPerson.photo_url}
-                                alt="Foto do participante"
+                                alt={t('participantDetails.photo')}
                                 className="w-full h-full object-cover"
                             />
                         ) : (
                             <img
                                 src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
-                                alt="Avatar padrão"
+                                alt={t('participantDetails.avatar')}
                                 className="w-full h-full object-cover opacity-50"
                             />
                         )}
@@ -125,7 +137,7 @@ export const ParticipantDetailsModal: FC<Props> = ({ person, isOpen, onClose, on
                             className="flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 text-xs rounded shadow cursor-pointer"
                         >
                             <Camera className="w-4 h-4" />
-                            Foto
+                            {uploading ? t('participantDetails.uploading') : t('participantDetails.uploadPhoto')}
                         </label>
 
                         {/* Remover */}
@@ -135,7 +147,7 @@ export const ParticipantDetailsModal: FC<Props> = ({ person, isOpen, onClose, on
                             className="flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white px-3 py-1 text-xs rounded shadow disabled:opacity-50"
                         >
                             <X className="w-4 h-4" />
-                            Remover
+                            {t('common.remove')}
                         </button>
                     </div>
 
@@ -147,31 +159,51 @@ export const ParticipantDetailsModal: FC<Props> = ({ person, isOpen, onClose, on
                         capture="environment"
                         className="hidden"
                         onChange={handlePhotoChange}
+                        disabled={uploading}
                     />
                 </div>
 
 
                 {/* DADOS */}
                 <div className="flex-1 text-sm space-y-2">
-                    <p><span className="font-medium text-gray-800">Nome:</span> {localPerson.name}</p>
-                    <p><span className="font-medium text-gray-800">Sobrenome:</span> {localPerson.last_name}</p>
-                    <p><span className="font-medium text-gray-800">E-mail:</span> {localPerson.email || '—'}</p>
-                    <p><span className="font-medium text-gray-800">Telefone:</span> {formatPhoneNumber(localPerson.phone) || '—'}</p>
                     <p>
-                        <span className="font-medium text-gray-800">Status de Envio:</span>{' '}
-                        <span className={localPerson.sent ? 'text-green-600 font-semibold' : 'text-yellow-600 font-semibold'}>
-                            {localPerson.sent ? 'Enviado' : 'Não enviado'}
+                        <span className="font-medium text-gray-800 dark:text-white">{t('form.name')}: </span>
+                        <span className="dark:text-gray-200">{localPerson.name}</span>
+                    </p>
+                    <p>
+                        <span className="font-medium text-gray-800 dark:text-white">{t('form.lastName')}: </span>
+                        <span className="dark:text-gray-200">{localPerson.last_name}</span>
+                    </p>
+                    <p>
+                        <span className="font-medium text-gray-800 dark:text-white">{t('form.email')}: </span>
+                        <span className="dark:text-gray-200">{localPerson.email || '—'}</span>
+                    </p>
+                    <p>
+                        <span className="font-medium text-gray-800 dark:text-white">{t('form.phone')}: </span>
+                        <span className="dark:text-gray-200">{formatPhoneNumber(localPerson.phone) || '—'}</span>
+                    </p>
+                    <p>
+                        <span className="font-medium text-gray-800 dark:text-white">{t('participantDetails.sentStatus')}: </span>{' '}
+                        <span className={localPerson.sent ? 'text-green-600 font-semibold dark:text-green-400' : 'text-yellow-600 font-semibold dark:text-yellow-400'}>
+                            {localPerson.sent ? t('participants.common.yes') : t('participants.common.no')}
                         </span>
                     </p>
                     <p>
-                        <span className="font-medium text-gray-800">Status de Leitura:</span>{' '}
-                        <span className={localPerson.read ? 'text-blue-600 font-semibold' : 'text-gray-600 font-semibold'}>
-                            {localPerson.read ? 'Lido' : 'Não lido'}
+                        <span className="font-medium text-gray-800 dark:text-white">{t('participantDetails.readStatus')}: </span>{' '}
+                        <span className={localPerson.read ? 'text-blue-600 font-semibold dark:text-blue-400' : 'text-gray-600 font-semibold dark:text-gray-400'}>
+                            {localPerson.read ? t('participants.common.yes') : t('participants.common.no')}
                         </span>
                     </p>
-                    <p><span className="font-medium text-gray-800 flex">Combo: {localPerson.combo ? 'Sim' : 'Não'}</span></p>
                 </div>
             </div>
+
+            {/* QR Code */}
+            <QRCodeDisplay
+                value={localPerson.id}
+                showToggle={true}
+                isVisible={showQrCode}
+                onToggle={toggleQrCode}
+            />
 
             {/* BOTÃO SALVAR */}
             <div className="mt-6 flex justify-end">
@@ -181,7 +213,7 @@ export const ParticipantDetailsModal: FC<Props> = ({ person, isOpen, onClose, on
                     className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow disabled:opacity-50"
                 >
                     <Save className="w-4 h-4" />
-                    {uploading ? 'Enviando...' : 'Salvar'}
+                    {uploading ? t('participantDetails.saving') : t('common.save')}
                 </button>
             </div>
         </Modal>

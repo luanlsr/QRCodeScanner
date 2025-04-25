@@ -3,7 +3,6 @@ import { Dashboard } from './pages/Dashboard';
 import { Participants } from './pages/Participants';
 import { SettingsPage } from './pages/SettingsPage';
 import { Header } from './components/Header';
-import { GeneratePage } from './pages/GeneratePage';
 import { ReadPage } from './pages/ReadPage';
 import { Home } from './pages/Home';
 import { LoginPage } from './pages/LoginPage';
@@ -14,7 +13,6 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
 import { PublicRegisterPage } from './pages/PublicRegisterPage';
 import NotFound from './pages/NotFoundPage';
-import PopCornListPage from './pages/PopCornListPage';
 
 function AppWrapper() {
   const hideHeaderRoutes = [
@@ -27,7 +25,6 @@ function AppWrapper() {
   const validRoutes = [
     '/',
     '/dashboard',
-    '/qrcode',
     '/leitor',
     '/participantes',
     '/configuracoes',
@@ -36,7 +33,6 @@ function AppWrapper() {
     '/register',
     '/forgot',
     '/reset-password',
-    '/popcorn'
   ];
 
   const location = useLocation();
@@ -59,7 +55,6 @@ function AppWrapper() {
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/qrcode" element={<GeneratePage />} />
             <Route path="/leitor" element={<ReadPage />} />
             <Route path="/participantes" element={<Participants />} />
             <Route path="/configuracoes" element={<SettingsPage />} />
@@ -69,7 +64,6 @@ function AppWrapper() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/popcorn" element={<PopCornListPage />} />
           {/* ✅ Rota para páginas não encontradas */}
           <Route path="*" element={<NotFound />} />
         </Routes>

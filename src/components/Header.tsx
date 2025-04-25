@@ -77,10 +77,8 @@ export const Header = () => {
     const links = [
         ['/', t('header.home')],
         ['/dashboard', t('header.dashboard')],
-        ['/qrcode', t('header.send_qrcode')],
         ['/leitor', t('header.reader')],
         ['/participantes', t('header.participants')],
-        ['/popcorn', t('header.popcorn')],
         ['/configuracoes', t('header.settings')]
     ];
 

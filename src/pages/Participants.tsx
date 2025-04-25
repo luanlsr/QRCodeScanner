@@ -4,7 +4,7 @@ import { getAllParticipants, createParticipant, deleteParticipant, updatePartici
 import { Modal } from '../components/Modal';
 import { PersonForm } from '../components/PersonForm';
 import { ParticipantDetailsModal } from '../components/ParticipantDetailsModal';
-import { Trash, Pencil, Popcorn } from 'lucide-react';
+import { Trash, Pencil, QrCode, Send } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { PersonEditForm } from '../components/PersonEditForm';
 import { useProtectRoute } from '../hooks/useProtectRout';
@@ -18,6 +18,8 @@ import { ConfirmDeleteModal } from '../components/ConfirmDeleteModal';
 import { ActionBar } from '../components/ActionBar';
 import { BulkDeleteModal } from '../components/BulkDeleteModal';
 import { createCustomDarkTheme, createCustomStyles } from '../components/datatable/styles';
+import { Html5Qrcode } from 'html5-qrcode';
+import { FaWhatsapp } from 'react-icons/fa';
 
 export const Participants = () => {
     const [participants, setParticipants] = useState<Person[]>([]);
@@ -30,12 +32,15 @@ export const Participants = () => {
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [editingPerson, setEditingPerson] = useState<Person | null>(null);
-    const [comboFilter, setComboFilter] = useState<string>('todos');
-    const [sentFilter, setSentFilter] = useState<string>('todos');
-    const [readFilter, setReadFilter] = useState<string>('todos');
+    const [sentFilter, setSentFilter] = useState<string>('');
+    const [readFilter, setReadFilter] = useState<string>('');
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [showBulkDeleteModal, setShowBulkDeleteModal] = useState(false);
     const [showFilters, setShowFilters] = useState(false);
+    const [scanning, setScanning] = useState(false);
+    const [scannerActive, setScannerActive] = useState<string | null>(null);
+    const [successScan, setSuccessScan] = useState<Person | null>(null);
+    const [showQrCode, setShowQrCode] = useState<string | null>(null);
 
     const { t } = useTranslation();
 
@@ -131,30 +136,15 @@ export const Participants = () => {
         const lowerSearch = search.toLowerCase();
         setFiltered(
             participants.filter(p => {
-                const matchName = p.name.toLowerCase().includes(lowerSearch);
-                const matchCombo = comboFilter === 'todos' || (comboFilter === 'sim' ? p.combo : !p.combo);
-                const matchSent = sentFilter === 'todos' || (sentFilter === 'sim' ? p.sent : !p.sent);
-                const matchRead = readFilter === 'todos' || (readFilter === 'sim' ? p.read : !p.read);
+                const matchName = p.name.toLowerCase().includes(lowerSearch) ||
+                    p.last_name.toLowerCase().includes(lowerSearch);
+                const matchSent = sentFilter === '' || (sentFilter === 'sim' ? p.sent : !p.sent);
+                const matchRead = readFilter === '' || (readFilter === 'sim' ? p.read : !p.read);
 
-                return matchName && matchCombo && matchSent && matchRead;
+                return matchName && matchSent && matchRead;
             })
         );
-    }, [search, participants, comboFilter, sentFilter, readFilter]);
-
-    // Alternar status do combo
-    const toggleComboStatus = useCallback(async (person: Person) => {
-        const novoCombo = !person.combo;
-        const novoValor = novoCombo ? person.valor + 15 : person.valor - 15;
-
-        const updated = {
-            ...person,
-            combo: novoCombo,
-            valor: novoValor,
-        };
-
-        const result = await updateParticipant(updated.id, updated);
-        setParticipants(prev => prev.map(p => (p.id === updated.id ? result : p)));
-    }, []);
+    }, [search, participants, sentFilter, readFilter]);
 
     // Adicionar participante
     const handleAddPerson = useCallback(async (personData: Omit<Person, 'id'>) => {
@@ -177,6 +167,100 @@ export const Participants = () => {
         setParticipants(prev => prev.map(p => (p.id === updated.id ? result : p)));
         setShowEditModal(false);
         toast.success('Participante atualizado com sucesso!');
+    }, []);
+
+    // Iniciar scanner de QR Code para um participante específico
+    const startScanner = useCallback((participantId: string) => {
+        if (scannerActive) {
+            // Se já está escaneando, pare primeiro
+            const scanner = new Html5Qrcode(`reader-${scannerActive}`);
+            if (scanner) {
+                scanner.stop().then(() => {
+                    scanner.clear();
+                    setScannerActive(null);
+                    setTimeout(() => startScanner(participantId), 500);
+                }).catch(err => {
+                    console.error("Erro ao parar scanner:", err);
+                });
+            }
+            return;
+        }
+
+        setScannerActive(participantId);
+        const scannerId = `reader-${participantId}`;
+        const scanner = new Html5Qrcode(scannerId, { verbose: false });
+
+        scanner.start(
+            { facingMode: 'environment' },
+            { fps: 10, qrbox: { width: 150, height: 150 } },
+            (decodedText) => {
+                const person = participants.find(p => p.id === decodedText);
+                if (person) {
+                    scanner.stop().then(() => {
+                        scanner.clear();
+                        setScannerActive(null);
+
+                        if (!person.read) {
+                            const updatedPerson = { ...person, read: true };
+                            updateParticipant(updatedPerson.id, updatedPerson).then(result => {
+                                setParticipants(prev => prev.map(p =>
+                                    p.id === updatedPerson.id ? result : p
+                                ));
+                                setSuccessScan(updatedPerson);
+                                setTimeout(() => setSuccessScan(null), 3000);
+                            });
+                        } else {
+                            toast.success("Ingresso já verificado!");
+                        }
+                    });
+                } else {
+                    scanner.stop().then(() => {
+                        scanner.clear();
+                        setScannerActive(null);
+                        toast.error("QR Code não reconhecido!");
+                    });
+                }
+            },
+            () => { }
+        );
+    }, [participants, scannerActive]);
+
+    // Parar scanner ativo
+    const stopScanner = useCallback(() => {
+        if (scannerActive) {
+            const scanner = new Html5Qrcode(`reader-${scannerActive}`);
+            scanner.stop().then(() => {
+                scanner.clear();
+                setScannerActive(null);
+            }).catch(err => {
+                console.error("Erro ao parar scanner:", err);
+            });
+        }
+    }, [scannerActive]);
+
+    // Compartilhar por WhatsApp
+    const shareViaWhatsApp = useCallback((person: Person) => {
+        const qrLink = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${person.id}`;
+        const message = encodeURIComponent(
+            `🎬 Olá, ${person.name}!\n\n` +
+            `📩 Aqui está a sua *confirmação de inscrição* para o evento.\n\n` +
+            `🪪 Mostre este QRCode na entrada para acessar o evento.\n\n` +
+            `🖼️ Seu QR Code: ${qrLink}\n\n` +
+            `🎉 Até lá!`
+        );
+        window.open(`https://wa.me/${person.phone.replace(/\D/g, '')}?text=${message}`, '_blank');
+
+        // Atualizar o estado "sent" do participante
+        const updatedPerson = { ...person, sent: true };
+        updateParticipant(person.id, updatedPerson).then(result => {
+            setParticipants(prev => prev.map(p => (p.id === person.id ? result : p)));
+            toast.success('Mensagem enviada por WhatsApp!');
+        });
+    }, []);
+
+    // Alternar exibição do QR Code
+    const toggleQrCode = useCallback((id: string) => {
+        setShowQrCode(prevId => prevId === id ? null : id);
     }, []);
 
     // Abrir modal de edição
@@ -236,25 +320,6 @@ export const Participants = () => {
             minWidth: '200px',
         },
         {
-            name: `${t('participants.table.combo')}`,
-            cell: row => (
-                <button
-                    onClick={e => {
-                        e.stopPropagation();
-                        toggleComboStatus(row);
-                    }}
-                    title="Alternar combo"
-                    className="p-1"
-                >
-                    <Popcorn
-                        size={20}
-                        className={row.combo ? 'text-green-500' : 'text-gray-400'}
-                    />
-                </button>
-            ),
-            width: '80px',
-        },
-        {
             name: `${t('participants.table.sent')}`,
             selector: row => (row.sent ? `${t('participants.table.yes')}` : `${t('participants.table.no')}`),
             sortable: true,
@@ -283,6 +348,16 @@ export const Participants = () => {
                     <button
                         onClick={e => {
                             e.stopPropagation();
+                            shareViaWhatsApp(row);
+                        }}
+                        className="p-2 bg-green-500 text-white rounded hover:bg-green-600"
+                        title="Enviar por WhatsApp"
+                    >
+                        <FaWhatsapp size={16} />
+                    </button>
+                    <button
+                        onClick={e => {
+                            e.stopPropagation();
                             setPersonToDelete(row);
                             setShowConfirmModal(true);
                         }}
@@ -293,7 +368,7 @@ export const Participants = () => {
                     </button>
                 </div>
             ),
-            width: '120px',
+            width: '180px',
             ignoreRowClick: true,
         }
     ];
@@ -314,8 +389,6 @@ export const Participants = () => {
                 onBulkDelete={handleBulkDelete}
                 isAllSelected={isAllSelected}
                 selectedCount={selectedParticipants.length}
-                comboFilter={comboFilter}
-                setComboFilter={setComboFilter}
                 sentFilter={sentFilter}
                 setSentFilter={setSentFilter}
                 readFilter={readFilter}
@@ -338,7 +411,8 @@ export const Participants = () => {
                                 setPersonToDelete(participant);
                                 setShowConfirmModal(true);
                             }}
-                            onToggleCombo={() => toggleComboStatus(participant)}
+                            onShowQrCode={(p) => toggleQrCode(p.id)}
+                            onSendWhatsApp={shareViaWhatsApp}
                         />
                     ))}
                     {filtered.length === 0 && (
@@ -429,5 +503,4 @@ export const Participants = () => {
             )}
         </main>
     );
-
 };

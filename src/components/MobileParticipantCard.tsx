@@ -1,94 +1,112 @@
+import React, { useState } from 'react';
 import { Person } from '../models/Person';
-import { Popcorn, Pencil, Trash } from 'lucide-react';
+import { formatPhoneNumber } from '../utils/utils';
+import { Pencil, QrCode, Trash2, MessageSquare } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { QRCodeDisplay } from './QRCodeDisplay';
+import { FaWhatsapp } from 'react-icons/fa';
 
 interface MobileParticipantCardProps {
     participant: Person;
     isSelected: boolean;
-    onToggleSelect: () => void;
-    onEdit: () => void;
-    onDelete: () => void;
-    onToggleCombo: () => void;
+    onToggleSelect: (id: string) => void;
+    onEdit: (participant: Person) => void;
+    onDelete: (id: string) => void;
+    onShowQrCode: (participant: Person) => void;
+    onSendWhatsApp?: (participant: Person) => void;
 }
 
-export const MobileParticipantCard = ({
+export const MobileParticipantCard: React.FC<MobileParticipantCardProps> = ({
     participant,
     isSelected,
     onToggleSelect,
     onEdit,
     onDelete,
-    onToggleCombo,
-}: MobileParticipantCardProps) => {
+    onShowQrCode,
+    onSendWhatsApp
+}) => {
+    const { t } = useTranslation();
+    const [showQrCode, setShowQrCode] = useState(false);
+
+    const toggleQrCode = () => {
+        setShowQrCode(!showQrCode);
+        if (!showQrCode) {
+            onShowQrCode(participant);
+        }
+    };
+
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 border border-gray-200 dark:border-gray-700">
-            <div className="flex items-start gap-3">
-                <input
-                    type="checkbox"
-                    checked={isSelected}
-                    onChange={onToggleSelect}
-                    className="mt-1 w-4 h-4"
-                />
-
-                <img
-                    src={participant.photo_url || 'https://cdn-icons-png.flaticon.com/512/147/147144.png'}
-                    alt={participant.name}
-                    className="w-12 h-12 rounded-full object-cover border"
-                />
-
-                <div className="flex-1">
-                    <div className="flex justify-between items-start">
-                        <h3 className="font-medium text-gray-800 dark:text-white">
-                            {participant.name} {participant.last_name}
-                        </h3>
-                        <button
-                            onClick={e => {
-                                e.stopPropagation();
-                                onToggleCombo();
-                            }}
-                            className="p-1"
-                            title="Combo"
-                        >
-                            <Popcorn
-                                size={18}
-                                className={participant.combo ? 'text-green-500' : 'text-gray-400'}
-                            />
-                        </button>
-                    </div>
-
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                        {participant.email}
-                    </p>
-
-                    <div className="flex gap-2 mt-2 text-xs">
-                        <span className={`px-2 py-1 rounded ${participant.sent ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}`}>
-                            {participant.sent ? 'Enviado' : 'Não enviado'}
+        <div className="bg-white rounded-xl shadow-sm border p-4 mb-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            {/* Checkbox e Nome */}
+            <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center space-x-3">
+                    <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => onToggleSelect(participant.id)}
+                        className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 dark:bg-gray-600 dark:border-gray-500"
+                    />
+                    <h3 className="font-medium text-gray-900 truncate dark:text-white">
+                        {participant.name} {participant.last_name}
+                    </h3>
+                </div>
+                <div className="flex space-x-2">
+                    {/* Status Indicadores */}
+                    {participant.sent && (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100">
+                            {t('participants.status.sent')}
                         </span>
-                        <span className={`px-2 py-1 rounded ${participant.read ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}`}>
-                            {participant.read ? 'Lido' : 'Não lido'}
+                    )}
+                    {participant.read && (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100">
+                            {t('participants.status.read')}
                         </span>
-                    </div>
+                    )}
                 </div>
             </div>
 
-            <div className="flex justify-end gap-2 mt-3">
+            {/* Detalhes do Participante */}
+            <div className="text-sm text-gray-600 mb-3 dark:text-gray-300">
+                {participant.email && <p>{participant.email}</p>}
+                {participant.phone && <p>{formatPhoneNumber(participant.phone)}</p>}
+            </div>
+
+            {/* QR Code Display */}
+            {showQrCode && (
+                <QRCodeDisplay value={participant.id} size={150} />
+            )}
+
+            {/* Ações */}
+            <div className="flex space-x-2 justify-end mt-2">
                 <button
-                    onClick={e => {
-                        e.stopPropagation();
-                        onEdit();
-                    }}
-                    className="px-3 py-1 bg-blue-500 text-white rounded text-sm flex items-center gap-1"
+                    onClick={() => onEdit(participant)}
+                    className="p-1.5 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
+                    title={t('common.edit')}
                 >
-                    <Pencil size={14} />
-                    <span>Editar</span>
+                    <Pencil size={16} />
+                </button>
+                {onSendWhatsApp && (
+                    <button
+                        onClick={() => onSendWhatsApp(participant)}
+                        className="p-1.5 bg-green-100 text-green-700 rounded hover:bg-green-200 dark:bg-green-900 dark:text-green-100 dark:hover:bg-green-800"
+                        title={t('participants.sendWhatsApp')}
+                    >
+                        <FaWhatsapp size={16} />
+                    </button>
+                )}
+                <button
+                    onClick={toggleQrCode}
+                    className="p-1.5 bg-purple-100 text-purple-700 rounded hover:bg-purple-200 dark:bg-purple-900 dark:text-purple-100 dark:hover:bg-purple-800"
+                    title={t('participants.qrCode.view')}
+                >
+                    <QrCode size={16} />
                 </button>
                 <button
-                    onClick={e => {
-                        e.stopPropagation();
-                        onDelete();
-                    }}
-                    className="px-3 py-1 bg-red-500 text-white rounded text-sm flex items-center gap-1"
+                    onClick={() => onDelete(participant.id)}
+                    className="p-1.5 bg-red-100 text-red-700 rounded hover:bg-red-200 dark:bg-red-900 dark:text-red-100 dark:hover:bg-red-800"
+                    title={t('common.delete')}
                 >
-                    <Trash size={14} />
-                    <span>Excluir</span>
+                    <Trash2 size={16} />
                 </button>
             </div>
         </div>

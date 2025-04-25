@@ -12,8 +12,6 @@ type ActionBarProps = {
     selectedCount: number;
     onSelectAll: () => void;
     onBulkDelete: () => void;
-    comboFilter: string;
-    setComboFilter: (value: string) => void;
     sentFilter: string;
     setSentFilter: (value: string) => void;
     readFilter: string;
@@ -31,8 +29,6 @@ export const ActionBar = ({
     selectedCount,
     onSelectAll,
     onBulkDelete,
-    comboFilter,
-    setComboFilter,
     sentFilter,
     setSentFilter,
     readFilter,
@@ -98,45 +94,6 @@ export const ActionBar = ({
             {/* Filtros */}
             {showFilters && (
                 <div className="flex flex-col sm:flex-row gap-2 mb-4">
-                    {/* Combo */}
-                    <div className="flex flex-col items-start gap-1">
-                        <span className="text-sm font-medium dark:text-white">
-                            {t('participants.combo.all')}
-                        </span>
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={() => setComboFilter('')}
-                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
-        ${comboFilter === ''
-                                        ? 'bg-blue-500 text-white'
-                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
-      `}
-                            >
-                                {t('participants.common.all')}
-                            </button>
-                            <button
-                                onClick={() => setComboFilter('nao')}
-                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
-        ${comboFilter === 'nao'
-                                        ? 'bg-gray-500 text-white'
-                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
-      `}
-                            >
-                                {t('participants.combo.no')}
-                            </button>
-                            <button
-                                onClick={() => setComboFilter('sim')}
-                                className={`px-4 py-1 rounded-full text-sm font-semibold transition-colors
-        ${comboFilter === 'sim'
-                                        ? 'bg-green-500 text-white'
-                                        : 'bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}
-      `}
-                            >
-                                {t('participants.combo.yes')}
-                            </button>
-                        </div>
-                    </div>
-
                     {/* Enviado */}
                     <div className="flex flex-col items-start gap-1">
                         <span className="text-sm font-medium dark:text-white">

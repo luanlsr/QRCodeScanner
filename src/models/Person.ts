@@ -7,7 +7,6 @@ export interface Person {
   photo_url?: string;
   sent?: boolean;
   read?: boolean;
-  combo?: boolean;
   valor: number;
   deleted?: boolean;
   created_at?: Date;
